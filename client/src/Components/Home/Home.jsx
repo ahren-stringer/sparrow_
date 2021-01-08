@@ -10,10 +10,10 @@ function Home() {
     return (<>
       <Intro/>
       <Info/>
-      <Works/>
+      {/* <Works/> */}
       <Jornal/>
       <CallToAction/>
-      <Tweets/>
+      {/* <Tweets/> */}
     </>);
 }
 

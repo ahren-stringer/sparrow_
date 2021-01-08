@@ -1,5 +1,6 @@
 import './Header.css';
 import logo from '../../images/logo.png'
+import { NavLink } from 'react-router-dom';
 
 function Header() {
   return (
@@ -9,7 +10,7 @@ function Header() {
 
           <div className="twelve columns">
             <div className="logo">
-              <a href="index.html"><img alt="" src={logo} /></a>
+            <NavLink to='/'><img alt="" src={logo} /></NavLink>
             </div>
 
             <nav id="nav-wrap">
@@ -19,22 +20,25 @@ function Header() {
 
               <ul id="nav" className="nav">
 
-                <li className="current"><a href="index.htm">Home</a></li>
-                <li><span><a href="blog.html">Blog</a></span>
-                  <ul>
+              <NavLink to='/'><a href="index.htm">Home</a></NavLink>
+                <li>
+                {/* <span> */}
+                    <NavLink to='/blog'>Blog</NavLink>
+                {/* </span> */}
+                  {/* <ul>
                     <li><a href="blog.html">Blog Index</a></li>
                     <li><a href="single.html">Post</a></li>
-                  </ul>
+                  </ul> */}
                 </li>
-                <li><span><a href="portfolio-index.html">Portfolio</a></span>
+                {/* <li><span><a href="portfolio-index.html">Portfolio</a></span>
                   <ul>
                     <li><a href="portfolio-index.html">Portfolio Index</a></li>
                     <li><a href="portfolio.html">Portfolio Entry</a></li>
                   </ul>
-                </li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="styles.html">Features</a></li>
+                </li> */}
+                <li><NavLink to='/about'>About</NavLink></li>
+                <li><NavLink to='/contact'>Contact</NavLink></li>
+                <li><NavLink to='/features'>Features</NavLink></li>
 
               </ul>
 
