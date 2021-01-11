@@ -1,0 +1,18 @@
+#page-content {
+    padding-top: 54px;
+    padding-bottom: 54px;
+    margin: 0 auto;
+    width: 91.66667%;
+ }
+ /* page */
+ .page section {
+    padding-top: 24px;
+    padding-bottom: 12px;
+ }
+ .page h1, .title-heading {
+    font: 39px/48px raleway-semibold, sans-serif;
+    margin-bottom: 18px;
+ }
+ 
+ /* sidebar */
+ 

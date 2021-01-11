@@ -1,206 +1,56 @@
-import PageTitle from '../PageTitle/PageTitle';
-import './Blog.css';
+import PageTitle from '../Page/PageTitle';
+import '../Page/PageContent.css';
+import './Blog.css'
+import postTumb1 from "../../img/scale_1200.webp"
+import postTumb2 from "../../images/post-image/post-image-1300x500-02.jpg"
+import postTumb3 from "../../images/post-image/post-image-1300x500-03.jpg"
+import SideBar from '../SideBar/Sidebar';
+import react, { useState } from 'react';
+import Pagination from './Pagination';
+import { NavLink, withRouter } from 'react-router-dom';
+import SinglePost from './SinglePost';
 
-function Blog() {
-    return (
-        <>
-            <PageTitle/>
-            
-<div className="content-outer">
+function Blog(props) {
+   debugger
+   let [posts, setPosts] = useState([{
+      title: 'Принудительное изъятие единственного жилья – новый закон',
+      data: '01.01.2020',
+      categories: ['реновация', 'жилье', 'законы'],
+      img: postTumb1,
+      text: 'С 2021 года в России произошли существенные изменения по вопросу права собственности граждан. Теперь собственника квартиры или дома, проживающего в центральной части любого города страны – при наличии определённых обстоятельств, могут попросить собрать вещички и переехать в новую квартиру равной пощади, которую местный орган власти предоставит взамен изымаемой или получить компенсацию взамен изымаемой квартиры в доме, который уходит под снос.Классно, – скажете Вы, — новая квартира взамен ветхого жилья! Да, действительно речь идет о переселении граждан из квартир, расположенных в неновых домах в центре города в квартиры в новостройках на окраинах.Мы говорим о принятом в самом конце 2020 года законе № 494-ФЗ, который еще прозвали законом о всероссийской реновации. И если в самом начале обсуждения реновации речь шла о том, что граждан, проживающих в центральных частях городов в старых, ветхих непригодных для проживания домах будут переселять в новостройки, то в окончательной редакции закона получилось так, что теперь можно заставить переехать на окраину города любого собственника квартиры, которая расположена в доме, находящемся в центре города. Даже если этот дом не ветхий, а просто требует дорогостоящего капитального ремонта. Невероятно! Давайте посмотрим – как такое стало возможно.',
+      authorName: 'Юридическая консультация',
+      authorDesctription: 'Новый пост от Юридической консультации',
+      coments: [],
+   }, {
+      title: 'Принудительное изъятие единственного жилья – новый закон',
+      data: '01.01.2020',
+      categories: ['реновация', 'жилье', 'законы'],
+      img: postTumb1,
+      text: 'С 2021 года в России произошли существенные изменения по вопросу права собственности граждан. Теперь собственника квартиры или дома, проживающего в центральной части любого города страны – при наличии определённых обстоятельств, могут попросить собрать вещички и переехать в новую квартиру равной пощади, которую местный орган власти предоставит взамен изымаемой или получить компенсацию взамен изымаемой квартиры в доме, который уходит под снос.Классно, – скажете Вы, — новая квартира взамен ветхого жилья! Да, действительно речь идет о переселении граждан из квартир, расположенных в неновых домах в центре города в квартиры в новостройках на окраинах.Мы говорим о принятом в самом конце 2020 года законе № 494-ФЗ, который еще прозвали законом о всероссийской реновации. И если в самом начале обсуждения реновации речь шла о том, что граждан, проживающих в центральных частях городов в старых, ветхих непригодных для проживания домах будут переселять в новостройки, то в окончательной редакции закона получилось так, что теперь можно заставить переехать на окраину города любого собственника квартиры, которая расположена в доме, находящемся в центре города. Даже если этот дом не ветхий, а просто требует дорогостоящего капитального ремонта. Невероятно! Давайте посмотрим – как такое стало возможно.',
+      authorName: 'Юридическая консультация',
+      authorDesctription: 'Новый пост от Юридической консультации',
+      coments: [],
+   },])
+   return (
+      <>
+         <PageTitle />
 
-   <div id="page-content" className="row">
+         <div className="content-outer">
 
-      <div id="primary" className="eight columns">
+            <div id="page-content" className="row">
 
-         <article className="post">
+               <div id="primary" className="eight columns">
 
-            <div className="entry-header cf">
-
-               <h1><a href="single.html" title="">Proin gravida nibh vel velit auctor aliquet Aenean sollicitudin auctor.</a></h1>
-
-               <p className="post-meta">
-
-                  <time className="date" datetime="2014-01-14T11:24">Jan 14, 2014</time>
-                  /
-                  <span className="categories">
-                  <a href="#">Design</a> /
-                  <a href="#">User Inferface</a> /
-                  <a href="#">Web Design</a>
-                  </span>
-
-               </p>
-
-            </div>
-
-            <div className="post-thumb">
-               <a href="single.html" title=""><img src="images/post-image/post-image-1300x500-01.jpg" alt="post-image" title="post-image"/></a>
-            </div>
-
-            <div className="post-content">
-
-               <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor,
-               nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate
-               cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a
-               ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. </p>
-
-            </div>
-
-         </article> 
-
-         <article className="post">
-
-            <div className="entry-header cf">
-
-               <h1><a href="single.html" title="">Proin gravida nibh vel velit auctor aliquet Aenean sollicitudin auctor.</a></h1>
-
-               <p className="post-meta">
-
-                  <time className="date" datetime="2014-01-14T11:24">Jan 14, 2013</time>
-                  /
-                  <span className="categories">
-                  <a href="#">Design</a> /
-                  <a href="#">User Inferface</a> /
-                  <a href="#">Web Design</a>
-                  </span>
-
-               </p>
-
-            </div>
-
-            <div className="post-thumb">
-               <a href="single.html" title=""><img src="images/post-image/post-image-1300x500-02.jpg" alt="post-image" title="post-image"/></a>
-            </div>
-
-            <div className="post-content">
-
-               <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor,
-               nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate
-               cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a
-               ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. </p>
-
-            </div>
-
-         </article>
-
-         <article className="post">
-
-            <div className="entry-header cf">
-
-               <h1><a href="single.html" title="">Proin gravida nibh vel velit auctor aliquet Aenean sollicitudin auctor.</a></h1>
-
-               <p className="post-meta">
-
-                  <time className="date" datetime="2014-01-14T11:24">Jan 14, 2014</time>
-                  /
-                  <span className="categories">
-                  <a href="#">Design</a> /
-                  <a href="#">User Inferface</a> /
-                  <a href="#">Web Design</a>
-                  </span>
-
-               </p>
-
-            </div>
-
-            <div className="post-thumb">
-               <a href="single.html" title=""><img src="images/post-image/post-image-1300x500-03.jpg" alt="post-image" title="post-image"/></a>
-            </div>
-
-            <div className="post-content">
-
-               <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor,
-               nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate
-               cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a
-               ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. </p>
-
-            </div>
-
-         </article> 
-
-         <nav className="col full pagination">
-                 <ul>
-               <li><span className="page-numbers prev inactive">Prev</span></li>
-                     <li><span className="page-numbers current">1</span></li>
-                     <li><a href="#" className="page-numbers">2</a></li>
-               <li><a href="#" className="page-numbers">3</a></li>
-               <li><a href="#" className="page-numbers">4</a></li>
-               <li><a href="#" className="page-numbers">5</a></li>
-               <li><a href="#" className="page-numbers">6</a></li>
-               <li><a href="#" className="page-numbers">7</a></li>
-               <li><a href="#" className="page-numbers">8</a></li>
-               <li><a href="#" className="page-numbers">9</a></li>
-                     <li><a href="#" className="page-numbers next">Next</a></li>
-                 </ul>
-             </nav>
-
-      </div>
-
-      <div id="secondary" className="four columns end">
-
-         <aside id="sidebar">
-
-            <div className="widget widget_search">
-               <h5>Search</h5>
-               <form action="#">
-
-                  <input className="text-search" type="text" onfocus="if (this.value == 'Search here...') { this.value = ''; }" onblur="if(this.value == '') { this.value = 'Search here...'; }" value="Search here..."/>
-                  <input type="submit" className="submit-search" value=""/>
-
-               </form>
-            </div>
-
-            <div className="widget widget_text">
-               <h5 className="widget-title">Text Widget</h5>
-               <div className="textwidget">Proin gravida nibh vel velit auctor aliquet.
-               Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum,
-               nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus
-               a sit amet mauris. Morbi accumsan ipsum velit. </div>
-              </div>
-
-            <div className="widget widget_categories">
-               <h5 className="widget-title">Categories</h5>
-               <ul className="link-list cf">
-                  <li><a href="#">Designs</a></li>
-                  <li><a href="#">Internet</a></li>
-                  <li><a href="#">Typography</a></li>
-                  <li><a href="#">Photography</a></li>
-                  <li><a href="#">Web Development</a></li>
-                  <li><a href="#">Projects</a></li>
-                  <li><a href="#">Other Stuff</a></li>
-               </ul>
-            </div>
-
-            <div className="widget widget_tag_cloud">
-               <h5 className="widget-title">Tags</h5>
-               <div className="tagcloud cf">
-                  <a href="#">drupal</a>
-                  <a href="#">joomla</a>
-                  <a href="#">ghost</a>
-                  <a href="#">wordpress</a>
+                  {posts.map(item => {
+                     return <SinglePost item={item}
+                     path={props.match.path}/>
+                  })}
+                  <Pagination />
                </div>
+               <SideBar />
             </div>
-
-            <div className="widget widget_photostream">
-               <h5>Photostream</h5>
-               <ul className="photostream cf">
-                  <li><a href="#"><img src="images/thumb.jpg" alt="thumbnail"/></a></li>
-                  <li><a href="#"><img src="images/thumb.jpg" alt="thumbnail"/></a></li>
-                  <li><a href="#"><img src="images/thumb.jpg" alt="thumbnail"/></a></li>
-                  <li><a href="#"><img src="images/thumb.jpg" alt="thumbnail"/></a></li>
-                  <li><a href="#"><img src="images/thumb.jpg" alt="thumbnail"/></a></li>
-                  <li><a href="#"><img src="images/thumb.jpg" alt="thumbnail"/></a></li>
-                  <li><a href="#"><img src="images/thumb.jpg" alt="thumbnail"/></a></li>
-                  <li><a href="#"><img src="images/thumb.jpg" alt="thumbnail"/></a></li>
-               </ul>
-             </div>
-
-         </aside>
-
-      </div> 
-   </div>
-
-</div>
-        </>);
+         </div>
+      </>);
 }
 
-export default Blog;
+export default withRouter(Blog);
