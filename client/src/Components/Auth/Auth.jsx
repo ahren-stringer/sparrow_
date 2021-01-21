@@ -1,4 +1,3 @@
-//import './Blog.css';
 import axios from 'axios';
 import { Field, reduxForm } from 'redux-form'
 import { withRouter } from "react-router-dom";
@@ -63,28 +62,8 @@ function Auth(props) {
     return (
         <div className="content-outer">
             <div id="page-content" className="row">
-
                 <h3>Авторизация</h3>
                 <AuthForm onSubmit={submit}/>
-                {/* <form name="contactForm" id="contactForm" method="post" action="">
-                        <div className="cf">
-                            <label for="cName">Имя <span className="required">*</span></label>
-                            <input name="cName" type="text" id="cName" size="35" value="" />
-                        </div>
-
-                        <div className="cf">
-                            <label for="cEmail">Email <span className="required">*</span></label>
-                            <input name="cEmail" type="text" id="cEmail" size="35" value="" />
-                        </div>
-
-                        <div className="cf">
-                            <label for="password">Пароль <span className="required">*</span></label>
-                            <input name="password" type="password" id="password" size="35" value="" />
-                        </div>
-
-                        <button type="submit" className="submit">Зарегистрироваться</button>
-
-                </form> */}
             </div>
         </div>
     );

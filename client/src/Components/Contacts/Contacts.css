@@ -1,0 +1,50 @@
+/* contact form */
+#contact-form form { margin-bottom: 30px; }
+#contact-form div {
+   float: left;
+   width: 100%;
+}
+#contact-form .half { width: 47%; }
+#contact-form label {
+	display: inline-block;
+	float: left;
+}
+#contact-form input,
+#contact-form textarea,
+#contact-form select {
+  	width: 100% !important;
+   min-width: none;
+   margin-bottom: 12px;
+}
+#contact-form button.submit {
+   text-transform: uppercase;
+ 	letter-spacing: 2px;
+   margin-top: 24px;
+}
+#contact-form span.required {
+	color: #11ABB0;
+}
+
+#message-warning,
+#message-success {
+   display: none;
+	background: #383232;
+	padding: 24px 24px;
+	margin-bottom: 36px;
+
+ 	border-radius: 3px;
+}
+#message-warning { color: #DD4646; }
+#message-success { color: #11ABB0; }
+
+#message-warning i,
+#message-success i {
+   margin-right: 10px;
+}
+
+#image-loader {
+   display: none;
+   position: relative;
+   left: 18px;
+   top: 12px;
+}

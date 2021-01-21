@@ -9,6 +9,7 @@ import Auth from './Components/Auth/Auth';
 import Register from './Components/Auth/Register';
 import Profile from './Components/Profile/Profile';
 import NewPublication from './Components/NewPublication/NewPublication';
+import Contacts from './Components/Contacts/Contacts';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route exact path="/register" render={() => <Register/>}/>
       <Route exact path="/profile" render={() => <Profile/>}/>
       <Route exact path="/publication" render={() => <NewPublication/>}/>
+      <Route exact path="/contacts" render={() => <Contacts/>}/>
       <Footer/>
     </div>
   );
