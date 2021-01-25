@@ -1,13 +1,13 @@
 import express from 'express';
-const {Router} = express;
+const { Router } = express;
 import bcrypt from 'bcrypt'
 import User from '../models/User.js'
-import jwt  from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import expressValidator from 'express-validator';
 const { check, validationResult } = expressValidator;
 import nodemailer from 'nodemailer'
 
-const router=Router()
+const router = Router()
 
 // const transporter = nodemailer.createTransport({
 //     host: 'smtp.mail.ru',
@@ -38,7 +38,7 @@ router.post(
     ],
     async (req, res) => {
         try {
-            
+
             // const errors = validationResult(req)
             // if (!errors.isEmpty()) {
             //     return res.status(400).json({
@@ -47,8 +47,8 @@ router.post(
             //     })
             // }
 
-            const { name, email, password} = req.body
-            
+            const { name, email, password } = req.body
+
             //const condidate = await User.findOne({ email })
             //console.log('body', req.body)
             // console.log(condidate)
@@ -56,8 +56,15 @@ router.post(
             //     return res.status(400).json({ message: 'Такой пользователь уже существует' })
             // }
             const hashedPassword = await bcrypt.hash(password, 12);
-            
-            const user = new User({ name, email, password: hashedPassword });
+
+            const user = new User({
+                name,
+                email,
+                password: hashedPassword,
+                description: '',
+                posts: [],
+                coments: []
+            });
             //console.log('body', req.body)
 
             await user.save()
@@ -70,7 +77,7 @@ router.post(
             //     to: req.body.email, 
             //     subject: 'Вы зарегистрированны на сайте MosCulture',
             //     text: `Вы зарегистрированны на сайте MosCulture
-                
+
             //     Данные вашей учетной записи:
             //     Логин: ${req.body.email}
             //     Пароль: ${req.body.password}`
@@ -87,7 +94,7 @@ router.post(
     '/login',
     [
         check('email', 'Введите корректный email').normalizeEmail().isEmail(),
-        check('password', 'Ввкдите пароль').exists()
+        check('password', 'Введите пароль').exists()
     ],
     async (req, res) => {
         try {

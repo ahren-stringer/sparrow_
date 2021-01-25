@@ -2,7 +2,7 @@ const LOGIN = 'authReuser/LOGIN';
 const LOGOUT = 'authReuser/LOGOUT';
 const SET_LOADED = 'authReuser/SET-LOADED';
 const SET_TOKEN = 'authReuser/SET-TOKEN';
-const SET_USER_ID = 'authReuser/SET-LOADED';
+const SET_USER_ID = 'authReuser/SET-USER-ID';
 const SET_LOGIN = 'authReuser/SET-LOGIN';
 
 let init = {

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { Field, reduxForm } from 'redux-form'
-import { withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import { required, aol, email, minLength6 } from '../../validators'
+import { connect } from 'react-redux';
 
 const input = ({ input, label, type, name, meta: { touched, error, warning } }) => {
     return (
@@ -46,6 +47,15 @@ function AuthForm(props) {
             warn={aol}
         />
         <button type="submit" className="submit" disabled={submitting}>Войти</button>
+        <button className="submit" style={{
+                marginLeft: '10px'
+            }}>
+            <NavLink to='/register' style={{
+                color: 'white',
+            }}>
+                Зарегистрироваться
+            </NavLink>
+        </button>
     </form>
 }
 
@@ -55,7 +65,9 @@ function Auth(props) {
     let submit = async (formData) => {
         //props.loginThunk(formData.email, formData.password, formData.rememberMe)
         try {
-            await axios.post('http://localhost:8001/register', { ...formData })
+            let req= await axios.post('http://localhost:8001/login', { ...formData })
+            props.login(req.data.token, req.data.userId)
+            debugger
             props.history.goBack()
         } catch (e) { }
     }
@@ -63,10 +75,16 @@ function Auth(props) {
         <div className="content-outer">
             <div id="page-content" className="row">
                 <h3>Авторизация</h3>
-                <AuthForm onSubmit={submit}/>
+                <AuthForm onSubmit={submit} />
             </div>
         </div>
     );
 }
 
-export default withRouter(Auth);
+let mapStateToProps = (state) => {
+    return {
+        login: state.auth.login,
+    }
+}
+
+export default connect(mapStateToProps, {})(withRouter(Auth));

@@ -1,47 +1,76 @@
+import { NavLink, withRouter } from "react-router-dom"
 import author from "../../images/author-img.png"
+import './Profile.css'
+import { logout } from '../../redux/authReduser';
+import { connect } from "react-redux";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { CircularProgress } from '@material-ui/core'
 
-function Profile() {
-  return (
-    <div className="content-outer">
+function Profile(props) {
+   let [user, setUser]=useState(props.user)
+   useEffect(async()=>{
+      let res= await axios.get(`http://localhost:8001/user/${props.userId}`)
+      props.setUser(res.data)
+   },[])
+   useEffect(()=>{
+      setUser(props.user)
+   },[props.user])
+   if (user===null) return <CircularProgress />
+   return (
+      <div className="content-outer">
 
-    <div id="page-content" className="row">
+         <div id="page-content" className="row">
 
-       <div id="primary" className="eight columns">
+            <div id="primary" className="eight columns">
 
-          <article className="post">
+               <article className="post">
 
-             <div className="post-content">
+                  <div className="post-content">
 
-             <h3>Профиль</h3>
-                <div className="bio cf">
+                     <h3>Профиль</h3>
+                     <div className="bio cf">
 
-                   <div className="gravatar">
-                      <img src={author} alt=""/>
-                   </div>
-                   <div className="about">
-                      <h5><a title="Posts by John Doe" href="#" rel="author">John Doe</a></h5>
-                      <p>Jon Doe is lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate
-                      cursus a sit amet mauris. Morbi accumsan ipsum velit. Duis sed odio sit amet nibh vulputate
-                      <a href="#">cursus</a> a sit <a href="#">amet mauris</a>. Morbi elit consequat ipsum.</p>
-                   </div>
+                        <div className="gravatar">
+                           <img src={author} alt="" />
+                        </div>
+                        <div className="about">
+                           <h5><a title="Posts by John Doe" href="#" rel="author">{user.name}</a></h5>
+                           <p></p>
+                        </div>
 
-                </div>
+                     </div>
+                     <div className='publications'>
+                        <h3>Ваши Публикации</h3>
+                        <input type='file'></input>
+                        <div className="bio">
+                           Пока нет публикаций
+                        </div>
+                     </div>
+                     <h3 className='publication__add'>
+                        <NavLink to='/publication'>
+                           Добавить Публикацию
+                        </NavLink>
+                     </h3>
+                     <h3 className='logout'
+                        onClick={()=>{
+                           debugger
+                           props.logout()
+                           props.history.goBack()
+                        }}
+                     >
+                        Выход
+                     </h3>
+                  </div>
 
-               <h3>Ваши Публикации</h3>
-               <h3>
-                   Добавить Публикацию
-               </h3>
+               </article>
 
-             </div>
+            </div>
 
-          </article> 
+         </div>
 
-       </div>
-
-    </div>
-
- </div> 
-  );
+      </div>
+   );
 }
 
 export default Profile;

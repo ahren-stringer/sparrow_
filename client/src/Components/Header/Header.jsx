@@ -1,8 +1,14 @@
 import './Header.css';
 import logo from '../../images/logo.png'
 import { NavLink } from 'react-router-dom';
+import {
+  setSearched, toggleList, loadList, setReqNumber, setSearchedArr, SearchChange,
+  searchThunk,
+  CloseListThunk
+} from '../../redux/searchReduser';
+import { connect } from 'react-redux';
 
-function Header() {
+function Header(props) {
   return (
       <header>
 
@@ -39,7 +45,12 @@ function Header() {
                 <li><NavLink to='/about'>About</NavLink></li>
                 <li><NavLink to='/contacts'>Contact</NavLink></li>
                 <li><NavLink to='/features'>Features</NavLink></li>
-
+                {!props.token ? <li><NavLink to='/auth'>Вход</NavLink></li> 
+                :<li><NavLink to='/profile'>Профиль</NavLink></li>
+                  // <span className='auth__btn inner-item'
+                  //   onClick={props.logout}
+                  // >Выход</span>
+                  }
               </ul>
 
             </nav>
@@ -53,4 +64,21 @@ function Header() {
   );
 }
 
-export default Header;
+let mapStateToPros = (state) => {
+  return {
+    counter: state.categoryData.count,
+    newSearchText: state.search.newSearchText,
+    searched: state.search.searched,
+    isClosed: state.search.isClosed,
+    isListLoading: state.search.isListLoading,
+    liked: state.categoryData.liked,
+    requestNumber: state.search.requestNumber,
+    token: state.auth.token,
+  }
+}
+
+export default connect(mapStateToPros, {
+  SearchChange, setSearched, toggleList, loadList, setReqNumber, setSearchedArr,
+  searchThunk,
+  CloseListThunk
+})(Header);

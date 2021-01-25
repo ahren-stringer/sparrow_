@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
 
-const PlaceCategorySchema=mongoose.Schema({
-    categoryUrl: String,
+const CategorySchema=mongoose.Schema({
+    //categoryUrl: String,
     category: String,
-    places: [{type: mongoose.Types.ObjectId, ref: 'place'}]
+    posts: [{type: mongoose.Types.ObjectId, ref: 'posts'}]
 });
 
-export default mongoose.model('placeCategory',PlaceCategorySchema)
+export default mongoose.model('Categories',CategorySchema)
