@@ -23,11 +23,11 @@ function Blog(props) {
             <div id="page-content" className="row">
 
                <div id="primary" className="eight columns">
-               <img src={props.posts}></img>
-                  {/* {props.posts.map(item => {
+               {/* <img src={props.posts}></img> */}
+                  {props.posts.map(item => {
                      return <SinglePost item={item}
                      path={props.match.path}/>
-                  })} */}
+                  })}
                   <Pagination />
                </div>
                <SidebarContainer />

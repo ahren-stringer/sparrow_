@@ -25,11 +25,11 @@ const obj = (req, res) => {
       console.log("Request file ---", req.file);//Here you get file.
       const {
          title,
-         categories, 
+         categories,
          text,
          // token 
       } = req.body
-      const post = new Post({img:req.file,title,text,categories});
+      const post = new Post({ img: req.file, title, text, categories });
       post.save().then(() => {
          res.send({ message: "uploaded successfully" })
       })
@@ -42,33 +42,27 @@ router.post("/posts", obj);
 function base64_encode(file) {
    // read binary data
    var bitmap = fs.readFileSync(file).toString('base64');
-   // convert binary data to base64 encoded string
    return bitmap
-   //new Buffer(bitmap).toString('base64');
 }
 
 router.get("/posts", async (req, res) => {
-       try {
-           const posts = await Post.find()
-         //   let arr=[]
-         //   for (let i=0;i<=posts.length;i++){
-         //    let obj={}
-         //    obj.img=require(posts[i].img.destination+posts[i].img.filename)
-         //    obj.title=posts[i].title
-         //    obj.text=posts[i].text
-         //    obj.categories=posts[i].categories
-         //   }
-         //   console.log(arr)
-         let a=path.normalize(posts[0].img.destination+posts[0].img.filename);
-         //path.normalize('E:/Web/React/projects/Sparrow/')+posts[0].img.path
-         console.log(a)
-         //console.log(base64_encode(a))  
-           res.send('data:image/png;base64,'+base64_encode(a))
-       } catch (e) {
-           res.status(500).json({ message: 'Что-то пошло не так' })
-           console.log(e)
-       }
-   } );
+   try {
+      const posts = await Post.find()
+      console.log(posts)
+      let arr = posts.map(item => {
+         let obj = {};
+         obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
+         obj.title = item.title
+         obj.text = item.text
+         obj.categories = item.categories
+         return obj
+      })
+      res.send(arr)
+   } catch (e) {
+      res.status(500).json({ message: 'Что-то пошло не так' })
+      console.log(e)
+   }
+});
 
 // // Поиск
 

@@ -39,7 +39,18 @@ mongoose.connect(connection_url, {
     useUnifiedTopology: true
 
 })
-app.get('/', (req, res) => res.status(200).send('GET'))
+
+mongoose.connection.on('error', err => {
+    console.log(err);
+  });
+  
+  if (process.env.NODE_ENV ==='production'){
+      app.use(expess.static('client/build'))
+  
+      app.get('*', (req,res)=>{
+          res.sendFile(path.resolve(__dirname,'client','build','index.html'))
+      })
+  }
 //Listener
 
 app.listen(port, () => console.log('Server Starts on localhost', port))

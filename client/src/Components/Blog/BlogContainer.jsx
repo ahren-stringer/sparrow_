@@ -12,6 +12,8 @@ function BlogContainer(props) {
    useEffect(async () => {
       let req = await axios.get(`http://localhost:8001/posts`)
       props.setPosts(req.data)
+      debugger
+      console.log(req.data)
    }, [])
    if (!props.posts) return <CircularProgress />
    return <Blog {...props}/>

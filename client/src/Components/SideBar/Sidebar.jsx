@@ -24,7 +24,7 @@ function SideBar(props) {
                   </NavLink>
                </h5>
                <ul className="link-list cf">
-                  {props.categories.map(item => <li>
+                  {props.categoriesSidebar.map(item => <li>
                      <NavLink to={`/categories/${item.category}`}>
                         {item.category}
                      </NavLink>

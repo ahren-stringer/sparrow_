@@ -27,8 +27,7 @@ function SinglePost(props) {
         <div className="post-thumb">
             <NavLink to={'/post/' + props.item.title}>
                 <div 
-                //style={{ backgroundImage: 'url(' +require('../../../../public/IMAGE-1611585299794')+ ')' }}
-                //../../../.' + props.item.img.destination + props.item.img.filename 
+                style={{ backgroundImage: 'url('+props.item.img+')' }}
                     className='post-img'></div>
             </NavLink>
         </div>
