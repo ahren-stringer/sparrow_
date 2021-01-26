@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 
 function BlogContainer(props) {
    useEffect(async () => {
-      let req = await axios.get(`http://localhost:8001/posts`)
+      let req = await axios.get(`/posts`)
       props.setPosts(req.data)
       debugger
       console.log(req.data)
