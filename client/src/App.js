@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
-import Blog from './Components/Blog/Blog';
+import Blog from './Components/Blog/BlogContainer';
 import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
 import Home from './Components/Home/Home';

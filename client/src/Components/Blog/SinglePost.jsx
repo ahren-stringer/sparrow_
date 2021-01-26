@@ -3,6 +3,7 @@ import './Blog.css'
 import { NavLink } from 'react-router-dom';
 
 function SinglePost(props) {
+    debugger
     return <article className="post">
         <div className="entry-header cf">
 
@@ -14,7 +15,7 @@ function SinglePost(props) {
             <p className="post-meta">
                 <time className="date" datetime="2014-01-14T11:24">{props.item.data}</time>
                 <span className="categories">
-                    {props.item.categories.map(cateory => {
+                    {props.item.categories[0].split(',').map(cateory => {
                         return <NavLink to='/category'>
                             / {cateory}
                         </NavLink>
@@ -25,7 +26,9 @@ function SinglePost(props) {
         </div>
         <div className="post-thumb">
             <NavLink to={'/post/' + props.item.title}>
-                <div style={{ backgroundImage: 'url(' + props.item.img + ')' }}
+                <div 
+                //style={{ backgroundImage: 'url(' +require('../../../../public/IMAGE-1611585299794')+ ')' }}
+                //../../../.' + props.item.img.destination + props.item.img.filename 
                     className='post-img'></div>
             </NavLink>
         </div>

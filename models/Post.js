@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const postSchema=mongoose.Schema({
     title: String,
-    // data: {type:Date, default: Date.now},
+    data: {type:Date, default: Date.now},
     categories:Array,
     img: {},
     text:String,

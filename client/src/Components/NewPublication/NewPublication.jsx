@@ -37,6 +37,7 @@ class NewPublication extends React.Component {
         formData.append('title', this.state.title);
         formData.append('text', this.state.text);
         formData.append('categories',this.arr)
+        console.log(formData)
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -50,7 +51,9 @@ class NewPublication extends React.Component {
     }
 
     onChange(e) {
+        debugger
         this.setState({ file: e.target.files[0] });
+        console.log(e.target.files[0])
     }
     onInputChange(e) {
         this.setState({ [e.target.name]: e.target.value });
@@ -64,6 +67,17 @@ class NewPublication extends React.Component {
         },
     }));
     arr=[]
+    getBase64Image=(img) => {  
+        var canvas = document.createElement("canvas");  
+        canvas.width = img.width;  
+        canvas.height = img.height;
+    
+        var ctx = canvas.getContext("2d");  
+        ctx.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL("image/png");  
+      
+        return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");  
+    }
     render() {
         return (
             <div className="content-outer">
@@ -76,6 +90,7 @@ class NewPublication extends React.Component {
                             size="35"
                             onChange={this.onInputChange}
                         />
+                        {this.state.file && <img src={this.state.file}></img>}
                         <input type="file" className="custom-file-input" name="myImage" onChange={this.onChange} />
                         <textarea name='text'
                             id='publication-message'

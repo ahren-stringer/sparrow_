@@ -8,6 +8,7 @@ import { reducer as formReducer } from 'redux-form'
 import popularReduser from "./popularReduser";
 import profileReduser from "./profileReduser";
 import publicationReduser from "./publicationReduser";
+import blogReduser from "./blogReduser";
 
 const { createStore, combineReducers, applyMiddleware } = require("redux");
 
@@ -20,7 +21,8 @@ let redusers= combineReducers({
     form: formReducer,
     popularData:popularReduser,
     profile:profileReduser,
-    publication: publicationReduser
+    publication: publicationReduser,
+    blog:blogReduser,
 });
 
 let store=createStore(redusers,applyMiddleware(thunkMiddleware));
