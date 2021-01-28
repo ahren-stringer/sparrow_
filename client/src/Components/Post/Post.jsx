@@ -7,7 +7,7 @@ import { useState } from 'react';
 import postTumb1 from "../../img/scale_1200.webp"
 import SinglePost from '../Blog/SinglePost';
 
-function Post() {
+function Post(props) {
    let [post, setPost] = useState([{
       title: 'Принудительное изъятие единственного жилья – новый закон',
       data: '01.01.2020',
@@ -25,11 +25,11 @@ function Post() {
          <div id="page-content" className="row">
 
             <div id="primary" className="eight columns">
-               <SinglePost item={post[0]} />
+               <SinglePost item={props.post[0]} />
                <Coments />
             </div>
 
-            <SideBar />
+            {/* <SideBar /> */}
 
          </div>
 

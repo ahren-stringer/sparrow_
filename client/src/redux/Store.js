@@ -1,4 +1,4 @@
-import infoReduser from "./infoReduser";
+import postReduser from "./postReduser";
 import categoryReduser from "./categoryReduser";
 import headerReduser from "./headerReduser";
 import searchReduser from "./searchReduser";
@@ -13,7 +13,7 @@ import blogReduser from "./blogReduser";
 const { createStore, combineReducers, applyMiddleware } = require("redux");
 
 let redusers= combineReducers({
-    infoData: infoReduser,
+    post: postReduser,
     categoryData:categoryReduser,
     header: headerReduser,
     search: searchReduser,

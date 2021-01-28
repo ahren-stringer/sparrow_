@@ -6,7 +6,7 @@ import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
 import Home from './Components/Home/Home';
 import { Route, withRouter } from 'react-router-dom';
-import Post from './Components/Post/Post';
+import Post from './Components/Post/PostContainer';
 import Auth from './Components/Auth/Auth';
 import Register from './Components/Auth/Register';
 import Profile from './Components/Profile/ProfileContainer';

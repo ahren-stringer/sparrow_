@@ -19,18 +19,18 @@ const connection_url = 'mongodb+srv://ahren:sVi9gNCp8d9boA0Y@cluster0.v0wai.mong
 //Middlewares
 app.use(expess.json())
 app.use(Cors())
-// Авторизация
-app.use('',auth)
-//Пользовательские данные
-app.use('',profile)
-// Посты
-app.use('',posts)
-// Категории
-app.use('',category)
-// // Обратная связь
-// app.use('',email)
-// // Места
-// app.use('',places)
+    // Авторизация
+app.use('', auth)
+    //Пользовательские данные
+app.use('', profile)
+    // Посты
+app.use('', posts)
+    // Категории
+app.use('', category)
+    // // Обратная связь
+    // app.use('',email)
+    // // Места
+    // app.use('',places)
 
 //DB Config
 mongoose.connect(connection_url, {
@@ -42,15 +42,15 @@ mongoose.connect(connection_url, {
 
 mongoose.connection.on('error', err => {
     console.log(err);
-  });
-  
-  if (process.env.NODE_ENV ==='production'){
-      app.use(expess.static('client/build'))
-  
-      app.get('*', (req,res)=>{
-          res.sendFile(path.resolve(__dirname,'client','build','index.html'))
-      })
-  }
+});
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(expess.static('client/build'))
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+}
 //Listener
 
 app.listen(port, () => console.log('Server Starts on localhost', port))

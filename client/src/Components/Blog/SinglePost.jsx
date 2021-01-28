@@ -3,10 +3,8 @@ import './Blog.css'
 import { NavLink } from 'react-router-dom';
 
 function SinglePost(props) {
-    debugger
     return <article className="post">
         <div className="entry-header cf">
-
             <h1>
                 <NavLink to={'/post/' + props.item.title}>
                     {props.item.title}

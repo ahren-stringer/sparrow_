@@ -12,7 +12,6 @@ import SinglePost from './SinglePost';
 import SidebarContainer from '../SideBar/SidebarContainer';
 
 function Blog(props) {
-   debugger
    let [posts, setPosts] = useState()
    return (
       <>
