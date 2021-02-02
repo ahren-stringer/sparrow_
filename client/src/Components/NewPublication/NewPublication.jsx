@@ -83,9 +83,9 @@ class NewPublication extends React.Component {
         };
         axios.post("http://localhost:8001/images", formData, config)
             .then((res) => {
-                this.setState({image: res.data.img})
+                this.setState({ image: res.data.img })
                 alert("The file is successfully uploaded");
-            }).catch((error) => {});
+            }).catch((error) => { });
     }
     onInputChange(e) {
         this.setState({ [e.target.name]: e.target.value });
@@ -104,15 +104,15 @@ class NewPublication extends React.Component {
         this.props.setFontSize(event.target.innerHTML)
         if (this.props.copiedText !== '') {
             this.props.ChangeFontSizeThunk('content',
-            event.target.innerHTML,
-            this.props.copiedText,
+                event.target.innerHTML,
+                this.props.copiedText,
             )
         }
         this.props.setCopiedText('')
     }
     onBoldClick(event) {
         //this.props.setUnderlinedId(++this.props.underlinedId )
-        
+
         let openTag = '<em>'
         if (this.props.copiedText !== '') {
             this.props.DecorateTextThunk('content', openTag, '</em>', this.props.copiedText)
@@ -157,8 +157,21 @@ class NewPublication extends React.Component {
                             size="35"
                             onChange={this.onInputChange}
                         />
-                        {this.state.image && <img src={this.state.image}></img>}
-                        <input type="file" className="custom-file-input" name="file" onChange={this.onChange} />
+                        <div className='add_title_img'>
+                            <h5>Добавить заглавное изображение</h5>
+                            
+                                <input type="file" id="file" className="inputfile" name="file" onChange={this.onChange} />
+                                <label for="file">Выберите изображение</label>
+                            
+                            {this.state.image &&
+                                <div style={{
+                                    backgroundImage: 'url(' + this.state.image + ')',
+                                    maxWidth: '700px'
+                                }}
+                                    className='post-img'></div>
+                                // <img src={this.state.image}></img>
+                            }
+                        </div>
                         <div className='textarea__wrapper'>
                             <div className="Controls">
                                 <span onClick={this.onBoldClick} className={!this.state.bold ? 'controls__btn' : 'controls__btn Selected'}>
@@ -166,15 +179,13 @@ class NewPublication extends React.Component {
                                 <span onClick={this.onItalicsClick} className={!this.state.italized ? 'controls__btn' : 'controls__btn Selected'}><em>I</em></span>
                                 <span onClick={this.onUnderlineClick} className={!this.state.underlined ? 'controls__btn' : 'controls__btn Selected'}><u>U</u></span>
                                 <span className="search">
-                                    <span > 14</span>
-                                    <span className='search__btn'>
-                                        =
-                                    </span>
-                                    <ul className="collection">
+                                    <select className="collection">
                                         {
-                                            this.state.fonts.map(item => <li onClick={this.onFontClick}>{item}</li>)
+                                            this.state.fonts.map(item => <option onClick={this.onFontClick}>{item}</option>)
                                         }
-                                    </ul>
+                                    </select>
+                                    <input type="file" id="images" className="add-content-img" name="images" />
+                                    <label for="images">Добавить изображение</label>
                                 </span>
                             </div>
                             <div role='textarea' style={{
@@ -189,6 +200,7 @@ class NewPublication extends React.Component {
                                 aria-label='false'
                                 dir='true'
                                 data-mvelo-frame='det'
+                                className='post__content'
                                 name='content'
                                 id='textarea'
                                 ref={this.contentRef}

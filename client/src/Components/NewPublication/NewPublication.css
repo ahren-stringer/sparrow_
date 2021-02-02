@@ -14,20 +14,21 @@
 
 .Controls {
     border: 1px solid grey;
-    width: 50vw;
-    text-align: left;
-    padding: 10px;
+    padding: 7px 10px;
+    max-width: 400px;
+    margin-bottom: 10px;
+    border-radius: 3px;
 }
 
 .controls__btn {
-    font-size: calc(8px + 2vmin);
+    /* font-size: calc(8px + 2vmin); */
     margin: 0 2px;
     width: 50px;
     background-color: white;
     cursor: pointer;
     padding: 2px;
     border: 1px solid;
-    padding: 2px 10px;
+    padding: 4px 10px;
     border-radius: 4px;
 }
 
@@ -36,6 +37,44 @@
     color: white;
 }
 
+.inputfile,
+.add-content-img {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.add_title_img{
+    margin: 27px 0;
+    margin-left: 10px
+}
+.inputfile + label,
+.add-content-img+label {
+    display: inline-block;
+    cursor: pointer;
+}
+.inputfile + label{
+    font-size: 1.25em;
+    font-weight: 700;
+    background: #11ABB0;
+    display: inline-block;
+    text-decoration: none;
+    letter-spacing: 0;
+    color: #fff;
+    padding: 12px 24px;
+    margin-bottom: 18px;
+    border: none;
+    cursor: pointer;
+    height: auto;
+    transition: all .2s ease-in-out;
+    border-radius: 3px
+}
+.add-content-img+label:hover{
+    background-color: lightgrey;
+    color: #838C95;
+}
 
 /* .textarea__wrapper {
     min-height: 100vh;

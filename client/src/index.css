@@ -528,8 +528,8 @@ e. Others
  input[type="text"],
  input[type="password"],
  input[type="email"],
- textarea,
- select {
+ textarea
+ {
     display: block;
     padding: 18px 15px;
     margin: 0 0 24px 0;
@@ -549,9 +549,20 @@ e. Others
    border-radius: 3px;
  }
  
- /* select { padding: 0;
-    width: 220px;
-    } */
+ select {
+   padding: 4px 2px;
+   margin: 0 23px 0px 18px;
+   border: 0;
+   outline: none;
+   /* vertical-align: middle; */
+   /* min-width: 260px; */
+   max-width: 100%;
+   font-size: 15px;
+   /* line-height: 24px; */
+   color: #647373;
+   background: #D3D9D9;
+   border-radius: 3px;
+ }
  
  input[type="text"]:focus,
  input[type="password"]:focus,
@@ -563,7 +574,7 @@ e. Others
  
  textarea { min-height: 200px; }
  
- label,
+ /* label, */
  legend {
     font: 16px/24px notosans-bold, sans-serif;
    margin: 12px 0;
