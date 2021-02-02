@@ -5,7 +5,7 @@ import auth from './routes/auth.routes.js'
 import profile from './routes/profile.routes.js'
 import posts from './routes/posts.routes.js'
 import category from './routes/category.routes.js'
-// import coments from './routes/coments.routes.js'
+import image from './routes/images.routes.js'
 // import email from './routes/email.routes.js'
 // import places from './routes/places.routes.js'
 
@@ -19,18 +19,18 @@ const connection_url = 'mongodb+srv://ahren:sVi9gNCp8d9boA0Y@cluster0.v0wai.mong
 //Middlewares
 app.use(expess.json())
 app.use(Cors())
-    // Авторизация
+// Авторизация
 app.use('', auth)
-    //Пользовательские данные
+//Пользовательские данные
 app.use('', profile)
-    // Посты
+// Посты
 app.use('', posts)
-    // Категории
+// Категории
 app.use('', category)
-    // // Обратная связь
-    // app.use('',email)
-    // // Места
-    // app.use('',places)
+// Изображения
+app.use('', image)
+// // Места
+// app.use('',places)
 
 //DB Config
 mongoose.connect(connection_url, {

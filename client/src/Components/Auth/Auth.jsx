@@ -13,15 +13,6 @@ const input = ({ input, label, type, name, meta: { touched, error, warning } }) 
                 ((error && <span>{error}</span>) ||
                     (warning && <span>{warning}</span>))}
         </div>
-        // <div className="row">
-        //     <div className="input-field col s12">
-        //         <input {...input} id={type} type={type} className="validate" />
-        //         <label for={type}>{label}</label>
-        //         {touched &&
-        //             ((error && <span>{error}</span>) ||
-        //                 (warning && <span>{warning}</span>))}
-        //     </div>
-        // </div>
     )
 }
 

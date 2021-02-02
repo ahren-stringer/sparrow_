@@ -1,3 +1,7 @@
 body { background: #D2D8D8 url(./images/bg.jpg); }
 img { border-radius: 3px; }
 .content-outer { background: #fff }
+a{
+    text-decoration: none;
+    color: black;
+}

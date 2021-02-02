@@ -31,8 +31,8 @@ function SinglePost(props) {
         </div>
         <div className="post-content">
             {props.path === '/blog'
-                ? <p>{props.item.text.split(' ').slice(0, 50).join(' ')}</p>
-                : <p>{props.item.text}</p>
+                ? <p>{props.item.content.split(' ').slice(0, 50).join(' ')}</p>
+                : <p>{props.item.content}</p>
             }
         </div>
     </article>

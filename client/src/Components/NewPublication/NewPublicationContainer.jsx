@@ -1,5 +1,9 @@
 import { withRouter } from "react-router-dom";
-import { setPhotoThunk } from '../../redux/publicationReduser'
+import { ChangeFontSizeThunk,DecorateTextThunk,getSelectedText,
+    setFontedId,
+    setFontSize,
+    setCopiedText,
+    setUnderlinedId } from '../../redux/publicationReduser'
 import { connect } from 'react-redux';
 import NewPublication from "./NewPublication";
 import { CircularProgress } from "@material-ui/core";
@@ -21,7 +25,15 @@ let mapStateToProps = (state) => {
         userId: state.auth.userId,
         token: state.auth.token,
         categories: state.categoryData.categories,
+        fontedId:state.publication.fontedId,
+        fontSize:state.publication.fontSize,
+        copiedText:state.publication.copiedText,
+        underlinedId:state.publication.underlinedId,
     }
 }
 
-export default connect(mapStateToProps, { setPhotoThunk,setCategories })(withRouter(NewPublicationContainer));
+export default connect(mapStateToProps, { ChangeFontSizeThunk,DecorateTextThunk,getSelectedText,setCategories,
+    setFontedId,
+    setFontSize,
+    setCopiedText,
+    setUnderlinedId })(withRouter(NewPublicationContainer));
