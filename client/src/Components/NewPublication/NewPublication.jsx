@@ -1,12 +1,10 @@
 import axios from 'axios';
-import { useState } from 'react';
 import React from 'react';
-import { Button, CircularProgress, FormControl, InputBase, InputLabel, Menu, MenuItem, NativeSelect } from '@material-ui/core';
+import { CircularProgress} from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { createMuiTheme, makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import './NewPublication.css'
-import { BootstrapInput, useStyles } from '../../Hook/styleHook.js'
+import { useStyles } from '../../Hook/styleHook.js'
 
 class NewPublication extends React.Component {
 
@@ -31,6 +29,7 @@ class NewPublication extends React.Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
+        this.AddImage = this.AddImage.bind(this);
 
         // Форматирование
 
@@ -55,8 +54,6 @@ class NewPublication extends React.Component {
         formData.append('title', this.state.title);
         formData.append('content', this.contentRef.current.innerHTML);
         formData.append('categories', this.arr)
-        debugger
-        console.log(formData)
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -71,21 +68,23 @@ class NewPublication extends React.Component {
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.files[0] });
-        const formData = new FormData();
-        formData.append('myfile', e.target.files[0]);
-        formData.append('token', this.props.token);
+        const reader= new FileReader();
+        reader.onload=(e)=>{
+            console.log(e)
+            this.setState({image:e.target.result})
+        }
+        reader.readAsDataURL(e.target.files[0])
+    }
+    AddImage(e) {
         debugger
-        console.log(formData)
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };
-        axios.post("http://localhost:8001/images", formData, config)
-            .then((res) => {
-                this.setState({ image: res.data.img })
-                alert("The file is successfully uploaded");
-            }).catch((error) => { });
+       // this.setState({ [e.target.name]: e.target.files[0] });
+        const reader= new FileReader();
+        reader.onload=(e)=>{
+            console.log(e)
+            debugger
+            this.props.AddImageThunk('content',e.target.result,this.props.copiedText)
+        }
+        reader.readAsDataURL(e.target.files[0])
     }
     onInputChange(e) {
         this.setState({ [e.target.name]: e.target.value });
@@ -101,36 +100,36 @@ class NewPublication extends React.Component {
         // debugger
         // let fontedId=this.props.fontedId+1;
         // this.props.setFontedId(fontedId)
-        this.props.setFontSize(event.target.innerHTML)
+        this.props.setFontSize(event.target.value)
         if (this.props.copiedText !== '') {
             this.props.ChangeFontSizeThunk('content',
-                event.target.innerHTML,
+                event.target.value,
                 this.props.copiedText,
             )
         }
         this.props.setCopiedText('')
     }
     onBoldClick(event) {
-        //this.props.setUnderlinedId(++this.props.underlinedId )
-
-        let openTag = '<em>'
         if (this.props.copiedText !== '') {
-            this.props.DecorateTextThunk('content', openTag, '</em>', this.props.copiedText)
+            this.props.DecorateTextThunk('content', 'SPAN', this.props.copiedText)
         }
-        debugger
         this.setState({
             bold: !this.state.bold
         });
         this.props.setCopiedText('')
     }
     onItalicsClick(event) {
-        event.target.setAttribute("class", !this.state.italized ? "Selected" : "");
+        if (this.props.copiedText !== '') {
+            this.props.DecorateTextThunk('content', 'EM', this.props.copiedText)
+        }
         this.setState({
             italized: !this.state.italized
         });
     }
     onUnderlineClick(event) {
-        event.target.setAttribute("class", !this.state.underlined ? "Selected" : "");
+        if (this.props.copiedText !== '') {
+            this.props.DecorateTextThunk('content', 'U', this.props.copiedText)
+        }
         this.setState({
             underlined: !this.state.underlined
         });
@@ -157,7 +156,7 @@ class NewPublication extends React.Component {
                             size="35"
                             onChange={this.onInputChange}
                         />
-                        <div className='add_title_img'>
+                        {/* <div className='add_title_img'>
                             <h5>Добавить заглавное изображение</h5>
                             
                                 <input type="file" id="file" className="inputfile" name="file" onChange={this.onChange} />
@@ -171,7 +170,7 @@ class NewPublication extends React.Component {
                                     className='post-img'></div>
                                 // <img src={this.state.image}></img>
                             }
-                        </div>
+                        </div> */}
                         <div className='textarea__wrapper'>
                             <div className="Controls">
                                 <span onClick={this.onBoldClick} className={!this.state.bold ? 'controls__btn' : 'controls__btn Selected'}>
@@ -179,15 +178,20 @@ class NewPublication extends React.Component {
                                 <span onClick={this.onItalicsClick} className={!this.state.italized ? 'controls__btn' : 'controls__btn Selected'}><em>I</em></span>
                                 <span onClick={this.onUnderlineClick} className={!this.state.underlined ? 'controls__btn' : 'controls__btn Selected'}><u>U</u></span>
                                 <span className="search">
-                                    <select className="collection">
+                                    <select className="collection"
+                                    onChange={this.onFontClick}>
                                         {
                                             this.state.fonts.map(item => <option onClick={this.onFontClick}>{item}</option>)
                                         }
                                     </select>
-                                    <input type="file" id="images" className="add-content-img" name="images" />
-                                    <label for="images">Добавить изображение</label>
+                                    
                                 </span>
+                                
                             </div>
+                            <input type="file" id="images" onChange={this.AddImage} 
+                                    // className="add-content-img"
+                                     name="images" />
+                                    <label for="images">Добавить изображение</label>
                             <div role='textarea' style={{
                                 width: '100%',
                                 height: '300px',
@@ -210,7 +214,8 @@ class NewPublication extends React.Component {
                                     this.props.setCopiedText(this.getSelectedText())
                                     debugger
                                 }}>
-                                <br></br>
+                                    {/* <span>&#8203;</span>
+                                <br></br> */}
                             </div>
                             <h3 onClick={(e) => alert(e.target.previousElementSibling.innerHTML)}>Alert</h3>
                         </div>

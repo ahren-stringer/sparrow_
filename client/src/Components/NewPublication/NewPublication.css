@@ -75,7 +75,9 @@
     background-color: lightgrey;
     color: #838C95;
 }
-
+.bold{
+font-weight: 700;
+}
 /* .textarea__wrapper {
     min-height: 100vh;
     display: flex;

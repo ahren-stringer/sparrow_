@@ -1,5 +1,5 @@
 import { withRouter } from "react-router-dom";
-import { ChangeFontSizeThunk,DecorateTextThunk,getSelectedText,
+import { ChangeFontSizeThunk,DecorateTextThunk,getSelectedText,AddImageThunk,
     setFontedId,
     setFontSize,
     setCopiedText,
@@ -32,7 +32,7 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { ChangeFontSizeThunk,DecorateTextThunk,getSelectedText,setCategories,
+export default connect(mapStateToProps, { ChangeFontSizeThunk,DecorateTextThunk,getSelectedText,setCategories,AddImageThunk,
     setFontedId,
     setFontSize,
     setCopiedText,
