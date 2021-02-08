@@ -15,7 +15,7 @@ const port = process.env.PORT || 8001;
 const connection_url = 'mongodb+srv://ahren:sVi9gNCp8d9boA0Y@cluster0.v0wai.mongodb.net/Sparrow2?retryWrites=true&w=majority'
 
 'mongodb+srv://Reacter:w0ex9BOWLX8K1h@cluster0.c55pp.mongodb.net/Sparrow?retryWrites=true&w=majority'
-//'mongodb+srv://poul:wGa57L7T4Hms3Ker@cluster0.hsumz.mongodb.net/Schelkovo db?retryWrites=true&w=majority'
+
 //Middlewares
 app.use(expess.json())
 app.use(Cors())
