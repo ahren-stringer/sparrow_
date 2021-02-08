@@ -6,28 +6,22 @@ import jwt from 'jsonwebtoken'
 import expressValidator from 'express-validator';
 const { check, validationResult } = expressValidator;
 import nodemailer from 'nodemailer'
+import multer from 'multer'
+import path from "path";
 
 const router = Router()
 
-// const transporter = nodemailer.createTransport({
-//     host: 'smtp.mail.ru',
-//     port: 465,
-//     secure: true,
-//     auth: {
-//         user: 'mos_culture@mail.ru',
-//         pass: 'youwi11neverpass'
-//     },
-//     tls: {
-//         rejectUnauthorized: false
-//     }
-// });
+const storage = multer.diskStorage({
+    destination: "./public/user_avatar/",
+    filename: function (req, file, cb) {
+        cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
+    }
+});
 
-// const mailer= message =>{
-//     transporter.sendMail(message,(err,info)=>{
-//         if (err) return console.log('Error ',err)
-//         console.log('Email sent:', info)
-//     })
-// }
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 100000000 },
+}).single("avatar");
 
 router.post(
     '/register',
@@ -46,46 +40,28 @@ router.post(
             //         message: 'Некоректные данные'
             //     })
             // }
+            upload(req, res, async () => {
+                console.log("Request ---", req.body);
+                console.log("Request file ---", req.file); //Here you get file.
+                const { name, email, password } = req.body
 
-            const { name, email, password } = req.body
+                const condidate = await User.findOne({ email })
 
-            //const condidate = await User.findOne({ email })
-            //console.log('body', req.body)
-            // console.log(condidate)
-            // if (condidate) {
-            //     return res.status(400).json({ message: 'Такой пользователь уже существует' })
-            // }
-            const hashedPassword = password
-            //await bcrypt.hash(password, 12);
+                if (condidate) {
+                    return res.status(400).json({ message: 'Такой пользователь уже существует' })
+                }
+                const hashedPassword = password
+                //await bcrypt.hash(password, 12);
 
-            const user = new User({
-                name,
-                email,
-                password: hashedPassword,
-                description: '',
-                posts: [],
-                coments: []
+                const user = new User({
+                    name,
+                    email,
+                    password: hashedPassword,
+                    avatar: req.file
+                });
+
+                await user.save()
             });
-            //console.log('body', req.body)
-
-            await user.save()
-            console.log('body', req.body)
-            res.status(201).json({ message: 'Пользователь зарегистрирован' })
-            // Отправка на почту
-
-            // const message = {
-            //     from: 'MosCulture <mos_culture@mail.ru>',
-            //     to: req.body.email, 
-            //     subject: 'Вы зарегистрированны на сайте MosCulture',
-            //     text: `Вы зарегистрированны на сайте MosCulture
-
-            //     Данные вашей учетной записи:
-            //     Логин: ${req.body.email}
-            //     Пароль: ${req.body.password}`
-            //   };
-
-            // mailer(message)
-
         } catch (e) {
             res.status(500).json({ message: 'Ошибка регистрации' })
         }
@@ -115,9 +91,9 @@ router.post(
             }
             // const isMatch = bcrypt.compare(password, user.password)
             if (
-                password !=user.password
+                password != user.password
                 //!isMatch
-                ) {
+            ) {
                 return res, status(400).json({ message: 'Неверный пароль' })
             }
 

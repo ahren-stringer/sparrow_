@@ -7,7 +7,6 @@ import mongoose from 'mongoose'
 import multer from 'multer'
 import path from "path";
 import fs from 'fs'
-import { request } from 'http';
 
 const storage = multer.diskStorage({
     destination: "./public/posts/",

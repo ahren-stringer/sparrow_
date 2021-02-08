@@ -8,15 +8,31 @@ import axios from "axios";
 import { CircularProgress } from '@material-ui/core'
 
 function Profile(props) {
-   let [user, setUser]=useState(props.user)
-   useEffect(async()=>{
-      let res= await axios.get(`http://localhost:8001/user/${props.userId}`)
+
+   let [user, setUser] = useState(props.user)
+
+   useEffect(async () => {
+      let res = await axios.get(`http://localhost:8001/user/${props.userId}`)
       props.setUser(res.data)
-   },[])
-   useEffect(()=>{
+   }, [])
+   useEffect(() => {
       setUser(props.user)
-   },[props.user])
-   if (user===null) return <CircularProgress />
+   }, [props.user])
+
+   let [file, setFile] = useState(null)
+   let [image, setImage] = useState(null)
+
+   let onChange = (e) => {
+      setFile(e.target.files[0]);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+         console.log(e)
+         setImage(e.target.result)
+      }
+      reader.readAsDataURL(e.target.files[0])
+   }
+
+   if (user === null) return <CircularProgress />
    return (
       <div className="content-outer">
 
@@ -32,17 +48,21 @@ function Profile(props) {
                      <div className="bio cf">
 
                         <div className="gravatar">
-                           <img src={author} alt="" />
+                           <img src={image || author} alt="" />
                         </div>
+
                         <div className="about">
                            <h5><a title="Posts by John Doe" href="#" rel="author">{user.name}</a></h5>
                            <p></p>
                         </div>
 
                      </div>
+
+                     <input type="file" id="file" className="inputfile" name="file" onChange={onChange} />
+                        <label for="file">Сменить аватар</label>
+
                      <div className='publications'>
                         <h3>Ваши Публикации</h3>
-                        <input type='file'></input>
                         <div className="bio">
                            Пока нет публикаций
                         </div>
@@ -53,7 +73,7 @@ function Profile(props) {
                         </NavLink>
                      </h3>
                      <h3 className='logout'
-                        onClick={()=>{
+                        onClick={() => {
                            debugger
                            props.logout()
                            props.history.goBack()

@@ -4,11 +4,13 @@ const SET_LOADED = 'authReuser/SET-LOADED';
 const SET_TOKEN = 'authReuser/SET-TOKEN';
 const SET_USER_ID = 'authReuser/SET-USER-ID';
 const SET_LOGIN = 'authReuser/SET-LOGIN';
+const SET_AVA = 'authReuser/SET-AVA';
 
 let init = {
     token: null,
     userId: null,
     loaded: false,
+    file: null,
     login: () => { },
     // logout:noop,
     isAuth: false
@@ -30,6 +32,8 @@ const authReduser = (state = init, action) => {
             return { ...state, userId: action.userId }
         case SET_LOGIN:
             return { ...state, login: action.login }
+        case SET_AVA:
+            return { ...state, file: action.file }
         default:
             return state
     }
@@ -41,6 +45,7 @@ export const setLoaded = (loaded) => ({ type: SET_LOADED, loaded });
 export const setToken = (token) => ({ type: SET_TOKEN, token });
 export const setUserId = (userId) => ({ type: SET_USER_ID, userId });
 export const setLogin = (login) => ({ type: SET_LOGIN, login });
+export const setAva = (file) => ({ type: SET_AVA, file });
 
 
 export default authReduser

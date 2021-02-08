@@ -37,6 +37,29 @@ export let comentsAPI = {
     },
 }
 
+export let authAPI={
+    login(formData){
+        return instance.post('/login', { ...formData }).then(res => res.data)
+    },
+    register(registerData){
+        let formData = new FormData();
+        // for (let key in registerData) {
+        //     formData.append(key, registerData[key]);
+        // } 
+        formData.append("email", registerData.email);
+        formData.append("name", registerData.name);
+        formData.append("password", registerData.password);
+        formData.append("avatar", registerData.file);
+        debugger   
+        return instance.post('/register', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then(res => res.data)
+    },
+}
+
 export let publicationPI={
     setProfile(userId){
         return instance.get(`profile/`+userId)

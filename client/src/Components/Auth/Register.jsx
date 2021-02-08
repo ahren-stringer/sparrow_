@@ -1,8 +1,12 @@
-//import './Blog.css';
+import { setAva } from '../../redux/authReduser'
 import axios from 'axios';
 import { Field, reduxForm } from 'redux-form'
 import { NavLink, withRouter } from "react-router-dom";
 import { required, aol, email, minLength6 } from '../../validators'
+import { useState } from 'react';
+import author from "../../images/author-img.png"
+import { connect } from 'react-redux';
+import { authAPI } from '../../DAL/api';
 
 const input = ({ input, label, type, name, meta: { touched, error, warning } }) => {
     return (
@@ -13,39 +17,32 @@ const input = ({ input, label, type, name, meta: { touched, error, warning } }) 
                 ((error && <span>{error}</span>) ||
                     (warning && <span>{warning}</span>))}
         </div>
-        // <div className="row">
-        //     <div className="input-field col s12">
-        //         <input {...input} id={type} type={type} className="validate" />
-        //         <label for={type}>{label}</label>
-        //         {touched &&
-        //             ((error && <span>{error}</span>) ||
-        //                 (warning && <span>{warning}</span>))}
-        //     </div>
-        // </div>
     )
 }
-const textarea = ({ input, label, type, name, meta: { touched, error, warning } }) => {
-    return (
-        <div className="message cf">
-            <label for={name}>{label}<span className="required">*</span></label>
-            <textarea {...input} name={name} id={name} rows="10" cols="50" ></textarea>
-        </div>
-        // <div className="row">
-        //     <div className="input-field col s12">
-        //         <textarea {...input} id={type} type={type} className="materialize-textarea" />
-        //         <label for={type}>{label}</label>
-        //         {touched &&
-        //             ((error && <span>{error}</span>) ||
-        //                 (warning && <span>{warning}</span>))}
-        //     </div>
-        // </div>
-    )
-}
+
 
 function RegisterForm(props) {
     const { submitting } = props
 
+    let [file, setFile] = useState(null)
+    let [image, setImage] = useState(null)
+
+    let onChange = (e) => {
+        props.setAva(e.target.files[0]);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            console.log(e)
+            setImage(e.target.result)
+        }
+        reader.readAsDataURL(e.target.files[0])
+    }
+
     return <form onSubmit={props.handleSubmit}>
+        <div className="gravatar">
+            <img src={image || author} alt="" />
+        </div>
+        <input type="file" id="file" className="inputfile" name="file" onChange={onChange} />
+        <label for="file">Добавить аватар</label>
         <Field
             name="name"
             type="text"
@@ -62,7 +59,6 @@ function RegisterForm(props) {
             validate={[required, email]}
             warn={aol}
         />
-
         <Field
             name="password"
             type="password"
@@ -71,14 +67,6 @@ function RegisterForm(props) {
             validate={[required, minLength6]}
             warn={aol}
         />
-        {/* <Field
-            name="description"
-            //type="a"
-            component={textarea}
-            label="О себе"
-            // validate={[required, minLength6]}
-            // warn={aol}
-        /> */}
         <button type="submit" className="submit" disabled={submitting}>Зарегистрироваться</button>
     </form>
 }
@@ -89,8 +77,9 @@ function Register(props) {
     let submit = async (formData) => {
         //props.loginThunk(formData.email, formData.password, formData.rememberMe)
         try {
-            await axios.post('http://localhost:8001/register', { ...formData })
-            props.history.goBack()
+            debugger
+            await authAPI.register({ ...formData, file: props.file })
+            // props.history.goBack()
         } catch (e) { }
     }
     return (
@@ -98,29 +87,17 @@ function Register(props) {
             <div id="page-content" className="row">
 
                 <h3>Регистрация</h3>
-                <RegisterForm onSubmit={submit}/>
-                {/* <form name="contactForm" id="contactForm" method="post" action="">
-                        <div className="cf">
-                            <label for="cName">Имя <span className="required">*</span></label>
-                            <input name="cName" type="text" id="cName" size="35" value="" />
-                        </div>
+                <RegisterForm onSubmit={submit} setAva={props.setAva}/>
 
-                        <div className="cf">
-                            <label for="cEmail">Email <span className="required">*</span></label>
-                            <input name="cEmail" type="text" id="cEmail" size="35" value="" />
-                        </div>
-
-                        <div className="cf">
-                            <label for="password">Пароль <span className="required">*</span></label>
-                            <input name="password" type="password" id="password" size="35" value="" />
-                        </div>
-
-                        <button type="submit" className="submit">Зарегистрироваться</button>
-
-                </form> */}
             </div>
         </div>
     );
 }
 
-export default withRouter(Register);
+let mapStateToProps = (state) => {
+   return {
+      file: state.auth.file
+   }
+}
+
+export default connect(mapStateToProps, { setAva })(withRouter(Register))
