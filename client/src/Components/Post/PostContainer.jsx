@@ -1,18 +1,23 @@
 import './Post.css';
-import { setPost } from '../../redux/postReduser';
+import { setPost,setComents,SetTotalCount } from '../../redux/postReduser';
 import { withRouter } from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core';
 import axios from 'axios';
 import { useEffect } from 'react';
 import Post from './Post';
 import { connect } from 'react-redux';
+import { comentsAPI } from '../../DAL/api';
 
 function PostContainer(props) {
    useEffect(async () => {
       let postName = props.match.params.postName;
       if (postName) {
-         let req = await axios.get(`http://localhost:8001/posts/${postName}`)
-         props.setPost(req.data)
+         let postReq = await axios.get(`http://localhost:8001/posts/${postName}`)
+         props.setPost(postReq.data)
+         let comentsReq= await comentsAPI.getComents(postName,10,0);
+         debugger
+         props.setComents(comentsReq.coments)
+         props.SetTotalCount(comentsReq.totalCount)
       }
    }, [])
    if (!props.post) return <CircularProgress />
@@ -20,7 +25,9 @@ function PostContainer(props) {
 }
 let mapStateToPros = (state) => {
    return {
-      post: state.post.post
+      post: state.post.post,
+      coments: state.post.coments,
+      totalCount: state.post.totalCount
    }
 }
-export default connect(mapStateToPros, { setPost })(withRouter(PostContainer));
+export default connect(mapStateToPros, { setPost,setComents,SetTotalCount })(withRouter(PostContainer));

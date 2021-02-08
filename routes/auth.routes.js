@@ -1,6 +1,6 @@
 import express from 'express';
 const { Router } = express;
-import bcrypt from 'bcrypt'
+// import bcrypt from 'bcrypt'
 import User from '../models/User.js'
 import jwt from 'jsonwebtoken'
 import expressValidator from 'express-validator';
@@ -55,7 +55,8 @@ router.post(
             // if (condidate) {
             //     return res.status(400).json({ message: 'Такой пользователь уже существует' })
             // }
-            const hashedPassword = await bcrypt.hash(password, 12);
+            const hashedPassword = password
+            //await bcrypt.hash(password, 12);
 
             const user = new User({
                 name,
@@ -112,8 +113,11 @@ router.post(
             if (!user) {
                 return res.status(400).json({ message: 'Такого пользователя не существует' })
             }
-            const isMatch = bcrypt.compare(password, user.password)
-            if (!isMatch) {
+            // const isMatch = bcrypt.compare(password, user.password)
+            if (
+                password !=user.password
+                //!isMatch
+                ) {
                 return res, status(400).json({ message: 'Неверный пароль' })
             }
 

@@ -1,5 +1,3 @@
-import { profileAPI } from "../DAL/api";
-
 const SET_FONTED_ID = 'publication/SET_FONTED_ID';
 const SET_FONT_SIZE = 'publication/SET_FONT_SIZE';
 const SET_COPIED_TEXT = 'publication/SET_COPIED_TEXT';
@@ -66,25 +64,20 @@ export const getSelectedText = () => {
     }
     return '';
 }
-const standartStyleTag = '';
-export const ChangeFontSizeThunk = (_obj_id, fontSize, copiedText, fontedId) =>
+//const standartStyleTag = '';
+export const ChangeFontSizeThunk = (_obj_name, fontSize, copiedText, fontedId) =>
     async (dispatch) => {
         // берем объект
-        var area = document.getElementById(_obj_id);
+        var area = document.getElementsByName(_obj_name).item(0);
         let start = copiedText.anchorOffset;
         let end = copiedText.focusOffset;
-        let count = 0
-        if (area.childNodes.length != 1) {
+        if (area.childNodes.length !==1) {
             for (let i = 0; i < area.childNodes.length; i++) {
-                if (area.childNodes[i] != copiedText.anchorNode) {
-                    ++count
-                    if (area.childNodes[i].nodeType == 3) {
-                        let a = area.childNodes[i];
-                        debugger
+                if (area.childNodes[i] !== copiedText.anchorNode) {
+                    if (area.childNodes[i].nodeType === 3) {
                         start += area.childNodes[i].textContent.length
                         end += area.childNodes[i].textContent.length
                     } else {
-                        let a = area.childNodes[i];
                         start += area.childNodes[i].outerHTML.length
                         end += area.childNodes[i].outerHTML.length
                     }
@@ -107,7 +100,7 @@ export const ChangeFontSizeThunk = (_obj_id, fontSize, copiedText, fontedId) =>
         else {// берем текст
             var selectedText = document.selection.createRange().text;
             // ЕСЛИ имеется какой-то выделенный текст, ТО
-            if (selectedText != '') {// составляем новый текст
+            if (selectedText !== '') {// составляем новый текст
             }
         }
     }
@@ -127,12 +120,10 @@ export const DecorateTextThunk = (_obj_name, nodeName, copiedText) =>
         var area = copiedText.anchorNode.parentNode;
         let start = copiedText.anchorOffset;
         let end = copiedText.focusOffset;
-        let count = 0
-        if (area.childNodes.length != 1) {
+        if (area.childNodes.length !== 1) {
             for (let i = 0; i < area.childNodes.length; i++) {
-                if (area.childNodes[i] != copiedText.anchorNode) {
-                    ++count
-                    if (area.childNodes[i].nodeType == 3) {
+                if (area.childNodes[i] !== copiedText.anchorNode) {
+                    if (area.childNodes[i].nodeType === 3) {
                         start += area.childNodes[i].textContent.length
                         end += area.childNodes[i].textContent.length
                     } else {
@@ -174,7 +165,7 @@ export const DecorateTextThunk = (_obj_name, nodeName, copiedText) =>
         }
         else {// берем текст
             var selectedText = document.selection.createRange().text;
-            if (selectedText != '') {// составляем новый текст
+            if (selectedText !== '') {// составляем новый текст
                 var newText = _tag_start + selectedText + _tag_end;
                 document.selection.createRange().text = newText;
             }
@@ -186,18 +177,13 @@ export const AddImageThunk = (_obj_name, src, copiedText) =>
         var area = document.getElementsByName(_obj_name).item(0);
         let start = copiedText.anchorOffset;
         let end = copiedText.focusOffset;
-        let count = 0
-        if (area.childNodes.length != 1) {
+        if (area.childNodes.length !== 1) {
             for (let i = 0; i < area.childNodes.length; i++) {
-                if (area.childNodes[i] != copiedText.anchorNode) {
-                    ++count
-                    if (area.childNodes[i].nodeType == 3) {
-                        let a = area.childNodes[i];
-                        debugger
+                if (area.childNodes[i] !== copiedText.anchorNode) {
+                    if (area.childNodes[i].nodeType === 3) {
                         start += area.childNodes[i].textContent.length
                         end += area.childNodes[i].textContent.length
                     } else {
-                        let a = area.childNodes[i];
                         start += area.childNodes[i].outerHTML.length
                         end += area.childNodes[i].outerHTML.length
                     }
@@ -207,7 +193,7 @@ export const AddImageThunk = (_obj_name, src, copiedText) =>
         if (document.getSelection) {// берем все, что до выделения
             area.innerHTML = area.innerHTML.substring(0, start) +
                 // вставляем стартовый тег
-                '<img src="' + src + '"/>' +
+                '<img style="width:200px" class="post__img" src="' + src + '"/>' +
                 // вставляем все, что после выделения
                 area.innerHTML.substring(end, area.innerHTML.length);
             //this.setState({ textNodeId: this.state.textNodeId + 2 })
@@ -216,9 +202,11 @@ export const AddImageThunk = (_obj_name, src, copiedText) =>
         else {// берем текст
             var selectedText = document.selection.createRange().text;
             // ЕСЛИ имеется какой-то выделенный текст, ТО
-            if (selectedText != '') {// составляем новый текст
+            if (selectedText !== '') {// составляем новый текст
             }
         }
     }
 
+
+    
 export default publicationReduser

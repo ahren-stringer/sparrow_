@@ -5,6 +5,11 @@ import { CircularProgress } from '@material-ui/core';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import SideBar from './Sidebar';
+import {
+    setSearched, toggleList, loadList, setReqNumber, setSearchedArr, SearchChange,
+    searchThunk,
+    CloseListThunk
+  } from '../../redux/searchReduser';
 
 function SidebarContainer(props) {
 
@@ -13,14 +18,22 @@ function SidebarContainer(props) {
         props.setCategoriesSidebar(req.data)
     }, [])
 
-    if (!props.categoriesSidebar) return <CircularProgress/>
+    if (!props.categoriesSidebar) return <CircularProgress />
     return <SideBar {...props} />
 }
 
 let mapStateToProps = (state) => {
     return {
         categoriesSidebar: state.categoryData.categoriesSidebar,
+        newSearchText: state.search.newSearchText,
+        searched: state.search.searched,
+        isClosed: state.search.isClosed,
+        isListLoading: state.search.isListLoading,
+        requestNumber: state.search.requestNumber,
     }
 }
 
-export default connect(mapStateToProps, { setCategoriesSidebar })(SidebarContainer);
+export default connect(mapStateToProps, { setCategoriesSidebar,
+    setSearched, toggleList, loadList, setReqNumber, setSearchedArr, SearchChange,
+    searchThunk,
+    CloseListThunk })(SidebarContainer);

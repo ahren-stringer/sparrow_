@@ -6,13 +6,15 @@ import profile from './routes/profile.routes.js'
 import posts from './routes/posts.routes.js'
 import category from './routes/category.routes.js'
 import image from './routes/images.routes.js'
-// import email from './routes/email.routes.js'
-// import places from './routes/places.routes.js'
+import coments from './routes/coments.routes.js'
 
 //API Config
 const app = expess();
 const port = process.env.PORT || 8001;
 const connection_url = 'mongodb+srv://ahren:sVi9gNCp8d9boA0Y@cluster0.v0wai.mongodb.net/Sparrow2?retryWrites=true&w=majority'
+ 'mongodb://localhost:27017/sparrow'
+
+'mongodb+srv://ahren:sVi9gNCp8d9boA0Y@cluster0.v0wai.mongodb.net/Sparrow2?retryWrites=true&w=majority'
 
 'mongodb+srv://Reacter:w0ex9BOWLX8K1h@cluster0.c55pp.mongodb.net/Sparrow?retryWrites=true&w=majority'
 
@@ -29,8 +31,8 @@ app.use('', posts)
 app.use('', category)
 // Изображения
 app.use('', image)
-// // Места
-// app.use('',places)
+// Коменты
+app.use('',coments)
 
 //DB Config
 mongoose.connect(connection_url, {

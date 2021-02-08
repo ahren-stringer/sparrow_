@@ -4,7 +4,7 @@ const postSchema = mongoose.Schema({
     title: String,
     data: { type: Date, default: Date.now },
     categories: Array,
-    img: [],
+    img: {},
     content: Object,
     // authorName:String,
     // authorDesctription:String,

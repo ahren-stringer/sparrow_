@@ -1,23 +1,9 @@
-import SideBar from '../SideBar/Sidebar';
 import './Post.css';
-import postImage from "../../images/post-image/post-image-1300x500-01.jpg"
-import author from "../../images/author-img.png"
 import Coments from './Coments';
-import { useState } from 'react';
-import postTumb1 from "../../img/scale_1200.webp"
 import SinglePost from '../Blog/SinglePost';
+import { CircularProgress } from '@material-ui/core';
 
 function Post(props) {
-   let [post, setPost] = useState([{
-      title: 'Принудительное изъятие единственного жилья – новый закон',
-      data: '01.01.2020',
-      categories: ['реновация', 'жилье', 'законы'],
-      img: postTumb1,
-      text: 'С 2021 года в России произошли существенные изменения по вопросу права собственности граждан. Теперь собственника квартиры или дома, проживающего в центральной части любого города страны – при наличии определённых обстоятельств, могут попросить собрать вещички и переехать в новую квартиру равной пощади, которую местный орган власти предоставит взамен изымаемой или получить компенсацию взамен изымаемой квартиры в доме, который уходит под снос.Классно, – скажете Вы, — новая квартира взамен ветхого жилья! Да, действительно речь идет о переселении граждан из квартир, расположенных в неновых домах в центре города в квартиры в новостройках на окраинах.Мы говорим о принятом в самом конце 2020 года законе № 494-ФЗ, который еще прозвали законом о всероссийской реновации. И если в самом начале обсуждения реновации речь шла о том, что граждан, проживающих в центральных частях городов в старых, ветхих непригодных для проживания домах будут переселять в новостройки, то в окончательной редакции закона получилось так, что теперь можно заставить переехать на окраину города любого собственника квартиры, которая расположена в доме, находящемся в центре города. Даже если этот дом не ветхий, а просто требует дорогостоящего капитального ремонта. Невероятно! Давайте посмотрим – как такое стало возможно.',
-      authorName: 'Юридическая консультация',
-      authorDesctription: 'Новый пост от Юридической консультации',
-      coments: [],
-   }])
 
    return (
       <div className="content-outer">
@@ -25,8 +11,35 @@ function Post(props) {
          <div id="page-content" className="row">
 
             <div id="primary" className="eight columns">
-               <SinglePost item={props.post[0]} />
-               <Coments />
+               <SinglePost item={props.post} />
+
+               {/* <p class="tags">
+  			            <span>Tagged in </span>:
+  				         <a href="#">orci</a>, <a href="#">lectus</a>, <a href="#">varius</a>, <a href="#">turpis</a>
+  			         </p>
+
+                  <div class="bio cf">
+
+                     <div class="gravatar">
+                        <img src="images/author-img.png" alt=""/>
+                     </div>
+                     <div class="about">
+                        <h5><a title="Posts by John Doe" href="#" rel="author">John Doe</a></h5>
+                        <p>Jon Doe is lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate
+                        cursus a sit amet mauris. Morbi accumsan ipsum velit. Duis sed odio sit amet nibh vulputate
+                        <a href="#">cursus</a> a sit <a href="#">amet mauris</a>. Morbi elit consequat ipsum.</p>
+                     </div>
+
+                  </div>
+
+                  <ul class="post-nav cf">
+  			            <li class="prev"><a rel="prev" href="#"><strong>Previous Article</strong> Duis Sed Odio Sit Amet Nibh Vulputate</a></li>
+  				         <li class="next"><a rel="next" href="#"><strong>Next Article</strong> Morbi Elit Consequat Ipsum</a></li>
+  			         </ul> */}
+
+               {!props.coments ? <CircularProgress/>
+               :<Coments {...props}/>}
+               
             </div>
 
             {/* <SideBar /> */}

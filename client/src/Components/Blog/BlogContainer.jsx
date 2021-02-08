@@ -1,28 +1,53 @@
-import PageTitle from '../Page/PageTitle';
 import '../Page/PageContent.css';
 import './Blog.css'
 import Blog from './Blog';
 import { useEffect } from 'react';
-import { setPosts } from '../../redux/blogReduser'
+import { setPosts, SetTotalCount, SetPageCount, setLoaded } from '../../redux/blogReduser'
 import { CircularProgress } from '@material-ui/core';
-import axios from 'axios';
 import { connect } from 'react-redux';
+import { blogAPI } from '../../DAL/api';
+import { withRouter } from 'react-router-dom'
 
 function BlogContainer(props) {
+   debugger
    useEffect(async () => {
-      let req = await axios.get(`http://localhost:8001/posts`)
-      props.setPosts(req.data)
-      debugger
-      console.log(req.data)
+      let category = props.match.params.category;
+      let req = [];
+      if (!category) {
+         req = await blogAPI.setPosts(props.onOnePage, props.numberOfPage - 1)
+      } else {
+         req = await blogAPI.setCategoryPosts(category, props.onOnePage, props.numberOfPage - 1)
+      }
+      props.setPosts(req.posts)
+      props.SetTotalCount(req.totalCount)
    }, [])
+
+   let onPageChange = async (onOnePage, numberOfPage) => {
+      props.setLoaded(false)
+      let category = props.match.params.category;
+      let req = [];
+      if (!category) {
+         req = await blogAPI.setPosts(onOnePage, numberOfPage)
+      } else {
+         req = await blogAPI.setCategoryPosts(category, onOnePage, numberOfPage)
+      }
+      props.setPosts(req.posts)
+      props.SetTotalCount(req.totalCount)
+      props.setLoaded(true)
+   };
+
    if (!props.posts) return <CircularProgress />
-   return <Blog {...props}/>
+   return <Blog {...props} onPageChange={onPageChange} />
 }
 
 let mapStateToProps = (state) => {
    return {
-      posts: state.blog.posts
+      posts: state.blog.posts,
+      totalCount: state.blog.totalCount,
+      numberOfPage: state.blog.numberOfPage,
+      onOnePage: state.blog.onOnePage,
+      postsLoaded: state.blog.postsLoaded
    }
 }
 
-export default connect(mapStateToProps, { setPosts })(BlogContainer)
+export default connect(mapStateToProps, { setPosts, SetTotalCount, SetPageCount, setLoaded })(withRouter(BlogContainer))

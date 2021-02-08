@@ -4,15 +4,42 @@ let instance=axios.create({
     baseURL:'http://localhost:8001/',
 })
 
-export let profileAPI={
+export let blogAPI={
+    setPosts(limit,skip){
+        return instance.get(`posts/all/${limit}/${limit*skip}`).then(res => res.data)
+    },
+    setCategoryPosts(category,limit,skip){
+        return instance.get(`posts/categories/${category}/${limit}/${limit*skip}`).then(res => res.data)
+    },
+}
+export let SearchAPI = {
+    getSearchPage(search,limit,skip) {
+        return instance.get(`/posts/search_all/${search}/${limit}/${limit*skip}`)
+            .then(response => response.data)
+    },
+    getSearchList(search) {
+        return instance.get(`/posts/search/${search}`)
+            .then(response => response.data)
+    },
+}
+
+export let comentsAPI = {
+    sendComent(formData,userId, post ) {
+        debugger
+        return instance.post(`/coment`,{...formData, userId, post})
+            .then(response => response.data)
+    },
+
+    getComents(postId,limit,skip) {
+        return instance.get(`/coments/some/${postId}/${limit}/${skip}`)
+            .then(response => {debugger
+                return response.data})
+    },
+}
+
+export let publicationPI={
     setProfile(userId){
         return instance.get(`profile/`+userId)
-    },
-    setProfileStatus(userId){
-        return instance.get(`profile/status/`+userId)
-    },
-    updateProfileStatus(status){
-        return instance.put(`profile/status/`, {status:status})
     },
     setPhoto(photo){
         let formData = new FormData();

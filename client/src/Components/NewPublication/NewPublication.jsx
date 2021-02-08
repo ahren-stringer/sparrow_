@@ -54,6 +54,8 @@ class NewPublication extends React.Component {
         formData.append('title', this.state.title);
         formData.append('content', this.contentRef.current.innerHTML);
         formData.append('categories', this.arr)
+        formData.append('userId', this.props.userId)
+        debugger
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -156,7 +158,7 @@ class NewPublication extends React.Component {
                             size="35"
                             onChange={this.onInputChange}
                         />
-                        {/* <div className='add_title_img'>
+                        <div className='add_title_img'>
                             <h5>Добавить заглавное изображение</h5>
                             
                                 <input type="file" id="file" className="inputfile" name="file" onChange={this.onChange} />
@@ -170,7 +172,7 @@ class NewPublication extends React.Component {
                                     className='post-img'></div>
                                 // <img src={this.state.image}></img>
                             }
-                        </div> */}
+                        </div>
                         <div className='textarea__wrapper'>
                             <div className="Controls">
                                 <span onClick={this.onBoldClick} className={!this.state.bold ? 'controls__btn' : 'controls__btn Selected'}>
@@ -178,8 +180,7 @@ class NewPublication extends React.Component {
                                 <span onClick={this.onItalicsClick} className={!this.state.italized ? 'controls__btn' : 'controls__btn Selected'}><em>I</em></span>
                                 <span onClick={this.onUnderlineClick} className={!this.state.underlined ? 'controls__btn' : 'controls__btn Selected'}><u>U</u></span>
                                 <span className="search">
-                                    <select className="collection"
-                                    onChange={this.onFontClick}>
+                                    <select onChange={this.onFontClick}>
                                         {
                                             this.state.fonts.map(item => <option onClick={this.onFontClick}>{item}</option>)
                                         }
@@ -194,7 +195,7 @@ class NewPublication extends React.Component {
                                     <label for="images">Добавить изображение</label>
                             <div role='textarea' style={{
                                 width: '100%',
-                                height: '300px',
+                                height: '700px',
                                 backgroundColor: 'lightgrey',
                                 fontSize: '14px',
                             }}

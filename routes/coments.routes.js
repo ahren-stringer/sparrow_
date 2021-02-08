@@ -6,36 +6,35 @@ import Coment from "../models/Coment.js"
 router.post('/coment', async (req, res) => {
 
     try {
-        const { coment, size, token, place } = req.body
+        const { coment, userId, post } = req.body
 
-        if (!token) return res.status(400).json({ message: 'Вы не авторизованны' })
-        const decoded = jwt.verify(token, 'TopSecret')
-        //req.user=decoded
-        console.log(decoded)
-        const user = await User.findOne({ _id: decoded.userId })
-        console.log(user)
-        const newComent = new Coment({ coment, size, place, name: user.name, email: user.email, owner: decoded.userId })
-        console.log(newComent)
+        // if (!token) return res.status(400).json({ message: 'Вы не авторизованны' })
+        // const decoded = jwt.verify(token, 'TopSecret')
+
+        // const user = await User.findById(decoded.userId)
+        const newComent = new Coment({ coment, author: userId, post })
         await newComent.save()
         res.status(201).json({ newComent })
     } catch (e) {
+        console.log(e)
         res.status(500).json({ message: 'Что-то пошло не так' })
     }
 })
 
-router.get('/cinema/coments/:place', async (req, res) => {
+router.get('/coments/some/:title/:limit/:skip', async (req, res) => {
     try {
-        const coments = await Coment.find({place: req.params.place})
-        res.json([coments[coments.length-1]])
-    } catch (e) {
-        res.status(500).json({ message: 'Что-то пошло не так' })
-    }
-})
-
-router.get('/cinema/coments/some/:place/:limit/:skip', async (req, res) => {
-    try {
-        const coments = await Coment.find({place: req.params.place}).limit(+req.params.limit).skip(+req.params.skip)
-        res.json(coments)
+        const coments_all= await Coment.find()
+        const coments = await Coment.find({post: req.params.title})
+        .limit(+req.params.limit)
+        .skip(+req.params.skip)
+        .populate(['author'])
+        .exec((err, coments) => {
+            if (err) return res.status(404).json({ message: "Диалог не найден" })
+            return res.json({
+                    "coments":coments,
+                    "totalCount": coments_all.length
+                })
+        });
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так' })
     }
