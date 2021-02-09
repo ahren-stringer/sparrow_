@@ -1,8 +1,15 @@
 import '../Page/PageContent.css';
 import './Blog.css'
 import { NavLink } from 'react-router-dom';
+import React from 'react';
 
 function SinglePost(props) {
+    let postContent=React.createRef()
+    debugger
+    let addContent=()=>{
+        // let postContent=document.getElementById("id");
+        postContent.currrent.innerHTML=props.item.content
+    }
     return <article className="post">
         <div className="entry-header cf">
             <h1>
@@ -11,7 +18,7 @@ function SinglePost(props) {
                 </NavLink>
             </h1>
             <p className="post-meta">
-                <time className="date" datetime="2014-01-14T11:24">{props.item.data}</time>
+                <span className="date" >{props.item.data}</span>
                 <span className="categories">
                     {props.item.categories[0].split(',').map(cateory => {
                         return <NavLink to='/category'>
@@ -29,10 +36,10 @@ function SinglePost(props) {
                     className='post-img'></div>
             </NavLink>
         </div>
-        <div className="post-content">
+        <div className="post-content" id="id" ref={postContent}>
             {props.path === '/blog'
                 ? <p>{props.item.content.split(' ').slice(0, 50).join(' ')}</p>
-                : <p>{props.item.content}</p>
+                :<div dangerouslySetInnerHTML={{ __html: props.item.content }} />         
             }
         </div>
     </article>

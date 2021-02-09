@@ -7,6 +7,7 @@ import { useState } from 'react';
 import author from "../../images/author-img.png"
 import { connect } from 'react-redux';
 import { authAPI } from '../../DAL/api';
+import './Form.css'
 
 const input = ({ input, label, type, name, meta: { touched, error, warning } }) => {
     return (
@@ -38,8 +39,8 @@ function RegisterForm(props) {
     }
 
     return <form onSubmit={props.handleSubmit}>
-        <div className="gravatar">
-            <img src={image || author} alt="" />
+        <div>
+            <img src={image || author} alt="" className="profile__avatar" />
         </div>
         <input type="file" id="file" className="inputfile" name="file" onChange={onChange} />
         <label for="file">Добавить аватар</label>
@@ -79,7 +80,7 @@ function Register(props) {
         try {
             debugger
             await authAPI.register({ ...formData, file: props.file })
-            // props.history.goBack()
+            props.history.goBack()
         } catch (e) { }
     }
     return (

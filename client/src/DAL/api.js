@@ -59,7 +59,16 @@ export let authAPI={
         .then(res => res.data)
     },
 }
-
+export let homeAPI = {
+    getCategories() {
+        return instance.get(`category/random`)
+        .then(response => response.data)
+    },
+    getPosts() {
+        return instance.get(`posts_latests`)
+        .then(response => response.data)
+    },
+}
 export let publicationPI={
     setProfile(userId){
         return instance.get(`profile/`+userId)

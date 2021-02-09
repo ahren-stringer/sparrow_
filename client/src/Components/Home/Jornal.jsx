@@ -1,6 +1,8 @@
+import { CircularProgress } from '@material-ui/core';
 import './Home.css';
 
-function Jornal() {
+function Jornal(props) {
+  if (!props.posts) return <CircularProgress/>
   return (
     <section id="journal">
 

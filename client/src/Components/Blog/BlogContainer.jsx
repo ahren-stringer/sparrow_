@@ -9,7 +9,7 @@ import { blogAPI } from '../../DAL/api';
 import { withRouter } from 'react-router-dom'
 
 function BlogContainer(props) {
-   debugger
+
    useEffect(async () => {
       let category = props.match.params.category;
       let req = [];

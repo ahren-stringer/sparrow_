@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { CircularProgress} from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import './NewPublication.css'
@@ -25,6 +25,7 @@ class NewPublication extends React.Component {
             fonts: [8, 10, 11, 12, 14, 15, 16, 18, 24, 36, 48],
             isClosed: true,
             image: '',
+            subtitle:''
         };
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -55,6 +56,8 @@ class NewPublication extends React.Component {
         formData.append('content', this.contentRef.current.innerHTML);
         formData.append('categories', this.arr)
         formData.append('userId', this.props.userId)
+        formData.append('subtitle', this.state.subtitle)
+        formData.append('text', this.state.contentText)
         debugger
         const config = {
             headers: {
@@ -70,21 +73,21 @@ class NewPublication extends React.Component {
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.files[0] });
-        const reader= new FileReader();
-        reader.onload=(e)=>{
+        const reader = new FileReader();
+        reader.onload = (e) => {
             console.log(e)
-            this.setState({image:e.target.result})
+            this.setState({ image: e.target.result })
         }
         reader.readAsDataURL(e.target.files[0])
     }
     AddImage(e) {
         debugger
-       // this.setState({ [e.target.name]: e.target.files[0] });
-        const reader= new FileReader();
-        reader.onload=(e)=>{
+        // this.setState({ [e.target.name]: e.target.files[0] });
+        const reader = new FileReader();
+        reader.onload = (e) => {
             console.log(e)
             debugger
-            this.props.AddImageThunk('content',e.target.result,this.props.copiedText)
+            this.props.AddImageThunk('content', e.target.result, this.props.copiedText)
         }
         reader.readAsDataURL(e.target.files[0])
     }
@@ -99,9 +102,6 @@ class NewPublication extends React.Component {
     arr = []
     // Форматирование
     onFontClick(event) {
-        // debugger
-        // let fontedId=this.props.fontedId+1;
-        // this.props.setFontedId(fontedId)
         this.props.setFontSize(event.target.value)
         if (this.props.copiedText !== '') {
             this.props.ChangeFontSizeThunk('content',
@@ -160,10 +160,10 @@ class NewPublication extends React.Component {
                         />
                         <div className='add_title_img'>
                             <h5>Добавить заглавное изображение</h5>
-                            
-                                <input type="file" id="file" className="inputfile" name="file" onChange={this.onChange} />
-                                <label for="file">Выберите изображение</label>
-                            
+
+                            <input type="file" id="file" className="inputfile" name="file" onChange={this.onChange} />
+                            <label for="file">Выберите изображение</label>
+
                             {this.state.image &&
                                 <div style={{
                                     backgroundImage: 'url(' + this.state.image + ')',
@@ -173,6 +173,10 @@ class NewPublication extends React.Component {
                                 // <img src={this.state.image}></img>
                             }
                         </div>
+
+                        <input type="text" id="subtitle" className="" name="subtitle" onChange={this.onInputChange} />
+                        <label for="subtitle">Краткое описание</label>
+
                         <div className='textarea__wrapper'>
                             <div className="Controls">
                                 <span onClick={this.onBoldClick} className={!this.state.bold ? 'controls__btn' : 'controls__btn Selected'}>
@@ -185,19 +189,20 @@ class NewPublication extends React.Component {
                                             this.state.fonts.map(item => <option onClick={this.onFontClick}>{item}</option>)
                                         }
                                     </select>
-                                    
+
                                 </span>
-                                
+
                             </div>
-                            <input type="file" id="images" onChange={this.AddImage} 
-                                    // className="add-content-img"
-                                     name="images" />
-                                    <label for="images">Добавить изображение</label>
+                            <input type="file" id="images" onChange={this.AddImage}
+                                // className="add-content-img"
+                                name="images" />
+                            <label for="images">Добавить изображение</label>
                             <div role='textarea' style={{
                                 width: '100%',
                                 height: '700px',
                                 backgroundColor: 'lightgrey',
                                 fontSize: '14px',
+                                padding: "10px"
                             }}
                                 contenteditable='true'
                                 spellcheck='true'
@@ -215,7 +220,7 @@ class NewPublication extends React.Component {
                                     this.props.setCopiedText(this.getSelectedText())
                                     debugger
                                 }}>
-                                    {/* <span>&#8203;</span>
+                                {/* <span>&#8203;</span>
                                 <br></br> */}
                             </div>
                             <h3 onClick={(e) => alert(e.target.previousElementSibling.innerHTML)}>Alert</h3>

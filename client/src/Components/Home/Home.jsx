@@ -5,16 +5,37 @@ import Works from './Works';
 import Jornal from './Jornal';
 import CallToAction from './CallToAction';
 import Tweets from './Tweets';
+import { useEffect } from 'react';
+import { setCategories } from '../../redux/categoryReduser'
+import { connect } from 'react-redux';
+import { CircularProgress } from '@material-ui/core';
+import { homeAPI } from '../../DAL/api';
+import { setPosts } from '../../redux/blogReduser'
 
-function Home() {
+function Home(props) {
+
+  useEffect(async () => {
+    let cetegoryReq = await homeAPI.getCategories()
+    props.setCategories(cetegoryReq)
+    let postsReq = await homeAPI.getPosts()
+    props.setCategories(postsReq)
+}, [])
+
     return (<>
       <Intro/>
-      <Info/>
-      {/* <Works/> */}
-      <Jornal/>
+      {/* <Info/> */}
+      <Works {...props}/>
+      <Jornal {...props}/>
       <CallToAction/>
       {/* <Tweets/> */}
     </>);
 }
 
-export default Home;
+let mapStateToProps = (state) => {
+   return {
+    categories: state.categoryData.categories,
+    posts: state.blog.posts
+   }
+}
+
+export default connect(mapStateToProps, { setCategories,setPosts })(Home)

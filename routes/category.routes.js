@@ -6,6 +6,14 @@ import multer from 'multer'
 import path from "path";
 import fs from 'fs'
 
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1)); 
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array
+  }
+
 const storage = multer.diskStorage({
     destination: "./public/categories/",
     filename: function (req, file, cb) {
@@ -67,42 +75,20 @@ router.get('/category/some', async (req, res) => {
         res.status(500).json({ message: 'Что-то пошло не так' })
     }
 })
-// router.post(
-//     '/category',
-//     async (req, res) => {
-//         try {
-//             const { category} = req.body
-//             const condidate = await PostCategory.findOne({ category })
-//             if (condidate) {
-//                 return res.status(400).json({ message: 'Такая категория уже есть' })
-//             }
-//             const newCategory = new PostCategory({ category });
+router.get('/category/random', async (req, res) => {
+    try {
+        let categories = await PostCategory.find()
+        let arr = shuffle(categories.map(item => {
+            let obj = {};
+            obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
+            obj.category = item.category
+            return obj
+        }))
+        res.json(arr.slice(0, 4))
+    } catch (e) {
+        console.log(e)
+        res.status(500).json({ message: 'Что-то пошло не так' })
+    }
+})
 
-//             await newCategory.save()
-
-//             res.status(201).json({ message: 'Категория зарегистрирована' })
-//         } catch (e) {
-//             res.status(500).json({ message: 'Ошибка записи' })
-//         }
-//     })
-
-//     router.get(
-//     '/category',
-//     async (req, res) => {
-//         try {
-//             const category = await PostCategory.find()
-//             res.json(category)
-//         } catch (e) {
-//             res.status(500).json({ message: 'Что-то пошло не так' })
-//         }
-//     })
-
-//     router.get('/category/some', async (req, res) => {
-//     try {
-//         let categories= await PostCategory.find().exec()
-//         res.json(categories.slice(0,6))
-//     } catch (e) {
-//         res.status(500).json({ message: 'Что-то пошло не так' })
-//     }
-// })
 export default router

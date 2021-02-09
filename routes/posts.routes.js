@@ -28,9 +28,10 @@ const obj = (req, res) => {
             title,
             categories,
             content,
-            userId
+            userId,
+            subtitle
         } = req.body
-        const post = new Post({ img: req.file, title, content, categories,author: userId });
+        const post = new Post({ img: req.file, title, content, subtitle, categories,author: userId });
         post.save().then(() => {
             res.send({ message: "uploaded successfully" })
         })
@@ -95,6 +96,7 @@ router.get('/posts/all/:limit/:skip', async (req, res) => {
             obj.title = item.title
             obj.content = item.content
             obj.categories = item.categories
+            obj.subtitle = item.subtitle
             return obj
         })
         res.json({
@@ -161,6 +163,25 @@ router.get('/posts/search_all/:search/:limit/:skip', async (req, res) => {
             "posts": arr.filter(item=> item.title.toLowerCase().includes(req.params.search)),
             "totalCount": posts_all.length
         })
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так' })
+    }
+})
+
+router.get('/posts_latest', async (req, res) => {
+    try {
+        const posts = await Post.find().sort({date:-1}).limit(3)
+        let arr = posts.map(item => {
+            let obj = {};
+            console.log(item.img)
+            console.log(item.img.destination)
+            // obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
+            obj.title = item.title
+            obj.content = item.content
+            obj.categories = item.categories
+            return obj
+        })
+        res.json(arr)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так' })
     }
