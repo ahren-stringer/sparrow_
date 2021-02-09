@@ -5,7 +5,6 @@ import React from 'react';
 
 function SinglePost(props) {
     let postContent=React.createRef()
-    debugger
     let addContent=()=>{
         // let postContent=document.getElementById("id");
         postContent.currrent.innerHTML=props.item.content
@@ -32,7 +31,9 @@ function SinglePost(props) {
         <div className="post-thumb">
             <NavLink to={'/post/' + props.item.title}>
                 <div 
-                style={{ backgroundImage: 'url('+props.item.img+')' }}
+                style={{backgroundImage: "url(http://localhost:8001/publication_image/"+props.item.img.filename+")"
+                    //  backgroundImage: 'url('+props.item.img+')' 
+                    }}
                     className='post-img'></div>
             </NavLink>
         </div>

@@ -193,7 +193,7 @@ export const AddImageThunk = (_obj_name, src, copiedText) =>
         if (document.getSelection) {// берем все, что до выделения
             area.innerHTML = area.innerHTML.substring(0, start) +
                 // вставляем стартовый тег
-                '<img style="width:200px" class="post__img" src="' + src + '"/>' +
+                '<img style="width:200px" class="post__img" src="http://localhost:8001/publication_image/'+src+'"/>' +
                 // вставляем все, что после выделения
                 area.innerHTML.substring(end, area.innerHTML.length);
             //this.setState({ textNodeId: this.state.textNodeId + 2 })

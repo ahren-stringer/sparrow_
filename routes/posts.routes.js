@@ -3,10 +3,13 @@ const { Router } = express;
 const router = Router()
 import Post from '../models/Post.js'
 import Image from '../models/Image.js'
-import mongoose from 'mongoose'
 import multer from 'multer'
-import path from "path";
 import fs from 'fs'
+import path from 'path';
+// import { fileURLToPath } from 'url';
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+import {__dirname} from '../app.js'
 
 const storage = multer.diskStorage({
     destination: "./public/posts/",
@@ -72,7 +75,7 @@ router.get("/posts/:title", async (req, res) => {
         .exec((err, post) => {
             if (err) return res.status(404).json({ message: "Пост не найден" })
             let obj = {};
-            obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(post.img.destination + post.img.filename))
+            // obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(post.img.destination + post.img.filename))
             obj.title = post.title
             obj.content = post.content
             obj.categories = post.categories
@@ -83,6 +86,16 @@ router.get("/posts/:title", async (req, res) => {
         res.status(500).json({ message: 'Что-то пошло не так' })
     }
 });
+router.get('/post_image', async (req, res) => {
+    try {
+        console.log(__dirname)
+        res.sendFile(path.normalize(__dirname+"/public/posts/" + "IMAGE-1612819822710.jpg"))
+        console.log(path.normalize("./public/posts/" + "IMAGE-1612819822710.jpg"))
+    } catch (e) {
+        console.log(e)
+        res.status(500).json({ message: 'Что-то пошло не так' })
+    }
+})
 // Пагинация
 router.get('/posts/all/:limit/:skip', async (req, res) => {
     try {

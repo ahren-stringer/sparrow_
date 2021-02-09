@@ -25,7 +25,8 @@ class NewPublication extends React.Component {
             fonts: [8, 10, 11, 12, 14, 15, 16, 18, 24, 36, 48],
             isClosed: true,
             image: '',
-            subtitle:''
+            subtitle:'',
+            folder: Date.now()
         };
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -80,16 +81,24 @@ class NewPublication extends React.Component {
         }
         reader.readAsDataURL(e.target.files[0])
     }
-    AddImage(e) {
-        debugger
+    AddImage (e) {
         // this.setState({ [e.target.name]: e.target.files[0] });
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            console.log(e)
-            debugger
-            this.props.AddImageThunk('content', e.target.result, this.props.copiedText)
-        }
-        reader.readAsDataURL(e.target.files[0])
+        const formData = new FormData();
+        formData.append('myfile', e.target.files[0]);
+        formData.append('date', this.state.folder);
+debugger
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        axios.post("http://localhost:8001/images", formData, config)
+            .then((res) => {
+                this.setState({ image: res.data.img })
+                alert("The file is successfully uploaded");
+                debugger
+                this.props.AddImageThunk('content',res.data.img.filename, this.props.copiedText)
+            }).catch((error) => { });
     }
     onInputChange(e) {
         this.setState({ [e.target.name]: e.target.value });

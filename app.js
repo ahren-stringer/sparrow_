@@ -7,6 +7,10 @@ import posts from './routes/posts.routes.js'
 import category from './routes/category.routes.js'
 import image from './routes/images.routes.js'
 import coments from './routes/coments.routes.js'
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+export const __dirname = path.dirname(__filename);
 
 //API Config
 const app = expess();
@@ -17,7 +21,7 @@ const connection_url = 'mongodb+srv://ahren:sVi9gNCp8d9boA0Y@cluster0.v0wai.mong
 'mongodb+srv://ahren:sVi9gNCp8d9boA0Y@cluster0.v0wai.mongodb.net/Sparrow2?retryWrites=true&w=majority'
 
 'mongodb+srv://Reacter:w0ex9BOWLX8K1h@cluster0.c55pp.mongodb.net/Sparrow?retryWrites=true&w=majority'
-
+console.log(__dirname)
 //Middlewares
 app.use(expess.json())
 app.use(Cors())
