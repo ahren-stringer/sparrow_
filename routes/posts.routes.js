@@ -171,7 +171,7 @@ router.get('/posts/search_all/:search/:limit/:skip', async (req, res) => {
     }
 })
 
-router.get('/posts_latest', async (req, res) => {
+router.get('/posts_latests', async (req, res) => {
     try {
         const posts = await Post.find().sort({date:-1}).limit(3)
         let arr = posts.map(item => {

@@ -14,18 +14,18 @@ import { setPosts } from '../../redux/blogReduser'
 
 function Home(props) {
 
-  useEffect(async () => {
-    let cetegoryReq = await homeAPI.getCategories()
-    props.setCategories(cetegoryReq)
-    let postsReq = await homeAPI.getPosts()
-    props.setCategories(postsReq)
-}, [])
+//   useEffect(async () => {
+//     let cetegoryReq = await homeAPI.getCategories()
+//     props.setCategories(cetegoryReq)
+//     let postsReq = await homeAPI.getPosts()
+//     props.setCategories(postsReq)
+// }, [])
 
     return (<>
       <Intro/>
       {/* <Info/> */}
-      <Works {...props}/>
-      <Jornal {...props}/>
+      {/* <Works {...props}/>
+      <Jornal {...props}/> */}
       <CallToAction/>
       {/* <Tweets/> */}
     </>);

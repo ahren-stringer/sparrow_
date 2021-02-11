@@ -33,7 +33,7 @@ function SinglePost(props) {
             <NavLink to={'/post/' + props.item.title}>
                 <div
                     style={{
-                        backgroundImage: "url(http://localhost:8001/publication_image/" + props.item.img.filename + ")"
+                        backgroundImage: "url(/publication_image/" + props.item.img.filename + ")"
                         //  backgroundImage: 'url('+props.item.img+')' 
                     }}
                     className='post-img'></div>
