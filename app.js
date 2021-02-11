@@ -33,9 +33,9 @@ app.use('', profile)
 app.use('', posts)
 // Категории
 app.use('', category)
-// Изображения
+
 app.use('', image)
-// Коменты
+
 app.use('',coments)
 
 //DB Config
