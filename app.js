@@ -20,7 +20,6 @@ const connection_url = 'mongodb+srv://ahren:sVi9gNCp8d9boA0Y@cluster0.v0wai.mong
 
 'mongodb+srv://ahren:sVi9gNCp8d9boA0Y@cluster0.v0wai.mongodb.net/Sparrow2?retryWrites=true&w=majority'
 
-'mongodb+srv://Reacter:w0ex9BOWLX8K1h@cluster0.c55pp.mongodb.net/Sparrow?retryWrites=true&w=majority'
 console.log(__dirname)
 //Middlewares
 app.use(expess.json())
