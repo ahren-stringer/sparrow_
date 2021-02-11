@@ -6,6 +6,7 @@ import { CircularProgress } from '@material-ui/core';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { categoriesAPI } from '../../DAL/api';
+import Blog from '../Blog/Blog';
 
 function ContainerCategories(props) {
 

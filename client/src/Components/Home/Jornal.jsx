@@ -10,7 +10,7 @@ function Jornal(props) {
 
     <div className="row">
       <div className="twelve columns align-center">
-        <h1>Our latest posts and rants.</h1>
+        <h1>Последние новости</h1>
       </div>
     </div>
 

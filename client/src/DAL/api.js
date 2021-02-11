@@ -92,18 +92,27 @@ export let categoriesAPI = {
         .then(response => response.data)
     },
 }
-export let publicationPI={
-    setProfile(userId){
-        return instance.get(`profile/`+userId)
+// export let publicationPI={
+//     setProfile(userId){
+//         return instance.get(`profile/`+userId)
+//     },
+//     setPhoto(photo){
+//         let formData = new FormData();
+//         formData.append("image", photo);
+//         return instance.post(`profile/photo`,  formData, {
+//             headers: {
+//               'Content-Type': 'multipart/form-data'
+//             }
+//         })
+//         .then(res => res.data)
+//     },
+// }
+export let profileAPI={
+    getProfile(userId){
+        return instance.get(`user/`+userId).then(res => res.data)
     },
-    setPhoto(photo){
-        let formData = new FormData();
-        formData.append("image", photo);
-        return instance.post(`profile/photo`,  formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-        })
+    getPosts(id){
+        return instance.get(`posts/author/${id}`)
         .then(res => res.data)
     },
 }

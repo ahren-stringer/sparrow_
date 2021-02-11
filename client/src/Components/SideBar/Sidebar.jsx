@@ -84,7 +84,7 @@ function SideBar(props) {
                </h5>
                <ul className="link-list cf">
                   {props.categoriesSidebar.map(item => <li>
-                     <NavLink to={`/categories/${item.category}`}>
+                     <NavLink to={`/blog/${item.category}`}>
                         {item.category}
                      </NavLink>
                   </li>)}

@@ -54,11 +54,11 @@ router.post("/images", async (req, res) => {
         console.log(e)
     }
 });
-router.get('/publication_image/:filename', async (req, res) => {
+router.get('/publication_image/public/:destination/:filename', async (req, res) => {
     try {
         console.log(__dirname)
-        res.sendFile(path.normalize(__dirname+"/public/posts/" + req.params.filename))
-        console.log(path.normalize("./public/posts/" + req.params.filename))
+        res.sendFile(path.normalize(__dirname+"/public/"+req.params.destination + "/"+req.params.filename))
+        console.log(path.normalize(__dirname+"/public/"+req.params.destination +"/"+ req.params.filename))
     } catch (e) {
         console.log(e)
         res.status(500).json({ message: 'Что-то пошло не так' })

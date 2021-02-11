@@ -37,14 +37,14 @@ function App(props) {
     <div classNameName="App">
       <Header/>
       <Route exact path="/" render={() => <Home/>}/>
-      <Route exact path="/blog" render={() => <Blog/>}/>
+      <Route exact path="/blog/:category?" render={() => <Blog/>}/>
       <Route exact path="/post/:postName?" render={() => <Post/>}/>
       <Route exact path="/auth" render={() => <Auth/>}/>
       <Route exact path="/register" render={() => <Register/>}/>
       <Route exact path="/profile" render={() => <Profile/>}/>
       <Route exact path="/publication" render={() => <NewPublication/>}/>
       <Route exact path="/contacts" render={() => <Contacts/>}/>
-      <Route exact path="/categories/:category?" render={() => <ContainerCategories/>}/>
+      <Route exact path="/categories/" render={() => <ContainerCategories/>}/>
       <Route exact path="/search/:search" render={() => <SearchContainer/>}/>
       <Footer/>
     </div>

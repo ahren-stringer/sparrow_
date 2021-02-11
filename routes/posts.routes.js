@@ -50,36 +50,12 @@ function base64_encode(file) {
     return bitmap
 }
 
-// router.get("/posts", async (req, res) => {
-//     try {
-//         const posts = await Post.find()
-//         let arr = posts.map(item => {
-//             let obj = {};
-//             obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
-//             obj.title = item.title
-//             obj.content = item.content
-//             obj.categories = item.categories
-//             return obj
-//         })
-//         res.send(arr)
-//     } catch (e) {
-//         res.status(500).json({ message: 'Что-то пошло не так' })
-//         console.log(e)
-//     }
-// });
-
 router.get("/posts/:title", async (req, res) => {
     try {
         Post.findOne({ title: req.params.title })
         .populate(['author'])
         .exec((err, post) => {
             if (err) return res.status(404).json({ message: "Пост не найден" })
-            // let obj = {};
-            // // obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(post.img.destination + post.img.filename))
-            // obj.title = post.title
-            // obj.content = post.content
-            // obj.categories = post.categories
-            // obj.author=post.author
             return res.json(post)
         });
     } catch (e) {
@@ -91,17 +67,6 @@ router.get('/posts/all/:limit/:skip', async (req, res) => {
     try {
         const posts_all = await Post.find();
         const posts = await Post.find().limit(+req.params.limit).skip(+req.params.skip)
-        // let arr = posts.map(item => {
-        //     let obj = {};
-        //     // console.log(item.img)
-        //     // console.log(item.img.destination)
-        //     obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
-        //     obj.title = item.title
-        //     obj.content = item.content
-        //     obj.categories = item.categories
-        //     obj.subtitle = item.subtitle
-        //     return obj
-        // })
         res.json({
             "posts": posts,
             "totalCount": posts_all.length
@@ -118,12 +83,7 @@ router.get("/posts/categories/:category/:limit/:skip", async (req, res) => {
         let arr = [];
         posts.map(item => {
             if (item.categories[0].includes(req.params.category)) {
-                let obj = {};
-                obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
-                obj.title = item.title
-                obj.content = item.content
-                obj.categories = item.categories
-                arr.push(obj)
+                arr.push(item)
             }
         })
         res.json({
@@ -170,24 +130,22 @@ router.get('/posts/search_all/:search/:limit/:skip', async (req, res) => {
         res.status(500).json({ message: 'Что-то пошло не так' })
     }
 })
-
+// Последние новости
 router.get('/posts_latests', async (req, res) => {
     try {
         const posts = await Post.find().sort({date:-1}).limit(3).populate(['author'])
-        // let arr = posts.map(item => {
-        //     let obj = {};
-        //     console.log(item.img)
-        //     console.log(item.img.destination)
-        //     // obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
-        //     obj.title = item.title
-        //     obj.content = item.content
-        //     obj.categories = item.categories
-        //     return obj
-        // })
         res.json(posts)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так' })
     }
 })
-
+// Новости от автора
+router.get('/posts/author/:id', async (req, res) => {
+    try {
+        const posts = await Post.find({author: req.params.id})
+        res.json(posts)
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так' })
+    }
+})
 export default router 

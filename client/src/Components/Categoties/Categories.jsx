@@ -54,14 +54,14 @@ class Categories extends React.Component {
                   {
                      this.props.categories.map(item => <div class="columns portfolio-item first">
                         <div class="item-wrap">
-                           <NavLink to={'/categories/' + item.category}>
+                           <NavLink to={'/blog/' + item.category}>
                               <img alt="" src={item.img} />
                               <div class="overlay"></div>
                               <div class="link-icon"><i class="fa fa-link"></i></div>
                            </NavLink>
                            <div class="portfolio-item-meta">
                               <h5>
-                                 <NavLink to={'/categories/' + item.category}>
+                                 <NavLink to={'/blog/' + item.category}>
                                     {item.category}
                                  </NavLink>
                               </h5>
