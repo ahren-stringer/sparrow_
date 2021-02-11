@@ -2,6 +2,7 @@ import './Post.css';
 import Coments from './Coments';
 import SinglePost from '../Blog/SinglePost';
 import { CircularProgress } from '@material-ui/core';
+import SidebarContainer from '../SideBar/SidebarContainer';
 
 function Post(props) {
 
@@ -42,7 +43,7 @@ function Post(props) {
                
             </div>
 
-            {/* <SideBar /> */}
+            <SidebarContainer />
 
          </div>
 

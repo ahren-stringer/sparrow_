@@ -16,6 +16,7 @@ function NewPublicationContainer(props) {
         let req = await axios.get(`http://localhost:8001/category`)
         props.setCategories(req.data)
     }, [])  
+
     if (props.userId===null) return <CircularProgress />
    return <NewPublication {...props}/>  
 }

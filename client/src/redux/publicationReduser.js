@@ -1,3 +1,5 @@
+import { imagesAPI } from "../DAL/api";
+
 const SET_FONTED_ID = 'publication/SET_FONTED_ID';
 const SET_FONT_SIZE = 'publication/SET_FONT_SIZE';
 const SET_COPIED_TEXT = 'publication/SET_COPIED_TEXT';
@@ -46,14 +48,6 @@ export const setFontSize = (fontSize) => ({ type: SET_FONT_SIZE, fontSize })
 export const setCopiedText = (copiedText) => ({ type: SET_COPIED_TEXT, copiedText })
 export const setUnderlinedId = (underlinedId) => ({ type: SET_UNDERLINED_ID, underlinedId })
 
-// let changeFontSize = (_obj_name, fontSize, copiedText) => {
-//     
-// };// /insert_tag
-
-// let insert_tag=(_obj_name, _tag_start, _tag_end, copiedText) =>{
-//     
-// };// /insert_tag
-
 export const getSelectedText = () => {
     if (window.getSelection) {
         let { anchorNode, anchorOffset, focusNode, focusOffset } = document.getSelection();
@@ -71,7 +65,7 @@ export const ChangeFontSizeThunk = (_obj_name, fontSize, copiedText, fontedId) =
         var area = document.getElementsByName(_obj_name).item(0);
         let start = copiedText.anchorOffset;
         let end = copiedText.focusOffset;
-        if (area.childNodes.length !==1) {
+        if (area.childNodes.length !== 1) {
             for (let i = 0; i < area.childNodes.length; i++) {
                 if (area.childNodes[i] !== copiedText.anchorNode) {
                     if (area.childNodes[i].nodeType === 3) {
@@ -95,13 +89,6 @@ export const ChangeFontSizeThunk = (_obj_name, fontSize, copiedText, fontedId) =
                 // вставляем все, что после выделения
                 area.innerHTML.substring(end, area.innerHTML.length);
             //this.setState({ textNodeId: this.state.textNodeId + 2 })
-        }
-        // Иначе заплатка для Internet Explorer
-        else {// берем текст
-            var selectedText = document.selection.createRange().text;
-            // ЕСЛИ имеется какой-то выделенный текст, ТО
-            if (selectedText !== '') {// составляем новый текст
-            }
         }
     }
 export const DecorateTextThunk = (_obj_name, nodeName, copiedText) =>
@@ -163,13 +150,6 @@ export const DecorateTextThunk = (_obj_name, nodeName, copiedText) =>
                     area.innerHTML.substring(end, area.innerHTML.length);
             }
         }
-        else {// берем текст
-            var selectedText = document.selection.createRange().text;
-            if (selectedText !== '') {// составляем новый текст
-                var newText = _tag_start + selectedText + _tag_end;
-                document.selection.createRange().text = newText;
-            }
-        }
     }
 export const AddImageThunk = (_obj_name, src, copiedText) =>
     async (dispatch) => {
@@ -190,23 +170,29 @@ export const AddImageThunk = (_obj_name, src, copiedText) =>
                 } else break
             }
         }
+        const removeHandler = async(event) => {
+            let target=event.target;
+            debugger
+            let block=target.closest('.preview-image');
+            block.classList.add('removing')
+            setTimeout(() => block.remove(), 300)
+
+            await imagesAPI.deleteImg(src)
+        }
         if (document.getSelection) {// берем все, что до выделения
             area.innerHTML = area.innerHTML.substring(0, start) +
-                // вставляем стартовый тег
-                '<img style="width:200px" class="post__img" src="http://localhost:8001/publication_image/'+src+'"/>' +
-                // вставляем все, что после выделения
-                area.innerHTML.substring(end, area.innerHTML.length);
-            //this.setState({ textNodeId: this.state.textNodeId + 2 })
+                `
+          <div class="preview-image" >
+            <div class="preview-remove" data-name="${src}">&times;</div>
+            <img src="http://localhost:8001/publication_image/${src}" alt="${src}" />
+          </div>
+        `
+            //'<img style="width:200px" class="post__img" src="http://localhost:8001/publication_image/'+src+'"/>' +
+            area.innerHTML.substring(end, area.innerHTML.length);
         }
-        // Иначе заплатка для Internet Explorer
-        else {// берем текст
-            var selectedText = document.selection.createRange().text;
-            // ЕСЛИ имеется какой-то выделенный текст, ТО
-            if (selectedText !== '') {// составляем новый текст
-            }
-        }
+        document.querySelector(`[data-name="${src}"]`).onclick = removeHandler
     }
 
 
-    
+
 export default publicationReduser

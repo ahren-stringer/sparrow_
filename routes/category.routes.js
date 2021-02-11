@@ -78,13 +78,14 @@ router.get('/category/some', async (req, res) => {
 router.get('/category/random', async (req, res) => {
     try {
         let categories = await PostCategory.find()
+        console.log(categories)
         let arr = shuffle(categories.map(item => {
             let obj = {};
             obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
             obj.category = item.category
             return obj
         }))
-        res.json(arr.slice(0, 4))
+        res.send(arr.slice(0, 4))
     } catch (e) {
         console.log(e)
         res.status(500).json({ message: 'Что-то пошло не так' })

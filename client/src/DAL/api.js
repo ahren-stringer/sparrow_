@@ -59,6 +59,16 @@ export let authAPI={
         .then(res => res.data)
     },
 }
+export let imagesAPI = {
+    deleteImg(filename) {
+        return instance.delete(`image/${filename}`)
+        .then(response => response.data)
+    },
+    deleteAllImages(date) {
+        return instance.delete(`images/${date}`)
+        .then(response => response.data)
+    },
+}
 export let homeAPI = {
     getCategories() {
         return instance.get(`category/random`)

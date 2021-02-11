@@ -74,46 +74,36 @@ router.get("/posts/:title", async (req, res) => {
         .populate(['author'])
         .exec((err, post) => {
             if (err) return res.status(404).json({ message: "Пост не найден" })
-            let obj = {};
-            // obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(post.img.destination + post.img.filename))
-            obj.title = post.title
-            obj.content = post.content
-            obj.categories = post.categories
-            obj.author=post.author
-            return res.json(obj)
+            // let obj = {};
+            // // obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(post.img.destination + post.img.filename))
+            // obj.title = post.title
+            // obj.content = post.content
+            // obj.categories = post.categories
+            // obj.author=post.author
+            return res.json(post)
         });
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так' })
     }
 });
-router.get('/post_image', async (req, res) => {
-    try {
-        console.log(__dirname)
-        res.sendFile(path.normalize(__dirname+"/public/posts/" + "IMAGE-1612819822710.jpg"))
-        console.log(path.normalize("./public/posts/" + "IMAGE-1612819822710.jpg"))
-    } catch (e) {
-        console.log(e)
-        res.status(500).json({ message: 'Что-то пошло не так' })
-    }
-})
 // Пагинация
 router.get('/posts/all/:limit/:skip', async (req, res) => {
     try {
         const posts_all = await Post.find();
         const posts = await Post.find().limit(+req.params.limit).skip(+req.params.skip)
-        let arr = posts.map(item => {
-            let obj = {};
-            // console.log(item.img)
-            // console.log(item.img.destination)
-            obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
-            obj.title = item.title
-            obj.content = item.content
-            obj.categories = item.categories
-            obj.subtitle = item.subtitle
-            return obj
-        })
+        // let arr = posts.map(item => {
+        //     let obj = {};
+        //     // console.log(item.img)
+        //     // console.log(item.img.destination)
+        //     obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
+        //     obj.title = item.title
+        //     obj.content = item.content
+        //     obj.categories = item.categories
+        //     obj.subtitle = item.subtitle
+        //     return obj
+        // })
         res.json({
-            "posts": arr,
+            "posts": posts,
             "totalCount": posts_all.length
         })
     } catch (e) {

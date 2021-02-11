@@ -64,10 +64,33 @@ router.get('/publication_image/:filename', async (req, res) => {
         res.status(500).json({ message: 'Что-то пошло не так' })
     }
 })
-router.delete("/images/:filename", async (req, res) => {
+router.delete("/image/:filename", async (req, res) => {
     try {
-        let images = await Image.find({ date: req.params.folder });
-        await Image.deleteMany({ date: req.params.folder })
+        let image = await Image.findOne({ "img.filename" : req.params.filename });
+        await Image.deleteMany({ "img.filename" : req.params.filename })
+        console.log("Successful deletion");
+
+        let file =path.normalize(image.img.destination + image.img.filename);
+        console.log(file)
+        fs.unlink(file, function (err) {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log('file deleted: ', file);
+            }
+        })
+
+        res.json({ message: 'delited' })
+
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так' })
+        console.log(e)
+    }
+});
+router.delete("/images/:date", async (req, res) => {
+    try {
+        let images = await Image.find({ date: req.params.date });
+        await Image.findOneAndDelete({ date: req.params.date })
         console.log("Successful deletion");
 
         let files = images.map(item => path.normalize(item.img.destination + item.img.filename));

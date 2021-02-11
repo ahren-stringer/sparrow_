@@ -5,12 +5,15 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import './NewPublication.css'
 import { useStyles } from '../../Hook/styleHook.js'
+import { imagesAPI } from '../../DAL/api';
+import { withRouter } from 'react-router-dom';
 
 class NewPublication extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            isUploaded:false,
             file: {},
             fileNumber: 1,
             title: null,
@@ -25,8 +28,9 @@ class NewPublication extends React.Component {
             fonts: [8, 10, 11, 12, 14, 15, 16, 18, 24, 36, 48],
             isClosed: true,
             image: '',
+            imageTitle:'',
             subtitle:'',
-            folder: Date.now()
+            date: Date.now()
         };
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -49,6 +53,9 @@ class NewPublication extends React.Component {
             })
         }
     }
+    componentWillUnmount(){
+       if (!this.state.isUploaded) imagesAPI.deleteAllImages(this.state.date)
+    }
     onFormSubmit(e) {
         e.preventDefault();
         const formData = new FormData();
@@ -68,6 +75,8 @@ class NewPublication extends React.Component {
         axios.post("http://localhost:8001/posts", formData, config)
             .then((response) => {
                 alert("The file is successfully uploaded");
+                this.setState({isUploaded:true})
+                this.props.history.goBack()
             }).catch((error) => {
             });
     }
@@ -77,16 +86,13 @@ class NewPublication extends React.Component {
         const reader = new FileReader();
         reader.onload = (e) => {
             console.log(e)
-            this.setState({ image: e.target.result })
+            this.setState({ imageTitle: e.target.result })
         }
         reader.readAsDataURL(e.target.files[0])
-    }
-    AddImage (e) {
-        // this.setState({ [e.target.name]: e.target.files[0] });
+
         const formData = new FormData();
         formData.append('myfile', e.target.files[0]);
-        formData.append('date', this.state.folder);
-debugger
+        formData.append('date', this.state.date);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -96,7 +102,22 @@ debugger
             .then((res) => {
                 this.setState({ image: res.data.img })
                 alert("The file is successfully uploaded");
-                debugger
+                // this.props.AddImageThunk('content',res.data.img.filename, this.props.copiedText)
+            }).catch((error) => { });
+    }
+    AddImage (e) {
+        const formData = new FormData();
+        formData.append('myfile', e.target.files[0]);
+        formData.append('date', this.state.date);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        axios.post("http://localhost:8001/images", formData, config)
+            .then((res) => {
+                this.setState({ image: res.data.img })
+                alert("The file is successfully uploaded");
                 this.props.AddImageThunk('content',res.data.img.filename, this.props.copiedText)
             }).catch((error) => { });
     }
@@ -175,7 +196,7 @@ debugger
 
                             {this.state.image &&
                                 <div style={{
-                                    backgroundImage: 'url(' + this.state.image + ')',
+                                    backgroundImage: 'url(' + this.state.imageTitle + ')',
                                     maxWidth: '700px'
                                 }}
                                     className='post-img'></div>
@@ -211,7 +232,8 @@ debugger
                                 height: '700px',
                                 backgroundColor: 'lightgrey',
                                 fontSize: '14px',
-                                padding: "10px"
+                                padding: "10px",
+                                overflow: "overlay"
                             }}
                                 contenteditable='true'
                                 spellcheck='true'
@@ -273,4 +295,4 @@ debugger
     }
 }
 
-export default NewPublication;
+export default withRouter(NewPublication);
