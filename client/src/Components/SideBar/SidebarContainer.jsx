@@ -10,12 +10,13 @@ import {
     searchThunk,
     CloseListThunk
   } from '../../redux/searchReduser';
+import { categoriesAPI } from '../../DAL/api';
 
 function SidebarContainer(props) {
 
     useEffect(async () => {
-        let req = await axios.get(`http://localhost:8001/category/some`)
-        props.setCategoriesSidebar(req.data)
+        let req = await categoriesAPI.getSomeCategories()
+        props.setCategoriesSidebar(req)
     }, [])
 
     if (!props.categoriesSidebar) return <CircularProgress />

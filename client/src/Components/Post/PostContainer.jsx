@@ -6,14 +6,14 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import Post from './Post';
 import { connect } from 'react-redux';
-import { comentsAPI } from '../../DAL/api';
+import { blogAPI, comentsAPI } from '../../DAL/api';
 
 function PostContainer(props) {
    useEffect(async () => {
       let postName = props.match.params.postName;
       if (postName) {
-         let postReq = await axios.get(`http://localhost:8001/posts/${postName}`)
-         props.setPost(postReq.data)
+         let postReq = await blogAPI.getSinglePost(postName)
+         props.setPost(postReq)
          let comentsReq= await comentsAPI.getComents(postName,10,0);
          debugger
          props.setComents(comentsReq.coments)

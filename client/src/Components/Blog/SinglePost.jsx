@@ -18,7 +18,9 @@ function SinglePost(props) {
                 </NavLink>
             </h1>
             <p className="post-meta">
-                <span className="date" >{props.item.data}</span>
+                <span className="date" >{props.item.data.replace( /-/g, "." )
+                                    .match(/[\d\.]+/)
+                                    .join('')}</span>
                 <span className="categories">
                     {props.item.categories[0].split(',').map(cateory => {
                         return <NavLink to='/category'>
@@ -33,7 +35,7 @@ function SinglePost(props) {
             <NavLink to={'/post/' + props.item.title}>
                 <div
                     style={{
-                        backgroundImage: "url(/publication_image/" + props.item.img.filename + ")"
+                        backgroundImage: "url(http://localhost:8001/publication_image/" + props.item.img.filename + ")"
                         //  backgroundImage: 'url('+props.item.img+')' 
                     }}
                     className='post-img'></div>

@@ -173,18 +173,18 @@ router.get('/posts/search_all/:search/:limit/:skip', async (req, res) => {
 
 router.get('/posts_latests', async (req, res) => {
     try {
-        const posts = await Post.find().sort({date:-1}).limit(3)
-        let arr = posts.map(item => {
-            let obj = {};
-            console.log(item.img)
-            console.log(item.img.destination)
-            // obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
-            obj.title = item.title
-            obj.content = item.content
-            obj.categories = item.categories
-            return obj
-        })
-        res.json(arr)
+        const posts = await Post.find().sort({date:-1}).limit(3).populate(['author'])
+        // let arr = posts.map(item => {
+        //     let obj = {};
+        //     console.log(item.img)
+        //     console.log(item.img.destination)
+        //     // obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
+        //     obj.title = item.title
+        //     obj.content = item.content
+        //     obj.categories = item.categories
+        //     return obj
+        // })
+        res.json(posts)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так' })
     }

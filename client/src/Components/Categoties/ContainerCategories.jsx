@@ -5,12 +5,13 @@ import { setCategories } from '../../redux/categoryReduser'
 import { CircularProgress } from '@material-ui/core';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { categoriesAPI } from '../../DAL/api';
 
 function ContainerCategories(props) {
 
     useEffect(async () => {
-        let req = await axios.get(`http://localhost:8001/category`)
-        props.setCategories(req.data)
+        let req = await categoriesAPI.getCategories()
+        props.setCategories(req)
     }, [])
 
     if (!props.categories) return <CircularProgress/>

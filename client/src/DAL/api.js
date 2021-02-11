@@ -1,7 +1,7 @@
 import * as axios from 'axios'
 
 let instance=axios.create({
-    // baseURL:'http://localhost:8001/',
+    baseURL:'http://localhost:8001/',
 })
 
 export let blogAPI={
@@ -11,6 +11,9 @@ export let blogAPI={
     setCategoryPosts(category,limit,skip){
         return instance.get(`posts/categories/${category}/${limit}/${limit*skip}`).then(res => res.data)
     },
+    getSinglePost(postName){
+        return instance.get(`posts/${postName}`).then(res => res.data)
+    }
 }
 export let SearchAPI = {
     getSearchPage(search,limit,skip) {
@@ -76,6 +79,16 @@ export let homeAPI = {
     },
     getPosts() {
         return instance.get(`posts_latests`)
+        .then(response => response.data)
+    },
+}
+export let categoriesAPI = {
+    getCategories() {
+        return instance.get(`category`)
+        .then(response => response.data)
+    },
+    getSomeCategories() {
+        return instance.get(`category/some`)
         .then(response => response.data)
     },
 }

@@ -184,7 +184,7 @@ export const AddImageThunk = (_obj_name, src, copiedText) =>
                 `
           <div class="preview-image" >
             <div class="preview-remove" data-name="${src}">&times;</div>
-            <img src="publication_image/${src}" alt="${src}" />
+            <img src="http://localhost:8001/publication_image/${src}" alt="${src}" />
           </div>
         `
             //'<img style="width:200px" class="post__img" src="http://localhost:8001/publication_image/'+src+'"/>' +
