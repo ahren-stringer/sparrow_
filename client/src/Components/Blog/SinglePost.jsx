@@ -5,7 +5,7 @@ import React from 'react';
 
 function SinglePost(props) {
 
-    return <article className="post">
+    return <>
         <div className="entry-header cf">
             <h1>
                 <NavLink to={'/post/' + props.item.title}>
@@ -43,7 +43,7 @@ function SinglePost(props) {
                 : <div dangerouslySetInnerHTML={{ __html: props.item.content }} />
             }
         </div>
-    </article>
+        </>
 }
 
 export default SinglePost;

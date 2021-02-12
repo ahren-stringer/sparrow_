@@ -1,8 +1,8 @@
 import './Post.css';
+import '../Blog/Blog.css'
 import { setPost,setComents,SetTotalCount } from '../../redux/postReduser';
 import { withRouter } from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core';
-import axios from 'axios';
 import { useEffect } from 'react';
 import Post from './Post';
 import { connect } from 'react-redux';
