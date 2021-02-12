@@ -133,7 +133,7 @@ router.get('/posts/search_all/:search/:limit/:skip', async (req, res) => {
 // Последние новости
 router.get('/posts_latests', async (req, res) => {
     try {
-        const posts = await Post.find().sort({date:-1}).limit(3).populate(['author'])
+        const posts = await Post.find().sort({date:1}).limit(3).populate(['author'])
         res.json(posts)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так' })
