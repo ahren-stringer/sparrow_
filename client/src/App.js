@@ -16,6 +16,7 @@ import { setToken, setUserId, setLogin, setLoaded } from './redux/authReduser'
 import {CloseListThunk } from './redux/searchReduser';
 import ContainerCategories from './Components/Categoties/ContainerCategories';
 import SearchContainer from './Components/Search/SearchContainer';
+import ChanelsContainer from './Components/Chanels/ChanelsContainer';
 
 function App(props) {
   const login = useCallback((jwtToken, id) => {
@@ -46,6 +47,7 @@ function App(props) {
       <Route exact path="/contacts" render={() => <Contacts/>}/>
       <Route exact path="/categories/" render={() => <ContainerCategories/>}/>
       <Route exact path="/search/:search" render={() => <SearchContainer/>}/>
+      <Route exact path="/chanels" render={() => <ChanelsContainer/>}/>
       <Footer/>
     </div>
   );

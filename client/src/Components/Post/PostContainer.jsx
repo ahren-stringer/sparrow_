@@ -14,7 +14,7 @@ function PostContainer(props) {
       if (postName) {
          let postReq = await blogAPI.getSinglePost(postName)
          props.setPost(postReq)
-         let comentsReq= await comentsAPI.getComents(postName,10,0);
+         let comentsReq= await comentsAPI.getComents(postReq._id,10,0);
          debugger
          props.setComents(comentsReq.coments)
          props.SetTotalCount(comentsReq.totalCount)

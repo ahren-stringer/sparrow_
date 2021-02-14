@@ -9,6 +9,7 @@ import popularReduser from "./popularReduser";
 import profileReduser from "./profileReduser";
 import publicationReduser from "./publicationReduser";
 import blogReduser from "./blogReduser";
+import chanelsReduser from "./chanelsReduser";
 
 const { createStore, combineReducers, applyMiddleware } = require("redux");
 
@@ -23,6 +24,7 @@ let redusers= combineReducers({
     profile:profileReduser,
     publication: publicationReduser,
     blog:blogReduser,
+    chanels:chanelsReduser
 });
 
 let store=createStore(redusers,applyMiddleware(thunkMiddleware));

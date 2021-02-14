@@ -29,7 +29,7 @@ function Blog(props) {
                         </div>
                         : <CircularProgress />
                   }
-                  <Pagination {...props} />
+                  {props.totalCount<props.onOnePage || <Pagination {...props} />}
                </div>
                <SidebarContainer />
             </div>

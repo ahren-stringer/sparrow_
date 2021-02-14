@@ -1,5 +1,3 @@
-import * as axios from 'axios';
-
 const SET_CATEGORY_DATA = 'categoryReuser/SET-CATEGORY-DATA';
 const SET_CATEGORY_SIDEBAR = 'categoryReuser/SET-CATEGORY-SIDEBAR';
 

@@ -6,13 +6,13 @@ import Coment from "../models/Coment.js"
 router.post('/coment', async (req, res) => {
 
     try {
-        const { coment, userId, post } = req.body
+        const { coment, author, post } = req.body
 
         // if (!token) return res.status(400).json({ message: 'Вы не авторизованны' })
         // const decoded = jwt.verify(token, 'TopSecret')
 
         // const user = await User.findById(decoded.userId)
-        const newComent = new Coment({ coment, author: userId, post })
+        const newComent = new Coment({ coment, author, post })
         await newComent.save()
         res.status(201).json({ newComent })
     } catch (e) {
@@ -21,15 +21,15 @@ router.post('/coment', async (req, res) => {
     }
 })
 
-router.get('/coments/some/:title/:limit/:skip', async (req, res) => {
+router.get('/coments/some/:postId/:limit/:skip', async (req, res) => {
     try {
         const coments_all= await Coment.find()
-        const coments = await Coment.find({post: req.params.title})
+        await Coment.find({post: req.params.postId})
         .limit(+req.params.limit)
         .skip(+req.params.skip)
         .populate(['author'])
         .exec((err, coments) => {
-            if (err) return res.status(404).json({ message: "Диалог не найден" })
+            if (err) return res.status(404).json({ message: "Коментарии не найдены" })
             return res.json({
                     "coments":coments,
                     "totalCount": coments_all.length

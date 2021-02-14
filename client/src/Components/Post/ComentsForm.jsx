@@ -47,7 +47,7 @@ function ComentsForm(props) {
     let submit = async (formData) => {
         try {
             debugger
-            let req = await comentsAPI.sendComent({ ...formData }, props.userId, props.post.title)
+            let req = await comentsAPI.sendComent({ ...formData }, props.post._id, props.userId)
         } catch (e) { }
     }
     return (

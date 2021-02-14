@@ -22,7 +22,7 @@ function Home(props) {
 }, [])
 
     return (<>
-      <Intro/>
+      {/* <Intro/> */}
       {/* <Info/> */}
       <Works {...props}/>
       <Jornal {...props}/>

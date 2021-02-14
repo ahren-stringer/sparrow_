@@ -40,7 +40,7 @@ mongoose.connect(connection_url, {
     useCreateIndex: true,
     useUnifiedTopology: true
 
-})
+}).catch(err=> console.log(err))
 
 mongoose.connection.on('error', err => {
     console.log(err);

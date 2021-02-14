@@ -49,13 +49,7 @@ function base64_encode(file) {
 router.get("/category", async (req, res) => {
     try {
         const categories = await PostCategory.find()
-        let arr = categories.map(item => {
-            let obj = {};
-            obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
-            obj.category = item.category
-            return obj
-        })
-        res.send(arr)
+        res.send(categories)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так' })
         console.log(e)
@@ -63,29 +57,17 @@ router.get("/category", async (req, res) => {
 });
 router.get('/category/some', async (req, res) => {
     try {
-        let categories = await PostCategory.find()
-        let arr = categories.map(item => {
-            let obj = {};
-            obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
-            obj.category = item.category
-            return obj
-        })
-        res.json(arr.slice(0, 6))
+        let categories = await PostCategory.find().limit(6)       
+        res.json(categories)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так' })
     }
 })
 router.get('/category/random', async (req, res) => {
     try {
-        let categories = await PostCategory.find()
-        console.log(categories)
-        let arr = shuffle(categories.map(item => {
-            let obj = {};
-            obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
-            obj.category = item.category
-            return obj
-        }))
-        res.send(arr.slice(0, 4))
+        let categories = await PostCategory.find();
+        categories=shuffle(categories)
+        res.send(categories.slice(0, 4))
     } catch (e) {
         console.log(e)
         res.status(500).json({ message: 'Что-то пошло не так' })

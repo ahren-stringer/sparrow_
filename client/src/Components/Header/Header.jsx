@@ -16,7 +16,7 @@ function Header(props) {
 
           <div className="twelve columns">
             <div className="logo">
-            <NavLink to='/'><img alt="" src={logo} /></NavLink>
+            <NavLink to='/'><span className="logo__img">Новостной блог</span></NavLink>
             </div>
 
             <nav id="nav-wrap">
@@ -26,10 +26,10 @@ function Header(props) {
 
               <ul id="nav" className="nav">
 
-              <NavLink to='/'><a href="index.htm">Home</a></NavLink>
+              {/* <NavLink to='/'></NavLink> */}
                 <li>
                 {/* <span> */}
-                    <NavLink to='/blog'>Blog</NavLink>
+                    <NavLink to='/blog'>Новости</NavLink>
                 {/* </span> */}
                   {/* <ul>
                     <li><a href="blog.html">Blog Index</a></li>
@@ -42,9 +42,9 @@ function Header(props) {
                     <li><a href="portfolio.html">Portfolio Entry</a></li>
                   </ul>
                 </li> */}
-                <li><NavLink to='/about'>About</NavLink></li>
-                <li><NavLink to='/contacts'>Contact</NavLink></li>
-                <li><NavLink to='/features'>Features</NavLink></li>
+                <li><NavLink to='/chanels'>Каналы</NavLink></li>
+                <li><NavLink to='/categories'>Категории</NavLink></li>
+                {/* <li><NavLink to='/contacts'>Contact</NavLink></li> */}
                 {!props.token ? <li><NavLink to='/auth'>Вход</NavLink></li> 
                 :<li><NavLink to='/profile'>Профиль</NavLink></li>
                   // <span className='auth__btn inner-item'

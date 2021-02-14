@@ -107,4 +107,14 @@ router.post(
         }
     })
 
+router.get("/users", async (req, res) => {
+    try {
+        const users = await User.find()
+        res.send(users)
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так' })
+        console.log(e)
+    }
+});
+
 export default router

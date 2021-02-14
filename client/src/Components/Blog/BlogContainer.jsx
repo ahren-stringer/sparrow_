@@ -9,7 +9,7 @@ import { blogAPI } from '../../DAL/api';
 import { withRouter } from 'react-router-dom'
 
 function BlogContainer(props) {
-debugger
+
    useEffect(async () => {
       let category = props.match.params.category;
       let req = [];
@@ -22,7 +22,7 @@ debugger
       props.SetTotalCount(req.totalCount)
    }, [])
    useEffect(async()=>{
-      debugger
+
      let req = await blogAPI.setCategoryPosts(props.match.params.category, props.onOnePage, props.numberOfPage - 1)
      props.setPosts(req.posts)
      props.SetTotalCount(req.totalCount)
