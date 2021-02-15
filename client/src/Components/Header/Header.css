@@ -2,13 +2,15 @@ header {
     height: 96px;
     width: 100%;
     background: #383232 url(../../images/header-bg.jpg);
+    font-weight: 700;
  }
  
  /* header logo */
  header .logo {
     position: absolute;
     left: 20px;
-    top: 48px;
+    transform: translate(0, -50%);
+    top: 50%;
  }
  header .logo a {
     display: block;
@@ -16,7 +18,7 @@ header {
      padding: 0;
      border: none;
      outline: none;
-    width: 113px;
+     font-size: 20px;
     height: 24px;
  }
  
@@ -65,12 +67,13 @@ header {
  /* 8px padding top + 8px padding bottom + 32px line-height = 48px */
  
     display: inline-block;
-    padding: 8px 11px;
+    padding: 0 11px 8px;
     line-height: 32px;
      text-decoration: none;
     text-align: left;
     color: #8a8383;
- 
+    font-weight: 700;
+
      -webkit-transition: color .2s ease-in-out;
      -moz-transition: color .2s ease-in-out;
      -o-transition: color .2s ease-in-out;

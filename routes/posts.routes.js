@@ -99,9 +99,8 @@ router.get("/posts/categories/:category/:limit/:skip", async (req, res) => {
 router.get('/posts/search/:search', async (req, res) => {
     try {
         const posts = await Post.find()
-
-        if (req.params.search==='') res.json([])
-        
+        // console.log(req.params)
+        // if (req.params.search==='') res.send([])
         res.json(posts.filter(item=> item.title.toLowerCase().includes(req.params.search)).slice(0,8))
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так' })
@@ -110,23 +109,16 @@ router.get('/posts/search/:search', async (req, res) => {
 
 router.get('/posts/search_all/:search/:limit/:skip', async (req, res) => {
     try {
-        const posts_all = await Post.find();
-        const posts = await Post.find().limit(+req.params.limit).skip(+req.params.skip)
-        let arr = posts.map(item => {
-            let obj = {};
-            console.log(item.img)
-            console.log(item.img.destination)
-            obj.img = 'data:image/png;base64,' + base64_encode(path.normalize(item.img.destination + item.img.filename))
-            obj.title = item.title
-            obj.content = item.content
-            obj.categories = item.categories
-            return obj
-        })
+        let posts = await Post.find()
+        posts=posts.filter(item=> item.title.toLowerCase().includes(req.params.search))
+        .slice(+req.params.skip,+req.params.skip + +req.params.limit+1)
+        //.limit(+req.params.limit).skip(+req.params.skip)
         res.json({
-            "posts": arr.filter(item=> item.title.toLowerCase().includes(req.params.search)),
-            "totalCount": posts_all.length
+            "posts": posts,
+            "totalCount": posts.length
         })
     } catch (e) {
+        console.log(e)
         res.status(500).json({ message: 'Что-то пошло не так' })
     }
 })

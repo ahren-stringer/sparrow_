@@ -21,14 +21,13 @@ function SideBar(props) {
 
             <div className="widget widget_search">
                <h5>Search</h5>
-               <form action="#">
+               <form action="#" className='searching-form'>
 
                   <input className="text-search" type="text" value={props.newSearchText}
                      onChange={() => { props.searchThunk(searchInput.current.value, props.requestNumber) }}
                      ref={searchInput}
                      name="s"
                      placeholder="Искать здесь..." />
-
                   {
                      props.newSearchText !== ''
                         ? <NavLink to={"/search/" + props.newSearchText} onClick={() => {
@@ -45,7 +44,7 @@ function SideBar(props) {
                      :
                      <ul className="collection">
                         {
-                           (props.isClosed && searched.request.length === 0) ? null :
+                           (props.isClosed && !searched.request) ? null :
                               searched.request.map((item) => {
 
                                  return <li className="collection-item">
@@ -61,7 +60,7 @@ function SideBar(props) {
                               })
                         }
                         {
-                           (searched.request.length === 0) ? null :
+                           (!searched.request ||searched.request.length===0) ? null :
                               <li className="collection-item">
                                  <NavLink to={"/search/" + props.newSearchText} onClick={() => {
                                     props.CloseListThunk()

@@ -22,7 +22,8 @@ export let SearchAPI = {
     },
     getSearchList(search) {
         return instance.get(`/posts/search/${search}`)
-            .then(response => response.data)
+            .then(response => {debugger
+               return response.data})
     },
 }
 

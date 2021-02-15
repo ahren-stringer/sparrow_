@@ -26,7 +26,7 @@ function Home(props) {
       {/* <Info/> */}
       <Works {...props}/>
       <Jornal {...props}/>
-      <CallToAction/>
+      {/* <CallToAction/> */}
       {/* <Tweets/> */}
     </>);
 }

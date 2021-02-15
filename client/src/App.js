@@ -13,13 +13,13 @@ import Profile from './Components/Profile/ProfileContainer';
 import NewPublication from './Components/NewPublication/NewPublicationContainer';
 import Contacts from './Components/Contacts/Contacts';
 import { setToken, setUserId, setLogin, setLoaded } from './redux/authReduser'
-import {CloseListThunk } from './redux/searchReduser';
+import { CloseListThunk } from './redux/searchReduser';
 import ContainerCategories from './Components/Categoties/ContainerCategories';
 import SearchContainer from './Components/Search/SearchContainer';
 import ChanelsContainer from './Components/Chanels/ChanelsContainer';
 
 function App(props) {
-  
+
   const login = useCallback((jwtToken, id) => {
     props.setToken(jwtToken)
     props.setUserId(id)
@@ -36,20 +36,21 @@ function App(props) {
     props.setLoaded(true)
   }, [login]);
   return (
-    <div classNameName="App">
-      <Header/>
-      <Route exact path="/" render={() => <Home/>}/>
-      <Route exact path="/blog/:category?" render={() => <Blog/>}/>
-      <Route exact path="/post/:postName?" render={() => <Post/>}/>
-      <Route exact path="/auth" render={() => <Auth/>}/>
-      <Route exact path="/register" render={() => <Register/>}/>
-      <Route exact path="/profile" render={() => <Profile/>}/>
-      <Route exact path="/publication" render={() => <NewPublication/>}/>
-      <Route exact path="/contacts" render={() => <Contacts/>}/>
-      <Route exact path="/categories" render={() => <ContainerCategories/>}/>
-      <Route exact path="/search/:search" render={() => <SearchContainer/>}/>
-      <Route exact path="/chanels" render={() => <ChanelsContainer/>}/>
-      <Footer/>
+    <div className="App"
+      onClick={props.CloseListThunk()}>
+      <Header />
+      <Route exact path="/" render={() => <Home />} />
+      <Route exact path="/blog/:category?" render={() => <Blog />} />
+      <Route exact path="/post/:postName?" render={() => <Post />} />
+      <Route exact path="/auth" render={() => <Auth />} />
+      <Route exact path="/register" render={() => <Register />} />
+      <Route exact path="/profile" render={() => <Profile />} />
+      <Route exact path="/publication" render={() => <NewPublication />} />
+      <Route exact path="/contacts" render={() => <Contacts />} />
+      <Route exact path="/categories" render={() => <ContainerCategories />} />
+      <Route exact path="/search/:search" render={() => <SearchContainer />} />
+      <Route exact path="/chanels" render={() => <ChanelsContainer />} />
+      <Footer />
     </div>
   );
 }
@@ -63,5 +64,7 @@ let mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { setToken, setUserId, setLogin, setLoaded,
-  CloseListThunk })(withRouter(App));
+export default connect(mapStateToProps, {
+  setToken, setUserId, setLogin, setLoaded,
+  CloseListThunk
+})(withRouter(App));

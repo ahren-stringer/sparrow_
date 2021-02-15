@@ -79,10 +79,6 @@ function Profile(props) {
 
                      <div className="entry-header">
              
-                       <div className="permalink">
-                         <NavLink to={'/post/' + item.title}><i className="fa fa-link"></i></NavLink>
-                       </div>
-             
                        <div className="ten columns entry-title pull-right">
                          <h3><NavLink to={'/post/' + item.title}>{item.title}</NavLink></h3>
                        </div>
@@ -112,7 +108,9 @@ function Profile(props) {
                         Добавить Публикацию
                         </NavLink>
                   </h3>
-                  <h3 className='logout'
+                  <button className='logout'>
+                  <h3 style={{margin:'0',
+                  color:'#fff'}}
                      onClick={() => {
                         debugger
                         props.logout()
@@ -121,6 +119,7 @@ function Profile(props) {
                   >
                      Выход
                      </h3>
+                  </button>
                   </div>
 
                </article>

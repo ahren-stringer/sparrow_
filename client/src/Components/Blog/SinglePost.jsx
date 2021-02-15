@@ -37,7 +37,7 @@ debugger
             </NavLink>
         </div>
         <div className="post-content" id="id">
-            {props.path === '/blog/:category?'
+            {props.path === '/blog/:category?' || props.path === '/search/:search'
                 ? <p>{props.item.subtitle}</p>
                 // ? <p>{props.item.content.split(' ').slice(0, 50).join(' ')}</p>
                 : <div dangerouslySetInnerHTML={{ __html: props.item.content }} />
