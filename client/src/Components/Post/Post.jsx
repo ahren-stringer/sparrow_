@@ -24,7 +24,6 @@ function Post(props) {
                            backgroundSize: "cover",
                            borderRadius: "100%",
                         }}>
-                        {/* <img src="images/author-img.png" alt="" /> */}
                      </div>
                      <div className="about">
                         <h5><a title="Posts by John Doe" href="#" rel="author">{props.post.author.name}</a></h5>

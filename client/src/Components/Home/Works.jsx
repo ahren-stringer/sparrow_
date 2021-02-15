@@ -11,7 +11,7 @@ function Works(props) {
     <div className="row">
 
       <div className="twelve columns align-center">
-        <h1>Категории</h1>
+        <h1><NavLink to='/categories'>Категории</NavLink></h1>
       </div>
 
       <div id="portfolio-wrapper" className="bgrid-quarters s-bgrid-halves">

@@ -43,7 +43,7 @@ router.post(
             upload(req, res, async () => {
                 console.log("Request ---", req.body);
                 console.log("Request file ---", req.file); //Here you get file.
-                const { name, email, password } = req.body
+                const { name, email, password, description} = req.body
 
                 const condidate = await User.findOne({ email })
 
@@ -56,7 +56,8 @@ router.post(
                     name,
                     email,
                     password: hashedPassword,
-                    avatar: req.file
+                    avatar: req.file,
+                    description
                 });
 
                 await user.save()

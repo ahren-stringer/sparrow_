@@ -407,6 +407,7 @@ e. Others
     padding: 0;
  }
  .pagination .page-numbers {
+   cursor: pointer;
     font: 15px/18px notosans-bold, sans-serif;
     display: inline-block;
     padding: 6px 10px;

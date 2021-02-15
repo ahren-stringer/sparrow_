@@ -12,18 +12,30 @@ function Coments(props) {
             <h3>{props.totalCount} Comments</h3>
 
             <ol className="commentlist">
-            
+
                 {props.coments.map(item => <li className="thread-alt depth-1">
 
                     <div className="avatar">
-                        <img width="50" height="50" className="avatar" src={user3} alt="" />
+                    <div className="avatar" style={{
+                           backgroundImage: `url(http://localhost:8001/publication_image/${item.author.avatar.destination}${item.author.avatar.filename})`,
+                           width: "75px",
+                           height: "75px",
+                           backgroundSize: "cover",
+                           borderRadius: "100%",
+                        }}>
+                     </div>
+                        {/* <img width="50" height="50" className="avatar" src={user3} alt="" /> */}
                     </div>
 
                     <div className="comment-info">
                         <cite>{item.author.name}</cite>
 
                         <div className="comment-meta">
-                            <time className="comment-time" datetime="2014-01-14T24:05">{item.date}</time>
+                            <time className="comment-time" datetime="2014-01-14T24:05">
+                                {item.date.replace(/-/g, ".")
+                                    .match(/[\d\.]+/)
+                                    .join('')}
+                            </time>
                             <span className="sep">/</span><a className="reply" href="#">Reply</a>
                         </div>
                     </div>
@@ -62,7 +74,7 @@ function Coments(props) {
                 </li>)}
 
             </ol>
-            <ComentsForm post={props.post}/>
+            <ComentsForm post={props.post} />
         </div>
     );
 }

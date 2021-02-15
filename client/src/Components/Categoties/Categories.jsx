@@ -50,28 +50,37 @@ class Categories extends React.Component {
       return (
          <div className="content-outer">
             <div id="page-content" className="row">
-               <div id="primary" className="eight columns">
-                  {
-                     this.props.categories.map(item => <div class="columns portfolio-item first">
-                        <div class="item-wrap">
-                           <NavLink to={'/blog/' + item.category}>
-                              <img alt="" src={item.img} />
-                              <div class="overlay"></div>
-                              <div class="link-icon"><i class="fa fa-link"></i></div>
-                           </NavLink>
-                           <div class="portfolio-item-meta">
-                              <h5>
-                                 <NavLink to={'/blog/' + item.category}>
-                                    {item.category}
-                                 </NavLink>
-                              </h5>
-                              {/* <p>Illustrration</p> */}
+               <div id="primary" className="twelve columns portfolio-list">
+                  <h2 className="categories__title"> Категории </h2>
+                  <div id="portfolio-wrapper" class="bgrid-halves cf">
+                     {
+                        this.props.categories.map(item => <div class="columns portfolio-item">
+                           <div class="item-wrap">
+                              <NavLink to={'/blog/' + item.category}>
+                                 <div style={{
+                                    backgroundImage: `url(http://localhost:8001/publication_image/${item.img.destination}${item.img.filename})`,
+                                    height: "250px",
+                                    backgroundSize: "cover",
+                                    borderRadius: "3px",
+                                 }}></div>
+                                 {/* <img alt="" src={"http://localhost:8001/publication_image/" + item.img.destination +item.img.filename} /> */}
+                                 <div class="overlay"></div>
+                                 <div class="link-icon"><i class="fa fa-link"></i></div>
+                              </NavLink>
+                              <div class="portfolio-item-meta">
+                                 <h5>
+                                    <NavLink to={'/blog/' + item.category}>
+                                       {item.category}
+                                    </NavLink>
+                                 </h5>
+                                 {/* <p>Illustrration</p> */}
+                              </div>
                            </div>
-                        </div>
-                     </div>)
-                  }
+                        </div>)
+                     }
+                  </div>
                </div>
-               <form onSubmit={this.onFormSubmit}>
+               {/* <form onSubmit={this.onFormSubmit}>
                   <h1>Добавь категорию</h1>
                   <input name='category'
                      type='text'
@@ -81,7 +90,7 @@ class Categories extends React.Component {
                   />
                   <input type="file" className="custom-file-input" name="myImage" onChange={this.onChange} />
                   <button className="upload-button" type="submit">Upload to DB</button>
-               </form>
+               </form> */}
             </div>
          </div>
       )
@@ -89,36 +98,3 @@ class Categories extends React.Component {
 }
 
 export default Categories;
-
-// function Categories(props) {
-//    let [categories, setCategories]=useState(props.categories)
-
-//    useEffect(async ()=>{
-//       let req=await axios.get(`http://localhost:8001/category`)
-//       props.setCategories(req.data)
-//       console.log(req.data)
-//       debugger
-//    },[])
-
-//    useEffect(()=>{
-//       setCategories(props.categories)
-//    },[props.categories])
-//    return (
-//       <>
-//          <PageTitle />
-
-//          <div className="content-outer">
-
-//             <div id="page-content" className="row">
-
-//                <div id="primary" className="eight columns">
-
-//                   {categories.map(item=> <div>{item.category}</div>)}
-//                </div>
-//                <SideBar />
-//             </div>
-//          </div>
-//       </>);
-// }
-
-// export default Categories;

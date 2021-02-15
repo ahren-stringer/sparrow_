@@ -22,10 +22,15 @@ function BlogContainer(props) {
       props.SetTotalCount(req.totalCount)
    }, [])
    useEffect(async()=>{
-
-     let req = await blogAPI.setCategoryPosts(props.match.params.category, props.onOnePage, props.numberOfPage - 1)
-     props.setPosts(req.posts)
-     props.SetTotalCount(req.totalCount)
+      let category = props.match.params.category;
+      let req = [];
+      if (!category) {
+         req = await blogAPI.setPosts(props.onOnePage, props.numberOfPage - 1)
+      } else {
+         req = await blogAPI.setCategoryPosts(category, props.onOnePage, props.numberOfPage - 1)
+      }
+      props.setPosts(req.posts)
+      props.SetTotalCount(req.totalCount)
    },[props.match.params.category])
 
    let onPageChange = async (onOnePage, numberOfPage) => {

@@ -16,8 +16,8 @@ export const __dirname = path.dirname(__filename);
 const app = expess();
 const port = process.env.PORT || 8001;
 const connection_url = 'mongodb+srv://ahren:sVi9gNCp8d9boA0Y@cluster0.v0wai.mongodb.net/Sparrow2?retryWrites=true&w=majority'
- 'mongodb://localhost:27017/sparrow'
- 
+'mongodb://localhost:27017/sparrow' 
+  
 //Middlewares
 app.use(expess.json())
 app.use(Cors())
