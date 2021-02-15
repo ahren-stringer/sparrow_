@@ -23,7 +23,7 @@ router.post('/coment', async (req, res) => {
 
 router.get('/coments/some/:postId/:limit/:skip', async (req, res) => {
     try {
-        const coments_all= await Coment.find()
+        // const coments_all= await Coment.find()
         await Coment.find({post: req.params.postId})
         .limit(+req.params.limit)
         .skip(+req.params.skip)
@@ -32,7 +32,7 @@ router.get('/coments/some/:postId/:limit/:skip', async (req, res) => {
             if (err) return res.status(404).json({ message: "Коментарии не найдены" })
             return res.json({
                     "coments":coments,
-                    "totalCount": coments_all.length
+                    "totalCount": coments.length
                 })
         });
     } catch (e) {

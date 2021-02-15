@@ -1,6 +1,5 @@
 footer {
-    margin-top: 66px;
-    margin-bottom: 84px;
+   height: 35vh;
     font-size: 14px;
  }
  footer a, footer a:visited { color: #6A747C; }

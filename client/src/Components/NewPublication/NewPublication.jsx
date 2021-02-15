@@ -13,7 +13,7 @@ class NewPublication extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isUploaded:false,
+            isUploaded: false,
             file: {},
             fileNumber: 1,
             title: null,
@@ -28,8 +28,8 @@ class NewPublication extends React.Component {
             fonts: [8, 10, 11, 12, 14, 15, 16, 18, 24, 36, 48],
             isClosed: true,
             image: '',
-            imageTitle:'',
-            subtitle:'',
+            imageTitle: '',
+            subtitle: '',
             date: Date.now()
         };
         this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -53,8 +53,8 @@ class NewPublication extends React.Component {
             })
         }
     }
-    componentWillUnmount(){
-       if (!this.state.isUploaded) imagesAPI.deleteAllImages(this.state.date)
+    componentWillUnmount() {
+        if (!this.state.isUploaded) imagesAPI.deleteAllImages(this.state.date)
     }
     onFormSubmit(e) {
         e.preventDefault();
@@ -75,7 +75,7 @@ class NewPublication extends React.Component {
         axios.post("http://localhost:8001/posts", formData, config)
             .then((response) => {
                 alert("The file is successfully uploaded");
-                this.setState({isUploaded:true})
+                this.setState({ isUploaded: true })
                 this.props.history.goBack()
             }).catch((error) => {
             });
@@ -105,7 +105,7 @@ class NewPublication extends React.Component {
                 // this.props.AddImageThunk('content',res.data.img.filename, this.props.copiedText)
             }).catch((error) => { });
     }
-    AddImage (e) {
+    AddImage(e) {
         const formData = new FormData();
         formData.append('myfile', e.target.files[0]);
         formData.append('date', this.state.date);
@@ -118,7 +118,7 @@ class NewPublication extends React.Component {
             .then((res) => {
                 this.setState({ image: res.data.img })
                 alert("The file is successfully uploaded");
-                this.props.AddImageThunk('content',res.data.img.filename, this.props.copiedText)
+                this.props.AddImageThunk('content', res.data.img.filename, this.props.copiedText)
             }).catch((error) => { });
     }
     onInputChange(e) {
@@ -182,6 +182,7 @@ class NewPublication extends React.Component {
                 <div id="page-content" className="row">
                     <form onSubmit={this.onFormSubmit}>
                         <h1>Новая публикация</h1>
+                        <h5>Заголовок</h5>
                         <input name='title'
                             type='text'
                             id='publication-title'
@@ -204,8 +205,17 @@ class NewPublication extends React.Component {
                             }
                         </div>
 
-                        <input type="text" id="subtitle" className="" name="subtitle" onChange={this.onInputChange} />
-                        <label for="subtitle">Краткое описание</label>
+                        <h5>Подзаголовок</h5>
+                        <textarea type="text"
+                            id="subtitle"
+                            className=""
+                            name="subtitle"
+                            onChange={this.onInputChange}
+                            style={{
+                                height: "84px",
+                                width: "100%",
+                            }} />
+                        {/* <label for="subtitle">Краткое описание</label> */}
 
                         <div className='textarea__wrapper'>
                             <div className="Controls">
@@ -221,12 +231,12 @@ class NewPublication extends React.Component {
                                     </select>
 
                                 </span>
-
+                                <input type="file" id="images" onChange={this.AddImage}
+                                    className="add-content-img"
+                                    name="images" />
+                                <label for="images">Добавить изображение</label>
                             </div>
-                            <input type="file" id="images" onChange={this.AddImage}
-                                // className="add-content-img"
-                                name="images" />
-                            <label for="images">Добавить изображение</label>
+
                             <div role='textarea' style={{
                                 width: '100%',
                                 height: '700px',
@@ -254,7 +264,7 @@ class NewPublication extends React.Component {
                                 {/* <span>&#8203;</span>
                                 <br></br> */}
                             </div>
-                            <h3 onClick={(e) => alert(e.target.previousElementSibling.innerHTML)}>Alert</h3>
+                            {/* <h3 onClick={(e) => alert(e.target.previousElementSibling.innerHTML)}>Alert</h3> */}
                         </div>
                         <div>
                             <h5>Выберите категории</h5>
@@ -287,7 +297,7 @@ class NewPublication extends React.Component {
                                     />
                                 </div>}
                         </div>
-                        <button className="upload-button" type="submit">Upload to DB</button>
+                        <button className="upload-button" type="submit">Отправить</button>
                     </form>
                 </div>
             </div >
