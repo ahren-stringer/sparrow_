@@ -1,3 +1,4 @@
+import './media-queries.css'
 import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './App.css';

@@ -12,7 +12,7 @@ function Blog(props) {
 
    return (
       <>
-         <PageTitle />
+         {/* <PageTitle /> */}
 
          <div className="content-outer">
 

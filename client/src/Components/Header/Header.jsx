@@ -12,7 +12,7 @@ function Header(props) {
   return (
       <header>
 
-        <div className="row">
+        <div className="row" style={{position:"relative"}}>
 
           <div className="twelve columns">
             <div className="logo">

@@ -20,7 +20,7 @@ function SidebarContainer(props) {
         props.setCategoriesSidebar(req)
     }, [])
 
-    if (!props.categoriesSidebar) return <CircularProgress />
+    // if (!props.categoriesSidebar) return <CircularProgress />
     return <SideBar {...props} />
 }
 

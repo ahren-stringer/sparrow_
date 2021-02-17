@@ -1,3 +1,4 @@
+
 /*
 =====================================================================
 *   Sparrow v1.0 Default Stylesheet
@@ -627,7 +628,7 @@ e. Others
  }
  
  .column, .columns {
-    position: relative;
+    /* position: relative; */
     padding: 0 20px;
     min-height: 1px;
     float: left;

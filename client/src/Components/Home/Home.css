@@ -434,3 +434,37 @@
 #tweets .button {
    padding: 6px 24px;
 }
+@media only screen and (max-width: 767px){
+   #journal {
+      padding-top: 54px;
+      padding-bottom: 36px;
+   }
+   #journal h1 { margin-bottom: 0; }
+   #journal .blog-entries { margin-top: 0; }
+   #journal .entry-header .permalink {
+      display: none;
+      z-index: 1;
+   }
+   #journal .entry-header .entry-title {
+      padding: 0 30px;
+      margin-bottom: 6px;
+      right: 0;
+      text-align: center;
+      z-index: 3;
+   }
+   #journal .entry .post-content {
+      padding: 0 30px;
+      margin-top: 18px;
+      margin-left: 0;
+   }
+   #journal .entry .post-meta { text-align: center; }
+   #journal .entry .post-meta time,
+   #journal .entry .post-meta .dauthor {
+      display: inline;
+   }
+   #journal .entry .post-meta .dauthor:before {
+      content: "/";
+      padding-left: 5px;
+      padding-right: 5px;
+   }
+}

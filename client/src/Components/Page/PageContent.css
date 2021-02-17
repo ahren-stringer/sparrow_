@@ -13,6 +13,18 @@
     font: 39px/48px raleway-semibold, sans-serif;
     margin-bottom: 18px;
  }
- 
+ @media only screen and (max-width: 767px){
+    /* page title
+   -------------------------------------------------------------------- */
+   #page-title h1 { font: 38px/48px raleway-bold, sans-serif; }
+   #page-title p { font: 16px/30px notosans-regular, sans-serif; }
+
+   /* page content
+   -------------------------------------------------------------------- */
+   #page-content {
+      width: 480px;
+      padding-top: 30px;
+   }
+ }
  /* sidebar */
  

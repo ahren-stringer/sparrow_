@@ -186,7 +186,8 @@ class NewPublication extends React.Component {
                         <input name='title'
                             type='text'
                             id='publication-title'
-                            size="35"
+                            // size="35"
+                            style={{width:'100%'}}
                             onChange={this.onInputChange}
                         />
                         <div className='add_title_img'>

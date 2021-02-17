@@ -19,8 +19,9 @@ function SideBar(props) {
 
          <aside id="sidebar">
 
+
             <div className="widget widget_search">
-               <h5>Search</h5>
+               <h5>Поиск</h5>
                <form action="#" className='searching-form'>
 
                   <input className="text-search" type="text" value={props.newSearchText}
@@ -48,19 +49,19 @@ function SideBar(props) {
                               searched.request.map((item) => {
 
                                  return <li className="collection-item">
-                                 <NavLink to={`/post/${item.title}`}
-                                    //className="collection-item"
-                                    onClick={() => {
-                                       props.SearchChange('')
-                                       props.CloseListThunk()
-                                    }}>
-                                    {item.title}
-                                 </NavLink>
+                                    <NavLink to={`/post/${item.title}`}
+                                       //className="collection-item"
+                                       onClick={() => {
+                                          props.SearchChange('')
+                                          props.CloseListThunk()
+                                       }}>
+                                       {item.title}
+                                    </NavLink>
                                  </li>
                               })
                         }
                         {
-                           (!searched.request ||searched.request.length===0) ? null :
+                           (!searched.request || searched.request.length === 0) ? null :
                               <li className="collection-item">
                                  <NavLink to={"/search/" + props.newSearchText} onClick={() => {
                                     props.CloseListThunk()
@@ -75,20 +76,23 @@ function SideBar(props) {
                </form>
             </div>
 
-            <div className="widget widget_categories">
-               <h5 className="widget-title">
-                  <NavLink to='/categories'>
-                     Categories
+            {!props.categoriesSidebar ? <CircularProgress />
+               : <>
+                  <div className="widget widget_categories">
+                     <h5 className="widget-title">
+                        <NavLink to='/categories'>
+                           Категории
                   </NavLink>
-               </h5>
-               <ul className="link-list cf">
-                  {props.categoriesSidebar.map(item => <li>
-                     <NavLink to={`/blog/${item.category}`}>
-                        {item.category}
-                     </NavLink>
-                  </li>)}
-               </ul>
-            </div>
+                     </h5>
+                     <ul className="link-list cf">
+                        {props.categoriesSidebar.map(item => <li>
+                           <NavLink to={`/blog/${item.category}`}>
+                              {item.category}
+                           </NavLink>
+                        </li>)}
+                     </ul>
+                  </div>
+               </>}
          </aside>
 
       </div>

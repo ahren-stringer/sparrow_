@@ -5,6 +5,7 @@ import App from './App';
 import store from '../src/redux/Store'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom';
+import './media-queries.css'
 
 ReactDOM.render(
   <BrowserRouter>

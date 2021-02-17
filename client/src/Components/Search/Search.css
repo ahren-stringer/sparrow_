@@ -234,3 +234,64 @@ ol.commentlist {
    background-position: center center;
    border-radius: 3px;
 }
+@media only screen and (max-width: 767px){
+   .post .entry-header h1 { font: 32px/42px raleway-semibold, sans-serif; }
+
+    /* bio */
+   .post .bio { padding-top: 18px; }
+   .post .bio .gravatar {
+      float: none;
+      width: 72px;
+      margin: 0 auto 18px auto;
+   }
+   .post .bio .about {
+      width: 100%;
+      float: none;
+      padding-left: 0;
+      text-align: center;
+   }
+
+   /* post-nav */
+   .post-nav { margin-top: 18px; }
+   .post-nav li {
+      display: block;
+      margin: 0 0 18px 0;
+      width: 100%;
+   }
+   .post-nav li.next {
+      float: none;
+      text-align: center;
+   }
+   .post-nav li.prev {
+      float: none;
+      text-align: center;
+   }
+
+   /* Comments*/
+   #comments h3 {
+      text-align: center;
+      margin-left: 0;
+   }
+
+   /* Comments List */
+   ol.commentlist {
+      width: 100%;
+      margin-left: 0;
+   }
+   .commentlist  li .avatar { display: none; }
+
+   /* comment form */
+   #comments form { margin-left: 0; }
+   #comments form input,
+   #comments form textarea,
+   #comments form select,
+   #comments form label {
+      width: 100%;
+      float: none;
+   }
+   #comments form label { padding-left: 0; }
+   #comments form div { margin-bottom: 0; }
+   #comments form input { margin-bottom: 0; }
+   #comments form .message label { display: block; }
+
+}
