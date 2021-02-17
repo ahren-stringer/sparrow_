@@ -3,9 +3,7 @@ import './Profile.css'
 import { logout } from '../../redux/authReduser';
 import { setUser, setPosts } from '../../redux/profileReduser';
 import { connect } from "react-redux";
-import { CircularProgress } from '@material-ui/core'
 import Profile from "./Profile";
-import Preloader from "../Preloader/Preloader";
 
 function ProfileContainer(props) {
    debugger

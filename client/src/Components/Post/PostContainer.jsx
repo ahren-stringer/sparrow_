@@ -20,7 +20,7 @@ function PostContainer(props) {
          props.SetTotalCount(comentsReq.totalCount)
       }
    }, [])
-   if (!props.post) return <CircularProgress />
+   // if (!props.post) return <CircularProgress />
    return <Post {...props} />
 }
 let mapStateToPros = (state) => {

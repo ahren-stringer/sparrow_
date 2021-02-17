@@ -140,4 +140,5 @@ router.get('/posts/author/:id', async (req, res) => {
         res.status(500).json({ message: 'Что-то пошло не так' })
     }
 })
+
 export default router 

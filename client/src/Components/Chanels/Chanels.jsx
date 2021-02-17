@@ -16,7 +16,7 @@ function Chanels(props) {
                   <div className="post-content">
 
                      <h3>Каналы</h3>
-                     {props.chanels.map(item=><NavLink to={`/chanels/${item.name}`}>
+                     {props.chanels.map(item=><NavLink to={`/chanels/${item._id}`}>
                      <div className="bio cf" style={{cursor:'pointer'}}>
 
                         <div className="gravatar" style={{

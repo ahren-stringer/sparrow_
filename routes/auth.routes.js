@@ -117,14 +117,14 @@ router.get("/users", async (req, res) => {
         console.log(e)
     }
 });
-router.get("/user/:name", async (req, res) => {
-    try {
-        const user = await User.findById(req.params.name)
-        res.send(user)
-    } catch (e) {
-        res.status(500).json({ message: 'Что-то пошло не так' })
-        console.log(e)
-    }
-});
+// router.get("/user/:name", async (req, res) => {
+//     try {
+//         const user = await User.findOne({name: req.params.name})
+//         res.send(user)
+//     } catch (e) {
+//         res.status(500).json({ message: 'Что-то пошло не так' })
+//         console.log(e)
+//     }
+// });
 
 export default router

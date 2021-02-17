@@ -1,7 +1,7 @@
 import * as axios from 'axios'
 
 let instance=axios.create({
-    baseURL:'http://localhost:8001/',
+    // baseURL:'http://localhost:8001/',
 })
 
 export let blogAPI={
@@ -108,5 +108,8 @@ export let chanelsAPI={
     },
     getUser(name){
         return instance.get(`user/${name}`).then(res => res.data)
+    },
+    getPosts(name){
+        return instance.get(`chanel_posts/${name}`).then(res => res.data)
     },
 }
