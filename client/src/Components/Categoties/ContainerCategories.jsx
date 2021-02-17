@@ -15,7 +15,7 @@ function ContainerCategories(props) {
         props.setCategories(req)
     }, [])
 
-    if (!props.categories) return <CircularProgress/>
+    // if (!props.categories) return <CircularProgress/>
     return <Categories {...props} />
 }
 

@@ -1,13 +1,16 @@
 import { CircularProgress } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
+import Preloader from '../Preloader/Preloader';
 import './Home.css';
 
 function Jornal(props) {
   debugger
-  if (!props.posts) return <CircularProgress/>
+  // if (!props.posts) return <CircularProgress/>
   return (
     <section id="journal">
 
+    {!props.posts  ? <Preloader/>
+    :<>
     <div className="row">
       <div className="twelve columns align-center">
         <h1>Последние новости</h1>
@@ -48,7 +51,7 @@ function Jornal(props) {
       </article>)}
 
     </div>
-    {/* <!-- Entries End --> */}
+    </>}
 
   </section>
 

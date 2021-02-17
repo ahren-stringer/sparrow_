@@ -75,7 +75,6 @@ function SideBar(props) {
                   }
                </form>
             </div>
-
             {!props.categoriesSidebar ? <CircularProgress />
                : <>
                   <div className="widget widget_categories">

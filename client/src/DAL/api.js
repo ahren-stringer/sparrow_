@@ -106,4 +106,7 @@ export let chanelsAPI={
     getUsers(){
         return instance.get(`users`).then(res => res.data)
     },
+    getUser(name){
+        return instance.get(`user/${name}`).then(res => res.data)
+    },
 }

@@ -74,7 +74,8 @@ function Coments(props) {
                 </li>)}
 
             </ol>
-            <ComentsForm post={props.post} />
+            {!props.token ? <div>Авторизуйтесь, чтобы оставить коментарий</div>
+                :<ComentsForm post={props.post} />}
         </div>
     );
 }

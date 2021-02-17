@@ -7,6 +7,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import SinglePost from './SinglePost';
 import SidebarContainer from '../SideBar/SidebarContainer';
 import { CircularProgress } from '@material-ui/core';
+import Preloader from '../Preloader/Preloader';
 
 function Blog(props) {
 
@@ -18,7 +19,9 @@ function Blog(props) {
 
             <div id="page-content" className="row">
 
-               <div id="primary" className="eight columns">
+               {!props.posts ? <Preloader />
+                  :<>
+                  <div id="primary" className="eight columns">
                   {
                      !props.postsLoaded
                         ? <div>
@@ -32,6 +35,7 @@ function Blog(props) {
                   {props.totalCount<props.onOnePage || <Pagination {...props} />}
                </div>
                <SidebarContainer />
+               </>}
             </div>
          </div>
       </>);

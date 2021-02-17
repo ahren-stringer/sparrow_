@@ -7,6 +7,7 @@ import { setCategories } from '../../redux/categoryReduser'
 import axios from 'axios';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Preloader from '../Preloader/Preloader';
 
 class Categories extends React.Component {
 
@@ -50,7 +51,8 @@ class Categories extends React.Component {
       return (
          <div className="content-outer">
             <div id="page-content" className="row">
-               <div id="primary" className="twelve columns portfolio-list">
+               {!this.props.categories ? <Preloader/>
+               :<div id="primary" className="twelve columns portfolio-list">
                   <h2 className="categories__title"> Категории </h2>
                   <div id="portfolio-wrapper" class="bgrid-halves cf">
                      {
@@ -79,18 +81,7 @@ class Categories extends React.Component {
                         </div>)
                      }
                   </div>
-               </div>
-               {/* <form onSubmit={this.onFormSubmit}>
-                  <h1>Добавь категорию</h1>
-                  <input name='category'
-                     type='text'
-                     id='publication-title'
-                     size="35"
-                     onChange={this.onInputChange}
-                  />
-                  <input type="file" className="custom-file-input" name="myImage" onChange={this.onChange} />
-                  <button className="upload-button" type="submit">Upload to DB</button>
-               </form> */}
+               </div>}
             </div>
          </div>
       )

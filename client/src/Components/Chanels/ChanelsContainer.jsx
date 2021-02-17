@@ -8,18 +8,23 @@ import { chanelsAPI } from "../../DAL/api";
 
 function ChanelsContainer(props) {
    debugger
-    useEffect(async () => {
-        let req= await chanelsAPI.getUsers()
-        debugger
-        props.setChanels(req)
-     }, [])
+   useEffect(async () => {
+      let chanel = props.match.params.chanel;
+      let req;
+      if (chanel) {
+         req = await chanelsAPI.getUsers()
+      }else{
+         req = await chanelsAPI.getUsers()
+      }
+      props.setChanels(req)
+   }, [])
 
    if (props.chanels===null) return <CircularProgress />
-   return <Chanels {...props}/>  
+   return <Chanels {...props} />
 }
 let mapStateToPros = (state) => {
    return {
-    chanels: state.chanels.chanels
+      chanels: state.chanels.chanels
    }
- }
-export default connect(mapStateToPros, {setChanels})(withRouter(ChanelsContainer));
+}
+export default connect(mapStateToPros, { setChanels })(withRouter(ChanelsContainer));

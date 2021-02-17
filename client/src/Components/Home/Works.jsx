@@ -2,13 +2,15 @@ import './Home.css';
 import light from "../../images/portfolio/into-the-light.jpg"
 import { CircularProgress } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
+import Preloader from '../Preloader/Preloader';
 
 function Works(props) {
-  if (!props.categories) return <CircularProgress/>
+  // if (!props.categories) return <CircularProgress/>
   return (
     <section id="works">
 
-    <div className="row">
+    {!props.categories ? <Preloader/> 
+    :<div className="row">
 
       <div className="twelve columns align-center">
         <h1><NavLink to='/categories'>Категории</NavLink></h1>
@@ -38,7 +40,7 @@ function Works(props) {
       </div>
 
     </div>
-
+}
   </section>
   );
 }

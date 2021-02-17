@@ -50,7 +50,7 @@ function App(props) {
       <Route exact path="/contacts" render={() => <Contacts />} />
       <Route exact path="/categories" render={() => <ContainerCategories />} />
       <Route exact path="/search/:search" render={() => <SearchContainer />} />
-      <Route exact path="/chanels" render={() => <ChanelsContainer />} />
+      <Route exact path="/chanels/:chanel?" render={() => <ChanelsContainer />} />
       <Footer />
     </div>
   );

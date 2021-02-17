@@ -27,7 +27,8 @@ let mapStateToPros = (state) => {
    return {
       post: state.post.post,
       coments: state.post.coments,
-      totalCount: state.post.totalCount
+      totalCount: state.post.totalCount,
+      token: state.auth.token
    }
 }
 export default connect(mapStateToPros, { setPost,setComents,SetTotalCount })(withRouter(PostContainer));
