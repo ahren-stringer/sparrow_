@@ -17,6 +17,7 @@ let init = {
 const infoReduser = (state = init, action) => {
     switch (action.type) {
         case SET_POST:
+            debugger
             let actualPost={
                 ...action.post, 
                 content:action.post.content.replace( /http:\/\/localhost:8001\//g, baseURL )
