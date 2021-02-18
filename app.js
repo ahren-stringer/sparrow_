@@ -22,17 +22,17 @@ const connection_url = 'mongodb+srv://ahren:sVi9gNCp8d9boA0Y@cluster0.v0wai.mong
 app.use(expess.json())
 app.use(Cors())
 // Авторизация
-app.use('/api/', auth)
+app.use('', auth)
 //Пользовательские данные
-app.use('/api/', profile)
+app.use('', profile)
 // Посты
-app.use('/api/', posts)
+app.use('', posts)
 // Категории
-app.use('/api/', category)
+app.use('', category)
 
-app.use('/api/', image)
+app.use('', image)
 
-app.use('/api/',coments)
+app.use('',coments)
 
 //DB Config
 mongoose.connect(connection_url, {

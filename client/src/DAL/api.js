@@ -8,27 +8,27 @@ let instance=axios.create({
 })
 
 export let imgURL=(destination,filename)=>{
-    return `${baseURL}api/publication_image/${destination}${filename}`
+    return `${baseURL}publication_image/${destination}${filename}`
 }
 
 export let blogAPI={
     setPosts(limit,skip){
-        return instance.get(`api/posts/all/${limit}/${limit*skip}`).then(res => res.data)
+        return instance.get(`posts/all/${limit}/${limit*skip}`).then(res => res.data)
     },
     setCategoryPosts(category,limit,skip){
-        return instance.get(`api/posts/categories/${category}/${limit}/${limit*skip}`).then(res => res.data)
+        return instance.get(`posts/categories/${category}/${limit}/${limit*skip}`).then(res => res.data)
     },
     getSinglePost(postName){
-        return instance.get(`api/single_post/${postName}`).then(res => res.data)
+        return instance.get(`single_post/${postName}`).then(res => res.data)
     }
 }
 export let SearchAPI = {
     getSearchPage(search,limit,skip) {
-        return instance.get(`api/posts/search_all/${search}/${limit}/${limit*skip}`)
+        return instance.get(`/posts/search_all/${search}/${limit}/${limit*skip}`)
             .then(response => response.data)
     },
     getSearchList(search) {
-        return instance.get(`api/posts/search/${search}`)
+        return instance.get(`/posts/search/${search}`)
             .then(response => {debugger
                return response.data})
     },
@@ -37,12 +37,12 @@ export let SearchAPI = {
 export let comentsAPI = {
     sendComent(formData, post,userId ) {
         debugger
-        return instance.post(`api/coment`,{...formData, author: userId, post})
+        return instance.post(`/coment`,{...formData, author: userId, post})
             .then(response => response.data)
     },
 
     getComents(postId,limit,skip) {
-        return instance.get(`api/coments/some/${postId}/${limit}/${skip}`)
+        return instance.get(`/coments/some/${postId}/${limit}/${skip}`)
             .then(response => {debugger
                 return response.data})
     },
@@ -50,7 +50,7 @@ export let comentsAPI = {
 
 export let authAPI={
     login(formData){
-        return instance.post('api/login', { ...formData }).then(res => res.data)
+        return instance.post('/login', { ...formData }).then(res => res.data)
     },
     register(registerData){
         let formData = new FormData();
@@ -62,7 +62,7 @@ export let authAPI={
         formData.append("password", registerData.password);
         formData.append("avatar", registerData.file);
         debugger   
-        return instance.post('api/register', formData, {
+        return instance.post('/register', formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
@@ -80,7 +80,7 @@ export let publicationAPI = {
                 'content-type': 'multipart/form-data'
             }
         };
-        return instance.post("api/images", formData, config).then(response => response.data)
+        return instance.post("/images", formData, config).then(response => response.data)
     },
     sendPost(file,title,content,arr,userId,subtitle,contentText) {
     const formData = new FormData();
@@ -96,56 +96,56 @@ export let publicationAPI = {
                 'content-type': 'multipart/form-data'
             }
         };
-        return instance.post("api/posts", formData, config).then(response => response.data)
+        return instance.post("/posts", formData, config).then(response => response.data)
     },
 }
 export let imagesAPI = {
     deleteImg(filename) {
-        return instance.delete(`api/image/${filename}`)
+        return instance.delete(`image/${filename}`)
         .then(response => response.data)
     },
     deleteAllImages(date) {
-        return instance.delete(`api/images/${date}`)
+        return instance.delete(`images/${date}`)
         .then(response => response.data)
     },
 }
 export let homeAPI = {
     getCategories() {
-        return instance.get(`api/category/random`)
+        return instance.get(`category/random`)
         .then(response => response.data)
     },
     getPosts() {
-        return instance.get(`api/posts_latests`)
+        return instance.get(`posts_latests`)
         .then(response => response.data)
     },
 }
 export let categoriesAPI = {
     getCategories() {
-        return instance.get(`api/category`)
+        return instance.get(`category`)
         .then(response => response.data)
     },
     getSomeCategories() {
-        return instance.get(`api/category/some`)
+        return instance.get(`category/some`)
         .then(response => response.data)
     },
 }
 export let profileAPI={
     getProfile(userId){
-        return instance.get(`api/user/`+userId).then(res => res.data)
+        return instance.get(`user/`+userId).then(res => res.data)
     },
     getPosts(id){
-        return instance.get(`api/posts/author/${id}`)
+        return instance.get(`posts/author/${id}`)
         .then(res => res.data)
     },
 }
 export let chanelsAPI={
     getUsers(){
-        return instance.get(`api/users`).then(res => res.data)
+        return instance.get(`users`).then(res => res.data)
     },
     getUser(name){
-        return instance.get(`api/user/${name}`).then(res => res.data)
+        return instance.get(`user/${name}`).then(res => res.data)
     },
     getPosts(name){
-        return instance.get(`api/chanel_posts/${name}`).then(res => res.data)
+        return instance.get(`chanel_posts/${name}`).then(res => res.data)
     },
 }

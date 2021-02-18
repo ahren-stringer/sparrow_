@@ -50,7 +50,7 @@ function base64_encode(file) {
     return bitmap
 }
 
-router.get("/single_post/:title", async (req, res) => {
+router.get("/post/single_post/:title", async (req, res) => {
     try {
         Post.findOne({ title: req.params.title })
         .populate(['author'])
@@ -78,6 +78,24 @@ router.get('/posts/all/:limit/:skip', async (req, res) => {
 })
 // По категориям
 router.get("/posts/categories/:category/:limit/:skip", async (req, res) => {
+    try {
+        const posts = await Post.find()
+        let arr = [];
+        posts.map(item => {
+            if (item.categories[0].includes(req.params.category)) {
+                arr.push(item)
+            }
+        })
+        res.json({
+            "posts": arr.slice(req.params.skip,req.params.skip+req.params.limit),
+            "totalCount": arr.length
+        })
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так' })
+        console.log(e)
+    }
+});
+router.get("/blog/posts/categories/:category/:limit/:skip", async (req, res) => {
     try {
         const posts = await Post.find()
         let arr = [];
@@ -133,6 +151,14 @@ router.get('/posts_latests', async (req, res) => {
 })
 // Новости от автора
 router.get('/posts/author/:id', async (req, res) => {
+    try {
+        const posts = await Post.find({author: req.params.id})
+        res.json(posts)
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так' })
+    }
+})
+router.get('/chanels/posts/author/:id', async (req, res) => {
     try {
         const posts = await Post.find({author: req.params.id})
         res.json(posts)
