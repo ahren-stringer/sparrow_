@@ -21,7 +21,7 @@ debugger
                         <div className="bio cf">
 
                            <div className="gravatar" style={{
-                              backgroundImage: `url(http://localhost:8001/publication_image/${props.post.author.avatar.destination}${props.post.author.avatar.filename})`,
+                              backgroundImage: `url(${imgURL(props.post.author.avatar.destination,props.post.author.avatar.filename)})`,
                               width: "100px",
                               height: "100px",
                               backgroundSize: "cover",

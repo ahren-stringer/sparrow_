@@ -63,6 +63,22 @@ router.get('/category/some', async (req, res) => {
         res.status(500).json({ message: 'Что-то пошло не так' })
     }
 })
+router.get('/blog/category/some', async (req, res) => {
+    try {
+        let categories = await PostCategory.find().limit(6)       
+        res.json(categories)
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так' })
+    }
+})
+router.get('/post/category/some', async (req, res) => {
+    try {
+        let categories = await PostCategory.find().limit(6)       
+        res.json(categories)
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так' })
+    }
+})
 router.get('/category/random', async (req, res) => {
     try {
         let categories = await PostCategory.find();
