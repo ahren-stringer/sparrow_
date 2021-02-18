@@ -1,8 +1,15 @@
 import * as axios from 'axios'
 
+// export let baseURL='http://localhost:8001/';
+export let baseURL='';
+
 let instance=axios.create({
-    // baseURL:'http://localhost:8001/',
+    baseURL:baseURL,
 })
+
+export let imgURL=(destination,filename)=>{
+    return `${baseURL}publication_image/${destination}${filename}`
+}
 
 export let blogAPI={
     setPosts(limit,skip){
@@ -61,6 +68,35 @@ export let authAPI={
             }
         })
         .then(res => res.data)
+    },
+}
+export let publicationAPI = {
+    setImg(file,date) {
+        const formData = new FormData();
+        formData.append('myfile', file);
+        formData.append('date', date);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        return instance.post("/images", formData, config).then(response => response.data)
+    },
+    sendPost(file,title,content,arr,userId,subtitle,contentText) {
+    const formData = new FormData();
+        formData.append('myfile', file);
+        formData.append('title',title);
+        formData.append('content', content);
+        formData.append('categories',arr)
+        formData.append('userId', userId)
+        formData.append('subtitle', subtitle)
+        formData.append('text', contentText)
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        return instance.post("/posts", formData, config).then(response => response.data)
     },
 }
 export let imagesAPI = {

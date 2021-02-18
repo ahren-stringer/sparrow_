@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import './SideBar.css';
 
 function SideBar(props) {
-   debugger
+  
    let [searched, setSearched] = useState(props.searched);
 
    let searchInput = React.createRef();

@@ -2,9 +2,10 @@ import '../Page/PageContent.css';
 import './Blog.css'
 import { NavLink } from 'react-router-dom';
 import React from 'react';
+import { imgURL } from '../../DAL/api';
 
 function SinglePost(props) {
-debugger
+
     return <>
         <div className="entry-header cf">
             <h1>
@@ -30,7 +31,7 @@ debugger
             <NavLink to={'/post/' + props.item.title}>
                 <div
                     style={{
-                        backgroundImage: "url(http://localhost:8001/publication_image/" + props.item.img.destination +props.item.img.filename + ")"
+                        backgroundImage: `url(${imgURL(props.item.img.destination,props.item.img.filename)})`
                         //  backgroundImage: 'url('+props.item.img+')' 
                     }}
                     className='post-img'></div>

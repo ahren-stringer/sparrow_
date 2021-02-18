@@ -3,6 +3,7 @@ import light from "../../images/portfolio/into-the-light.jpg"
 import { CircularProgress } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import Preloader from '../Preloader/Preloader';
+import { imgURL } from '../../DAL/api';
 
 function Works(props) {
   // if (!props.categories) return <CircularProgress/>
@@ -21,7 +22,7 @@ function Works(props) {
           <div className="item-wrap">
             <NavLink to={'/blog/' + item.category}>
               <div style={{
-                           backgroundImage: `url(http://localhost:8001/publication_image/${item.img.destination}${item.img.filename})`,
+                           backgroundImage: `url(${imgURL(item.img.destination,item.img.filename)})`,
                            height: "250px",
                            backgroundSize: "cover",
                            borderRadius: "3px",

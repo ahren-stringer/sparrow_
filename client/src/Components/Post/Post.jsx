@@ -6,7 +6,7 @@ import SidebarContainer from '../SideBar/SidebarContainer';
 import Preloader from '../Preloader/Preloader';
 
 function Post(props) {
-
+debugger
    return (
       <div className="content-outer">
 

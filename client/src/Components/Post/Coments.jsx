@@ -3,6 +3,7 @@ import './Post.css';
 import user3 from "../../images/user-03.png"
 import { useState } from 'react';
 import ComentsForm from './ComentsForm';
+import { imgURL } from '../../DAL/api';
 
 function Coments(props) {
     debugger
@@ -17,7 +18,7 @@ function Coments(props) {
 
                     <div className="avatar">
                     <div className="avatar" style={{
-                           backgroundImage: `url(http://localhost:8001/publication_image/${item.author.avatar.destination}${item.author.avatar.filename})`,
+                           backgroundImage: `url(${imgURL(item.author.avatar.destination,item.author.avatar.filename)})`,
                            width: "75px",
                            height: "75px",
                            backgroundSize: "cover",

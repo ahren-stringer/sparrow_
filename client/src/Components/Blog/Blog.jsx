@@ -13,8 +13,6 @@ function Blog(props) {
 
    return (
       <>
-         {/* <PageTitle /> */}
-
          <div className="content-outer">
 
             <div id="page-content" className="row">

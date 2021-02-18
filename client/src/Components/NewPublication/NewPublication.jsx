@@ -5,12 +5,13 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import './NewPublication.css'
 import { useStyles } from '../../Hook/styleHook.js'
-import { imagesAPI } from '../../DAL/api';
+import { imagesAPI, publicationAPI } from '../../DAL/api';
 import { withRouter } from 'react-router-dom';
 
 class NewPublication extends React.Component {
 
     constructor(props) {
+        debugger
         super(props);
         this.state = {
             isUploaded: false,
@@ -56,32 +57,22 @@ class NewPublication extends React.Component {
     componentWillUnmount() {
         if (!this.state.isUploaded) imagesAPI.deleteAllImages(this.state.date)
     }
-    onFormSubmit(e) {
+    onFormSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('myfile', this.state.file);
-        formData.append('title', this.state.title);
-        formData.append('content', this.contentRef.current.innerHTML);
-        formData.append('categories', this.arr)
-        formData.append('userId', this.props.userId)
-        formData.append('subtitle', this.state.subtitle)
-        formData.append('text', this.state.contentText)
-        debugger
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };
-        axios.post("http://localhost:8001/posts", formData, config)
-            .then((response) => {
-                alert("The file is successfully uploaded");
-                this.setState({ isUploaded: true })
-                this.props.history.goBack()
-            }).catch((error) => {
-            });
+        let res = await publicationAPI.sendPost(
+            this.state.file,
+            this.state.title,
+            this.contentRef.current.innerHTML,
+            this.arr,
+            this.props.userId,
+            this.state.subtitle,
+            this.state.contentText
+            )
+        this.setState({ isUploaded: true })
+        this.props.history.goBack()
     }
 
-    onChange(e) {
+    onChange = async (e) => {
         this.setState({ [e.target.name]: e.target.files[0] });
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -90,36 +81,13 @@ class NewPublication extends React.Component {
         }
         reader.readAsDataURL(e.target.files[0])
 
-        const formData = new FormData();
-        formData.append('myfile', e.target.files[0]);
-        formData.append('date', this.state.date);
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };
-        axios.post("http://localhost:8001/images", formData, config)
-            .then((res) => {
-                this.setState({ image: res.data.img })
-                alert("The file is successfully uploaded");
-                // this.props.AddImageThunk('content',res.data.img.filename, this.props.copiedText)
-            }).catch((error) => { });
+        let res = await publicationAPI.setImg(e.target.files[0], this.state.date)
+        this.setState({ image: res.img })
     }
-    AddImage(e) {
-        const formData = new FormData();
-        formData.append('myfile', e.target.files[0]);
-        formData.append('date', this.state.date);
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };
-        axios.post("http://localhost:8001/images", formData, config)
-            .then((res) => {
-                this.setState({ image: res.data.img })
-                alert("The file is successfully uploaded");
-                this.props.AddImageThunk('content', res.data.img.filename, this.props.copiedText)
-            }).catch((error) => { });
+    AddImage = async (e) => {
+        let res = await publicationAPI.setImg(e.target.files[0], this.state.date)
+        this.setState({ image: res.img })
+        this.props.AddImageThunk('content', res.img.filename, this.props.copiedText)
     }
     onInputChange(e) {
         this.setState({ [e.target.name]: e.target.value });
@@ -187,7 +155,7 @@ class NewPublication extends React.Component {
                             type='text'
                             id='publication-title'
                             // size="35"
-                            style={{width:'100%'}}
+                            style={{ width: '100%' }}
                             onChange={this.onInputChange}
                         />
                         <div className='add_title_img'>

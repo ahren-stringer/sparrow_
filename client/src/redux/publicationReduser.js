@@ -1,4 +1,4 @@
-import { imagesAPI } from "../DAL/api";
+import { baseURL, imagesAPI } from "../DAL/api";
 
 const SET_FONTED_ID = 'publication/SET_FONTED_ID';
 const SET_FONT_SIZE = 'publication/SET_FONT_SIZE';
@@ -184,7 +184,7 @@ export const AddImageThunk = (_obj_name, src, copiedText) =>
                 `
           <div class="preview-image" >
             <div class="preview-remove" data-name="${src}">&times;</div>
-            <img src="http://localhost:8001/publication_image/public/posts/${src}" alt="${src}" />
+            <img src="${baseURL}publication_image/public/posts/${src}" alt="${src}" />
           </div>
         `
             //'<img style="width:200px" class="post__img" src="http://localhost:8001/publication_image/'+src+'"/>' +

@@ -2,7 +2,7 @@ import { NavLink, withRouter } from "react-router-dom"
 import './Profile.css'
 import { logout } from '../../redux/authReduser';
 import { useEffect, useState } from "react";
-import { profileAPI } from "../../DAL/api";
+import { imgURL, profileAPI } from "../../DAL/api";
 import Preloader from "../Preloader/Preloader";
 
 function ProfileIn(props) {
@@ -44,13 +44,12 @@ function ProfileIn(props) {
                      <div className="bio cf">
 
                         <div className="gravatar" style={{
-                           backgroundImage: `url(http://localhost:8001/publication_image/${user.avatar.destination}${user.avatar.filename})`,
+                           backgroundImage: `url(${imgURL(user.avatar.destination,user.avatar.filename)})`,
                            width: "100px",
                            height: "100px",
                            backgroundSize: "cover",
                            borderRadius: "100%",
                         }}>
-                           {/* <img src={image || `http://localhost:8001/publication_image/${user.avatar.destination}${user.avatar.filename}`} alt="" /> */}
                      </div>
 
                      <div className="about">

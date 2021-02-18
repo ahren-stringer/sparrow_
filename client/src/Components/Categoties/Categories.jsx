@@ -1,52 +1,11 @@
-import PageTitle from '../Page/PageTitle';
 import '../Page/PageContent.css';
-//import './Blog.css'
-import SideBar from '../SideBar/SidebarContainer';
-import { useEffect, useState } from 'react';
-import { setCategories } from '../../redux/categoryReduser'
-import axios from 'axios';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Preloader from '../Preloader/Preloader';
+import { imgURL } from '../../DAL/api';
 
 class Categories extends React.Component {
 
-   constructor(props) {
-      super(props);
-      this.state = {
-         file: null,
-         categories: null,
-      };
-      this.onFormSubmit = this.onFormSubmit.bind(this);
-      this.onInputChange = this.onInputChange.bind(this);
-      this.onChange = this.onChange.bind(this);
-
-   }
-   onFormSubmit(e) {
-      e.preventDefault();
-      const formData = new FormData();
-      formData.append('myfile', this.state.file);
-      formData.append('category', this.state.category)
-      const config = {
-         headers: {
-            'content-type': 'multipart/form-data'
-         }
-      };
-      axios.post("http://localhost:8001/category", formData, config)
-         .then((response) => {
-            alert("The file is successfully uploaded");
-         }).catch((error) => {
-         });
-   }
-
-   onChange(e) {
-      debugger
-      this.setState({ file: e.target.files[0] });
-      console.log(e.target.files[0])
-   }
-   onInputChange(e) {
-      this.setState({ [e.target.name]: e.target.value });
-   }
    render() {
       return (
          <div className="content-outer">
@@ -60,7 +19,7 @@ class Categories extends React.Component {
                            <div class="item-wrap">
                               <NavLink to={'/blog/' + item.category}>
                                  <div style={{
-                                    backgroundImage: `url(http://localhost:8001/publication_image/${item.img.destination}${item.img.filename})`,
+                                    backgroundImage: `url(${imgURL(item.img.destination,item.img.filename)})`,
                                     height: "250px",
                                     backgroundSize: "cover",
                                     borderRadius: "3px",

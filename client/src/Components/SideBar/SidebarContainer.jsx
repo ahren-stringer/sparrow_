@@ -16,7 +16,7 @@ function SidebarContainer(props) {
 
     useEffect(async () => {
         let req = await categoriesAPI.getSomeCategories()
-        debugger
+
         props.setCategoriesSidebar(req)
     }, [])
 

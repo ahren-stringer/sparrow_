@@ -1,3 +1,5 @@
+import { baseURL } from "../DAL/api";
+
 const SET_POST = 'postReuser/SET-POST';
 const SET_COMENTS = 'postReuser/SET_COMENTS'
 const TOTAL_COUNT = 'postReuser/TOTAL-COUNT';
@@ -15,7 +17,11 @@ let init = {
 const infoReduser = (state = init, action) => {
     switch (action.type) {
         case SET_POST:
-            return { ...state, post: action.post }
+            let actualPost={
+                ...action.post, 
+                content:action.post.content.replace( /http:\/\/localhost:8001\//g, baseURL )
+            }
+            return { ...state, post: actualPost }
         case SET_COMENTS:
             return { ...state, coments: action.coments }
             case TOTAL_COUNT:
