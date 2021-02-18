@@ -6,9 +6,7 @@ import { connect } from "react-redux";
 import Profile from "./Profile";
 
 function ProfileContainer(props) {
-   debugger
-   // if (props.userId === null) return <Preloader />
-      debugger
+
    return  <Profile {...props} />
 }
 let mapStateToPros = (state) => {
