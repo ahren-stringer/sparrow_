@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "\"# sparrow_\"",
   "main": "app.js",
+  "engines": {
+    "node": "14.x"
+  },
   "type": "module",
   "scripts": {
     "start": "node app.js",
