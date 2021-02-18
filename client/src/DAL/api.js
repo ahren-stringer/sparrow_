@@ -19,7 +19,7 @@ export let blogAPI={
         return instance.get(`posts/categories/${category}/${limit}/${limit*skip}`).then(res => res.data)
     },
     getSinglePost(postName){
-        return instance.get(`posts/${postName}`).then(res => res.data)
+        return instance.get(`single_post/${postName}`).then(res => res.data)
     }
 }
 export let SearchAPI = {

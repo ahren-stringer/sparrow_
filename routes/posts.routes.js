@@ -50,7 +50,7 @@ function base64_encode(file) {
     return bitmap
 }
 
-router.get("/posts/:title", async (req, res) => {
+router.get("/single_post/:title", async (req, res) => {
     try {
         Post.findOne({ title: req.params.title })
         .populate(['author'])

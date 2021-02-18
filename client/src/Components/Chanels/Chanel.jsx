@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom"
+import { imgURL } from "../../DAL/api";
 import Preloader from "../Preloader/Preloader";
 
 function Chanel(props) {
@@ -18,7 +19,7 @@ function Chanel(props) {
                             <div className="bio cf">
 
                                 <div className="gravatar" style={{
-                                    backgroundImage: `url(http://localhost:8001/publication_image/${props.chanels.avatar.destination}${props.chanels.avatar.filename})`,
+                                    backgroundImage: `url(${imgURL(props.chanels.avatar.destination,props.chanels.avatar.filename)})`,
                                     width: "100px",
                                     height: "100px",
                                     backgroundSize: "cover",
