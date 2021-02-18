@@ -47,7 +47,6 @@ function BlogContainer(props) {
       props.setLoaded(true)
    };
 
-   // if (!props.posts) return <CircularProgress />
    return <Blog {...props} onPageChange={onPageChange} />
 }
 
