@@ -55,6 +55,15 @@ router.get("/category", async (req, res) => {
         console.log(e)
     }
 });
+router.get("/publication/category", async (req, res) => {
+    try {
+        const categories = await PostCategory.find()
+        res.send(categories)
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так' })
+        console.log(e)
+    }
+});
 router.get('/category/some', async (req, res) => {
     try {
         let categories = await PostCategory.find().limit(6)       

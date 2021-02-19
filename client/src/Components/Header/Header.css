@@ -299,3 +299,28 @@ header {
       line-height: 30px; /* should be the same with li's height */
    }
 }
+@media only screen and (max-width: 480px) {
+
+   header .logo { z-index: 99999; }
+
+   /* page content
+   -------------------------------------------------------------------- */
+   #page-content {
+      width: auto;
+   }
+
+   /* primary navigation */
+   #nav-wrap { width: 100%; }
+   #nav-wrap ul#nav {
+      top: 72px;
+      right: 0px;
+   }
+    /* journal section - main page
+   ------------------------------------------------------------------------- */
+   #journal .entry-title h3 {
+      font-size: 28px;
+      line-height: 36px;
+   }
+   footer { margin-top: 48px; }
+
+}

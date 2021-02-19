@@ -1,7 +1,7 @@
 import * as axios from 'axios'
 
-// export let baseURL='http://localhost:8001/';
-export let baseURL='';
+export let baseURL='http://localhost:8001/';
+// export let baseURL='';
 
 let instance=axios.create({
     baseURL:baseURL,

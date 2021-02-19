@@ -49,7 +49,18 @@ function base64_encode(file) {
     var bitmap = fs.readFileSync(file).toString('base64');
     return bitmap
 }
-
+router.get("/single_post/:title", async (req, res) => {
+    try {
+        Post.findOne({ title: req.params.title })
+        .populate(['author'])
+        .exec((err, post) => {
+            if (err) return res.status(404).json({ message: "Пост не найден" })
+            return res.json(post)
+        });
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так' })
+    }
+});
 router.get("/post/single_post/:title", async (req, res) => {
     try {
         Post.findOne({ title: req.params.title })
