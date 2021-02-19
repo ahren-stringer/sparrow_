@@ -4,6 +4,7 @@ import SinglePost from '../Blog/SinglePost';
 import { CircularProgress } from '@material-ui/core';
 import SidebarContainer from '../SideBar/SidebarContainer';
 import Preloader from '../Preloader/Preloader';
+import { imgURL } from '../../DAL/api';
 
 function Post(props) {
 debugger
