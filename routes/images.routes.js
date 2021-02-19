@@ -57,8 +57,6 @@ router.post("/images", async (req, res) => {
 router.get('/publication_image/public/:destination/:filename', async (req, res) => {
     try {
         console.log(__dirname)
-        // res.sendFile(path.normalize(__dirname+req.params.path ))
-        // console.log(path.normalize(__dirname+req.params.path))
         res.sendFile(path.normalize(__dirname+"/public/"+req.params.destination + "/"+req.params.filename))
         console.log(path.normalize(__dirname+"/public/"+req.params.destination +"/"+ req.params.filename))
     } catch (e) {
@@ -69,8 +67,26 @@ router.get('/publication_image/public/:destination/:filename', async (req, res) 
 router.get('/post/publication_image/public/:destination/:filename', async (req, res) => {
     try {
         console.log(__dirname)
-        // res.sendFile(path.normalize(__dirname+req.params.path ))
-        // console.log(path.normalize(__dirname+req.params.path))
+        res.sendFile(path.normalize(__dirname+"/public/"+req.params.destination + "/"+req.params.filename))
+        console.log(path.normalize(__dirname+"/public/"+req.params.destination +"/"+ req.params.filename))
+    } catch (e) {
+        console.log(e)
+        res.status(500).json({ message: 'Что-то пошло не так' })
+    }
+})
+router.get('/blog/publication_image/public/:destination/:filename', async (req, res) => {
+    try {
+        console.log(__dirname)
+        res.sendFile(path.normalize(__dirname+"/public/"+req.params.destination + "/"+req.params.filename))
+        console.log(path.normalize(__dirname+"/public/"+req.params.destination +"/"+ req.params.filename))
+    } catch (e) {
+        console.log(e)
+        res.status(500).json({ message: 'Что-то пошло не так' })
+    }
+})
+router.get('/chanels/publication_image/public/:destination/:filename', async (req, res) => {
+    try {
+        console.log(__dirname)
         res.sendFile(path.normalize(__dirname+"/public/"+req.params.destination + "/"+req.params.filename))
         console.log(path.normalize(__dirname+"/public/"+req.params.destination +"/"+ req.params.filename))
     } catch (e) {
