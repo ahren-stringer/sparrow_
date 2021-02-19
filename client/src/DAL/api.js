@@ -98,6 +98,10 @@ export let publicationAPI = {
         };
         return instance.post("/posts", formData, config).then(response => response.data)
     },
+    getCategories() {
+        return instance.get(`category`)
+        .then(response => response.data)
+    },
 }
 export let imagesAPI = {
     deleteImg(filename) {

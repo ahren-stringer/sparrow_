@@ -10,10 +10,11 @@ import { CircularProgress } from "@material-ui/core";
 import { useEffect } from "react";
 import { setCategories } from '../../redux/categoryReduser'
 import axios from "axios";
+import { publicationAPI } from "../../DAL/api";
 
 function NewPublicationContainer(props) { 
     useEffect(async () => {
-        let req = await axios.get(`http://localhost:8001/category`)
+        let req = await publicationAPI.getCategories()
         props.setCategories(req.data)
     }, [])  
 
