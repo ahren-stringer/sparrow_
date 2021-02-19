@@ -15,7 +15,7 @@ import { publicationAPI } from "../../DAL/api";
 function NewPublicationContainer(props) { 
     useEffect(async () => {
         let req = await publicationAPI.getCategories()
-        props.setCategories(req.data)
+        props.setCategories(req)
     }, [])  
 
     if (props.userId===null) return <CircularProgress />
