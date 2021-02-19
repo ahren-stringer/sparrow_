@@ -5,7 +5,6 @@ import React from 'react';
 import { imgURL } from '../../DAL/api';
 
 function SinglePost(props) {
-
     return <>
         <div className="entry-header cf">
             <h1>
