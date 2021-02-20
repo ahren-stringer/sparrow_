@@ -4,6 +4,7 @@ const SET_FONTED_ID = 'publication/SET_FONTED_ID';
 const SET_FONT_SIZE = 'publication/SET_FONT_SIZE';
 const SET_COPIED_TEXT = 'publication/SET_COPIED_TEXT';
 const SET_UNDERLINED_ID = 'publication/SET_UNDERLINED_ID';
+const SETED_CATEGORIES = 'publication/SETED_CATEGORIES';
 
 let init = {
     file: {},
@@ -21,7 +22,8 @@ let init = {
     fontSize: '',
     fonts: [8, 10, 11, 12, 14, 15, 16, 18, 24, 36, 48],
     fontedId: 0,
-    isClosed: true
+    isClosed: true,
+    setedCategories:[]
 };
 
 const publicationReduser = (state = init, action) => {
@@ -38,6 +40,12 @@ const publicationReduser = (state = init, action) => {
         case SET_UNDERLINED_ID: {
             return { ...state, underlinedId: action.underlinedId }
         }
+        case SETED_CATEGORIES:{
+            let a=action.prev;
+            let b=action.one
+            a.push(b);
+            return { ...state, setedCategories: a }
+        }
         default:
             return state
     }
@@ -47,6 +55,7 @@ export const setFontedId = (fontedId) => ({ type: SET_FONTED_ID, fontedId })
 export const setFontSize = (fontSize) => ({ type: SET_FONT_SIZE, fontSize })
 export const setCopiedText = (copiedText) => ({ type: SET_COPIED_TEXT, copiedText })
 export const setUnderlinedId = (underlinedId) => ({ type: SET_UNDERLINED_ID, underlinedId })
+export const setCategory = (prev,one) => ({ type: SETED_CATEGORIES, prev,one })
 
 export const getSelectedText = () => {
     if (window.getSelection) {

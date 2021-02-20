@@ -239,16 +239,32 @@ class NewPublication extends React.Component {
                             <h5>Выберите категории</h5>
                             {!this.state.categories
                                 ? <CircularProgress />
-                                : <div>
-                                    <select onChange={()=>{}}>
-                                        {
-                                            this.state.categories.map(item => <option>{item.category}</option>)
+                                : <div className={useStyles.root}>
+                                {/* style={{
+                            margin:'15px 0 20px'
+                        }} */}
+                                <Autocomplete
+                                    multiple
+                                    //limitTags={2}
+                                    id="multiple-limit-tags"
+                                    options={this.state.categories}
+                                    onChange={e => {
+                                        let a = e.target.nodeName
+                                        if (a === 'svg') {
+                                            let i = this.arr.indexOf(e.target.previousSibling.innerHTML)
+                                            this.arr.splice(i, 1)
+                                        } else if (this.arr.some !== e.target.innerHTML) {
+                                            this.arr.push(e.target.innerHTML)
                                         }
-                                    </select>
-                                  <div>
-
-                                  </div>
-                                </div>
+                                        console.log(this.arr)
+                                    }}
+                                    getOptionLabel={(option) => option.category}
+                                    //defaultValue={[this.state.top100Films[1], this.state.top100Films[2], this.state.top100Films[3]]}
+                                    renderInput={(params) => (
+                                        <TextField {...params} variant="outlined" />
+                                    )}
+                                />
+                            </div>
                             }
                         </div>
                         <button className="upload-button" type="submit">Отправить</button>

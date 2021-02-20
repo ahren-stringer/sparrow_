@@ -38,7 +38,8 @@ function App(props) {
   }, [login]);
   return (
     <div className="App"
-      onClick={props.CloseListThunk()}>
+      onClick={props.CloseListThunk}
+      >
       <Header />
       <Route exact path="/" render={() => <Home />} />
       <Route exact path="/blog/:category?" render={() => <Blog />} />

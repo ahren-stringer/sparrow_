@@ -3,23 +3,26 @@ import { ChangeFontSizeThunk,DecorateTextThunk,getSelectedText,AddImageThunk,
     setFontedId,
     setFontSize,
     setCopiedText,
-    setUnderlinedId } from '../../redux/publicationReduser'
+    setUnderlinedId,
+    setCategory } from '../../redux/publicationReduser'
 import { connect } from 'react-redux';
 import NewPublication from "./NewPublication";
 import { CircularProgress } from "@material-ui/core";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setCategories } from '../../redux/categoryReduser'
 import axios from "axios";
 import { publicationAPI } from "../../DAL/api";
 
 function NewPublicationContainer(props) { 
+    let [sc,setSc]=useState(props.setedCategories)
     useEffect(async () => {
+        debugger
         let req = await publicationAPI.getCategories()
         props.setCategories(req)
-    }, [])  
-
+    }, []) 
+     
     if (props.userId===null) return <CircularProgress />
-   return <NewPublication {...props}/>  
+   return <NewPublication {...props} sc={sc}/>  
 }
 
 let mapStateToProps = (state) => {
@@ -31,6 +34,7 @@ let mapStateToProps = (state) => {
         fontSize:state.publication.fontSize,
         copiedText:state.publication.copiedText,
         underlinedId:state.publication.underlinedId,
+        setedCategories:state.publication.setedCategories
     }
 }
 
@@ -38,4 +42,5 @@ export default connect(mapStateToProps, { ChangeFontSizeThunk,DecorateTextThunk,
     setFontedId,
     setFontSize,
     setCopiedText,
-    setUnderlinedId })(withRouter(NewPublicationContainer));
+    setUnderlinedId,
+    setCategory })(withRouter(NewPublicationContainer));
