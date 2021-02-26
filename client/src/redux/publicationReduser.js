@@ -1,29 +1,29 @@
-import { baseURL, imagesAPI } from "../DAL/api";
+import { baseURL, imagesAPI, publicationAPI } from "../DAL/api";
 
 const SET_FONTED_ID = 'publication/SET_FONTED_ID';
 const SET_FONT_SIZE = 'publication/SET_FONT_SIZE';
 const SET_COPIED_TEXT = 'publication/SET_COPIED_TEXT';
-const SET_UNDERLINED_ID = 'publication/SET_UNDERLINED_ID';
+const CHANGE_FONT_SIZE = 'publication/CHANGE_FONT_SIZE';
 const SETED_CATEGORIES = 'publication/SETED_CATEGORIES';
+const SET_FILE = 'publication/SET_FILE';
+const SET_IMAGE = 'publication/SET_IMAGE';
+const SET_IMAGE_TITLE = 'publication/SET_IMAGE_TITLE';
 
 let init = {
-    file: {},
-    fileNumber: 1,
     title: null,
     content: null,
     contentText: '',
     chose: [],
     bold: false,
-    italized: false,
-    underlined: false,
-    underlinedId: 0,
     copiedText: '',
-    textNodeId: 0,
     fontSize: '',
     fonts: [8, 10, 11, 12, 14, 15, 16, 18, 24, 36, 48],
-    fontedId: 0,
     isClosed: true,
-    setedCategories:[]
+    setedCategories: [],
+
+    file:null,
+    image:'',
+    imageTitle:''
 };
 
 const publicationReduser = (state = init, action) => {
@@ -37,12 +37,22 @@ const publicationReduser = (state = init, action) => {
         case SET_COPIED_TEXT: {
             return { ...state, copiedText: action.copiedText }
         }
-        case SET_UNDERLINED_ID: {
-            return { ...state, underlinedId: action.underlinedId }
+        case SET_FILE: {
+            return { ...state, file: action.file }
         }
-        case SETED_CATEGORIES:{
-            let a=action.prev;
-            let b=action.one
+        case SET_IMAGE: {
+            return { ...state, image: action.image }
+        }
+        case SET_IMAGE_TITLE: {
+            return { ...state, imageTitle: action.imageTitle }
+        }
+
+        case CHANGE_FONT_SIZE: {
+
+        }
+        case SETED_CATEGORIES: {
+            let a = action.prev;
+            let b = action.one
             a.push(b);
             return { ...state, setedCategories: a }
         }
@@ -51,56 +61,61 @@ const publicationReduser = (state = init, action) => {
     }
 }
 
-export const setFontedId = (fontedId) => ({ type: SET_FONTED_ID, fontedId })
 export const setFontSize = (fontSize) => ({ type: SET_FONT_SIZE, fontSize })
 export const setCopiedText = (copiedText) => ({ type: SET_COPIED_TEXT, copiedText })
-export const setUnderlinedId = (underlinedId) => ({ type: SET_UNDERLINED_ID, underlinedId })
-export const setCategory = (prev,one) => ({ type: SETED_CATEGORIES, prev,one })
 
-export const getSelectedText = () => {
-    if (window.getSelection) {
-        let { anchorNode, anchorOffset, focusNode, focusOffset } = document.getSelection();
-        let text = window.getSelection().toString()
-        return { anchorNode, anchorOffset, focusNode, focusOffset, text }
-    } else if (document.selection) {
-        return document.selection.createRange().text;
+const setFile = (file) => ({ type: SET_FILE, file })
+const setImage = (image) => ({ type: SET_IMAGE, image })
+const setImageTitle = (imageTitle) => ({ type: SET_IMAGE_TITLE, imageTitle })
+
+export const setCategory = (prev, one) => ({ type: SETED_CATEGORIES, prev, one })
+
+function findText(copiedText) {
+    var area = document.getElementsByName('content').item(0);
+    let start = copiedText.anchorOffset;
+    let end = copiedText.focusOffset;
+    if (area.childNodes.length !== 1) {
+        for (let i = 0; i < area.childNodes.length; i++) {
+            if (area.childNodes[i] !== copiedText.anchorNode) {
+                if (area.childNodes[i].nodeType === 3) {
+                    start += area.childNodes[i].textContent.length
+                    end += area.childNodes[i].textContent.length
+                } else {
+                    start += area.childNodes[i].outerHTML.length
+                    end += area.childNodes[i].outerHTML.length
+                }
+            } else break
+        }
     }
-    return '';
+    return [area, start, end]
 }
-//const standartStyleTag = '';
-export const ChangeFontSizeThunk = (_obj_name, fontSize, copiedText, fontedId) =>
+
+export const MainImgThunk = (file) =>
     async (dispatch) => {
-        // берем объект
-        var area = document.getElementsByName(_obj_name).item(0);
-        let start = copiedText.anchorOffset;
-        let end = copiedText.focusOffset;
-        if (area.childNodes.length !== 1) {
-            for (let i = 0; i < area.childNodes.length; i++) {
-                if (area.childNodes[i] !== copiedText.anchorNode) {
-                    if (area.childNodes[i].nodeType === 3) {
-                        start += area.childNodes[i].textContent.length
-                        end += area.childNodes[i].textContent.length
-                    } else {
-                        start += area.childNodes[i].outerHTML.length
-                        end += area.childNodes[i].outerHTML.length
-                    }
-                } else break
-            }
+        dispatch(setFile(file));
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            dispatch(setImageTitle(e.target.result))
         }
-        if (document.getSelection) {// берем все, что до выделения
-            area.innerHTML = area.innerHTML.substring(0, start) +
-                // вставляем стартовый тег
-                '<span style="font-size : ' + fontSize + 'px">' +
-                // вставляем выделенный текст
-                copiedText.text +
-                // вставляем закрывающий тег
-                '</span>' +
-                // вставляем все, что после выделения
-                area.innerHTML.substring(end, area.innerHTML.length);
-            //this.setState({ textNodeId: this.state.textNodeId + 2 })
-        }
+        reader.readAsDataURL(file)
+        let res = await publicationAPI.setImg(file,this.state.date)
+        dispatch( setImage(res.img) )
     }
-export const DecorateTextThunk = (_obj_name, nodeName, copiedText) =>
+
+export const ChangeFontSizeThunk = (fontSize, copiedText) => {
+    // находим выделенный текст
+    let [area, start, end] = findText(copiedText)
+    area.innerHTML = area.innerHTML.substring(0, start) +
+        // вставляем стартовый тег
+        '<span style="font-size : ' + fontSize + 'px">' +
+        // вставляем выделенный текст
+        copiedText.text +
+        // вставляем закрывающий тег
+        '</span>' +
+        // вставляем все, что после выделения
+        area.innerHTML.substring(end, area.innerHTML.length);
+}
+export const DecorateTextThunk = (nodeName, copiedText) =>
     async (dispatch) => {
         let _tag_start = '';
         let _tag_end = '';
@@ -113,22 +128,7 @@ export const DecorateTextThunk = (_obj_name, nodeName, copiedText) =>
             _tag_end = '</' + nodeTag + '>';
         }
         // берем объект
-        var area = copiedText.anchorNode.parentNode;
-        let start = copiedText.anchorOffset;
-        let end = copiedText.focusOffset;
-        if (area.childNodes.length !== 1) {
-            for (let i = 0; i < area.childNodes.length; i++) {
-                if (area.childNodes[i] !== copiedText.anchorNode) {
-                    if (area.childNodes[i].nodeType === 3) {
-                        start += area.childNodes[i].textContent.length
-                        end += area.childNodes[i].textContent.length
-                    } else {
-                        start += area.childNodes[i].outerHTML.length
-                        end += area.childNodes[i].outerHTML.length
-                    }
-                } else break
-            }
-        }
+        let [area, start, end] = findText(copiedText)
         let decorParent = copiedText.anchorNode.parentNode.closest(nodeTag);
         if (document.getSelection) {
             debugger
@@ -138,15 +138,6 @@ export const DecorateTextThunk = (_obj_name, nodeName, copiedText) =>
                 && copiedText.text === copiedText.anchorNode.decorParent.textContent
             ) {
                 decorParent.outerHTML = decorParent.innerHTML
-                // area.innerHTML = area.innerHTML.substring(0, start) +
-                // // вставляем закрывающий тег
-                // '</em>' +
-                // // вставляем выделенный текст
-                // copiedText.text +
-                // // вставляем стартовый тег
-                // '<em>' +
-                // // вставляем все, что после выделения
-                // area.innerHTML.substring(end, area.innerHTML.length);
             } else {
                 area.innerHTML = area.innerHTML.substring(0, start) +
                     // вставляем стартовый тег
@@ -163,40 +154,24 @@ export const DecorateTextThunk = (_obj_name, nodeName, copiedText) =>
 export const AddImageThunk = (_obj_name, src, copiedText) =>
     async (dispatch) => {
         // берем объект
-        var area = document.getElementsByName(_obj_name).item(0);
-        let start = copiedText.anchorOffset;
-        let end = copiedText.focusOffset;
-        if (area.childNodes.length !== 1) {
-            for (let i = 0; i < area.childNodes.length; i++) {
-                if (area.childNodes[i] !== copiedText.anchorNode) {
-                    if (area.childNodes[i].nodeType === 3) {
-                        start += area.childNodes[i].textContent.length
-                        end += area.childNodes[i].textContent.length
-                    } else {
-                        start += area.childNodes[i].outerHTML.length
-                        end += area.childNodes[i].outerHTML.length
-                    }
-                } else break
-            }
-        }
-        const removeHandler = async(event) => {
-            let target=event.target;
-            debugger
-            let block=target.closest('.preview-image');
+        let [area, start, end] = findText(copiedText)
+
+        const removeHandler = async (event) => {
+            let target = event.target;
+            let block = target.closest('.preview-image');
             block.classList.add('removing')
             setTimeout(() => block.remove(), 300)
-
             await imagesAPI.deleteImg(src)
         }
+
         if (document.getSelection) {// берем все, что до выделения
             area.innerHTML = area.innerHTML.substring(0, start) +
                 `
-          <div class="preview-image" >
-            <div class="preview-remove" data-name="${src}">&times;</div>
-            <img src="${baseURL}publication_image/public/posts/${src}" alt="${src}" />
-          </div>
-        `
-            //'<img style="width:200px" class="post__img" src="http://localhost:8001/publication_image/'+src+'"/>' +
+                    <div class="preview-image" >
+                        <div class="preview-remove" data-name="${src}">&times;</div>
+                        <img src="${baseURL}publication_image/public/posts/${src}" alt="${src}" />
+                    </div>
+                `
             area.innerHTML.substring(end, area.innerHTML.length);
         }
         document.querySelector(`[data-name="${src}"]`).onclick = removeHandler

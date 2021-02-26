@@ -23,9 +23,9 @@ function Jornal(props) {
 
         <div className="entry-header">
 
-          <div className="permalink">
+          {/* <div className="permalink">
             <NavLink to={'/post/' + item.title}><i className="fa fa-link"></i></NavLink>
-          </div>
+          </div> */}
 
           <div className="ten columns entry-title pull-right">
             <h3><NavLink to={'/post/' + item.title}>{item.title}</NavLink></h3>
