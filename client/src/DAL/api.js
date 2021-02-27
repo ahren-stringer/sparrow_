@@ -90,7 +90,7 @@ export let publicationAPI = {
         formData.append('categories',arr)
         formData.append('userId', userId)
         formData.append('subtitle', subtitle)
-        formData.append('text', contentText)
+        // formData.append('text', contentText)
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'

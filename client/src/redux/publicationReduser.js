@@ -1,38 +1,36 @@
 import { baseURL, imagesAPI, publicationAPI } from "../DAL/api";
 
 const SET_FONTED_ID = 'publication/SET_FONTED_ID';
-const SET_FONT_SIZE = 'publication/SET_FONT_SIZE';
+const BOLD = 'publication/BOLD';
 const SET_COPIED_TEXT = 'publication/SET_COPIED_TEXT';
 const CHANGE_FONT_SIZE = 'publication/CHANGE_FONT_SIZE';
 const SETED_CATEGORIES = 'publication/SETED_CATEGORIES';
 const SET_FILE = 'publication/SET_FILE';
 const SET_IMAGE = 'publication/SET_IMAGE';
 const SET_IMAGE_TITLE = 'publication/SET_IMAGE_TITLE';
+const ON_TEXT_CHANGE = 'publication/ON_TEXT_CHANGE';
+const IS_UPLOADED = 'publication/IS_UPLOADED';
 
 let init = {
-    title: null,
-    content: null,
+    title: '',
+    subtitle: '',
+    content: '',
     contentText: '',
-    chose: [],
     bold: false,
-    copiedText: '',
-    fontSize: '',
+    copiedText: null,
     fonts: [8, 10, 11, 12, 14, 15, 16, 18, 24, 36, 48],
-    isClosed: true,
     setedCategories: [],
 
-    file:null,
-    image:'',
-    imageTitle:''
+    file: null,
+    image: '',
+    imageTitle: '',
+    isUploaded: false
 };
 
 const publicationReduser = (state = init, action) => {
     switch (action.type) {
         case SET_FONTED_ID: {
             return { ...state, fontedId: action.fontedId }
-        }
-        case SET_FONT_SIZE: {
-            return { ...state, fontSize: action.fontSize }
         }
         case SET_COPIED_TEXT: {
             return { ...state, copiedText: action.copiedText }
@@ -46,29 +44,48 @@ const publicationReduser = (state = init, action) => {
         case SET_IMAGE_TITLE: {
             return { ...state, imageTitle: action.imageTitle }
         }
-
         case CHANGE_FONT_SIZE: {
-
+            if (action.copiedText) {
+                ChangeFontSizeThunk('content', action.fontSize, action.copiedText)
+            }
+            return { ...state, copiedText: null }
+        }
+        case BOLD: {
+            if (action.copiedText) {
+                DecorateTextThunk('content', 'SPAN', action.copiedText)
+            }
+            return { ...state, copiedText: null }
+        }
+        case ON_TEXT_CHANGE: {
+            return { ...state, [action.name]: action.text }
         }
         case SETED_CATEGORIES: {
-            let a = action.prev;
-            let b = action.one
-            a.push(b);
-            return { ...state, setedCategories: a }
+            if (action.categoryElem.nodeName === 'svg') {
+                let i = action.prevCategories.indexOf(action.categoryElem.previousSibling.innerHTML)
+                return { ...state, setedCategories: action.prevCategories.splice(i, 1) }
+            } else if (action.prevCategories.some !== action.categoryElem.innerHTML) {
+                return { ...state, setedCategories: action.prevCategories.concat([action.categoryElem.innerHTML]) }
+            }
+        }
+        case IS_UPLOADED: {
+            return { ...state, isUploaded: action.isUploaded }
         }
         default:
             return state
     }
 }
 
-export const setFontSize = (fontSize) => ({ type: SET_FONT_SIZE, fontSize })
 export const setCopiedText = (copiedText) => ({ type: SET_COPIED_TEXT, copiedText })
 
 const setFile = (file) => ({ type: SET_FILE, file })
 const setImage = (image) => ({ type: SET_IMAGE, image })
 const setImageTitle = (imageTitle) => ({ type: SET_IMAGE_TITLE, imageTitle })
 
-export const setCategory = (prev, one) => ({ type: SETED_CATEGORIES, prev, one })
+export const setCategory = (prevCategories, categoryElem) => ({ type: SETED_CATEGORIES, prevCategories, categoryElem })
+export const onTextChange = (name, text) => ({ type: ON_TEXT_CHANGE, name, text })
+export const uploaded = (isUploaded) => ({ type: IS_UPLOADED, isUploaded })
+export const changeFontSize = (fontSize,copiedText) => ({ type: CHANGE_FONT_SIZE, fontSize,copiedText })
+export const bold = (copiedText) => ({ type: BOLD, copiedText })
 
 function findText(copiedText) {
     var area = document.getElementsByName('content').item(0);
@@ -98,8 +115,20 @@ export const MainImgThunk = (file) =>
             dispatch(setImageTitle(e.target.result))
         }
         reader.readAsDataURL(file)
-        let res = await publicationAPI.setImg(file,this.state.date)
-        dispatch( setImage(res.img) )
+        let res = await publicationAPI.setImg(file, this.state.date)
+        dispatch(setImage(res.img))
+    }
+
+export const PublicationThunk = (file, title, content, setedCategories, userId, subtitle, goBack) =>
+    async (dispatch) => {
+        await publicationAPI.sendPost(file, title, content, setedCategories, userId, subtitle)
+        dispatch(uploaded(true))
+        goBack()
+    }
+export const AddImageThunk = (file, date,copiedText) =>
+    async (dispatch) => {
+        let res = await publicationAPI.setImg(file, date)
+        AddImage('content', res.img.filename, copiedText)
     }
 
 export const ChangeFontSizeThunk = (fontSize, copiedText) => {
@@ -115,8 +144,7 @@ export const ChangeFontSizeThunk = (fontSize, copiedText) => {
         // вставляем все, что после выделения
         area.innerHTML.substring(end, area.innerHTML.length);
 }
-export const DecorateTextThunk = (nodeName, copiedText) =>
-    async (dispatch) => {
+export const DecorateTextThunk = (nodeName, copiedText) =>{
         let _tag_start = '';
         let _tag_end = '';
         let nodeTag = nodeName.toLowerCase();
@@ -151,8 +179,7 @@ export const DecorateTextThunk = (nodeName, copiedText) =>
             }
         }
     }
-export const AddImageThunk = (_obj_name, src, copiedText) =>
-    async (dispatch) => {
+export const AddImage = (_obj_name, src, copiedText) =>{
         // берем объект
         let [area, start, end] = findText(copiedText)
 
