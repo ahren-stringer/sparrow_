@@ -1,7 +1,7 @@
-import express from 'express';
+const express =require('express');
 const { Router } = express;
 const router=Router()
-import User from '../models/User.js'
+const User =require('../models/User.js');
 
 router.get('/user/:userId', async (req, res) => {
         try { 
@@ -23,4 +23,4 @@ router.get('/user/:userId', async (req, res) => {
             res.status(500).json({ message: 'Ошибка пользователя' })
         }
     })
-export default router
+module.exports = router

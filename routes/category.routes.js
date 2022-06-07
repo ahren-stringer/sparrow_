@@ -1,10 +1,10 @@
-import express from 'express';
+const express =require('express');
 const { Router } = express;
 const router = Router()
-import PostCategory from '../models/PostCategory.js'
-import multer from 'multer'
-import path from "path";
-import fs from 'fs'
+const PostCategory =require('../models/PostCategory.js');
+const multer =require('multer');
+const path =require("path");
+const fs =require('fs');
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -99,4 +99,4 @@ router.get('/category/random', async (req, res) => {
     }
 })
 
-export default router
+module.exports = router

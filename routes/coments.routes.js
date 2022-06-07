@@ -1,7 +1,7 @@
-import express from 'express';
+const express =require('express');
 const {Router} = express;
-const router=Router()
-import Coment from "../models/Coment.js"
+const router=Router();
+const Coment =require("../models/Coment.js");
 
 router.post('/coment', async (req, res) => {
 
@@ -49,4 +49,5 @@ router.get('/cinema/coments_count/:place', async (req, res) => {
     }
 })
 
-export default router
+
+module.exports = router

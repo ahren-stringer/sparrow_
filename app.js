@@ -1,16 +1,16 @@
-import expess from 'express'
-import mongoose from 'mongoose'
-import Cors from "cors"
-import auth from './routes/auth.routes.js'
-import profile from './routes/profile.routes.js'
-import posts from './routes/posts.routes.js'
-import category from './routes/category.routes.js'
-import image from './routes/images.routes.js'
-import coments from './routes/coments.routes.js'
-import path from 'path';
-import { fileURLToPath } from 'url';
-const __filename = fileURLToPath(import.meta.url);
-export const __dirname = path.dirname(__filename);
+const expess =require('express');
+const mongoose =require('mongoose');
+const Cors =require("cors");
+const auth =require('./routes/auth.routes.js');
+const profile =require('./routes/profile.routes.js');
+const posts =require('./routes/posts.routes.js');
+const category =require('./routes/category.routes.js');
+const image =require('./routes/images.routes.js');
+const coments =require('./routes/coments.routes.js');
+const path =require('path');
+const { fileURLToPath } =require('url');
+//const __filename = fileURLToPath(const.meta.url);
+//export const __dirname = path.dirname(__filename)
 
 //API Config
 const app = expess();

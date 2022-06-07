@@ -6,7 +6,6 @@
   "engines": {
     "node": "14.x"
   },
-  "type": "module",
   "scripts": {
     "start": "node app.js",
     "server": "nodemon app.js",

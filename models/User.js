@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose =require('mongoose');
 
 const schema=new mongoose.Schema({
     name:{type: String, required:true, unique:true},
@@ -11,4 +11,4 @@ const schema=new mongoose.Schema({
 });
 
 //module.exports=model('User', schema)
-export default mongoose.model('User', schema)
+module.exports = mongoose.model('User', schema)

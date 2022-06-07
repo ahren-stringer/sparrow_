@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose =require('mongoose');
 
 const CategorySchema=mongoose.Schema({
     category: String,
@@ -6,4 +6,4 @@ const CategorySchema=mongoose.Schema({
     posts: [{type: mongoose.Types.ObjectId, ref: 'posts'}]
 });
 
-export default mongoose.model('Categories',CategorySchema)
+module.exports = mongoose.model('Categories',CategorySchema)

@@ -21,11 +21,11 @@ function Chanels(props) {
                      <div className="bio cf" style={{cursor:'pointer'}}>
 
                         <div className="gravatar" style={{
-                           backgroundImage: `url(${imgURL(item.avatar.destination,item.avatar.filename)})`,
+                           backgroundImage: `url(${item.avatar ? imgURL(item.avatar.destination,item.avatar.filename):""})`,
                            width: "100px",
                            height: "100px",
                            backgroundSize: "cover",
-                           borderRadius: "100%",
+                           borderRadius: "100%"
                         }}>                        
                      </div>
 

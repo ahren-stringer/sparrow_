@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose =require('mongoose');
 
 const imageSchema = mongoose.Schema({
     img: {},
@@ -9,4 +9,4 @@ const imageSchema = mongoose.Schema({
     // owner: [{type: mongoose.Types.ObjectId, ref: 'User'}]
 });
 
-export default mongoose.model('image', imageSchema)
+module.exports = mongoose.model('image', imageSchema)

@@ -44,7 +44,7 @@ function ProfileIn(props) {
                      <div className="bio cf">
 
                         <div className="gravatar" style={{
-                           backgroundImage: `url(${imgURL(user.avatar.destination,user.avatar.filename)})`,
+                           backgroundImage: `url(${user.avatar ? imgURL(user.avatar.destination,user.avatar.filename):""})`,
                            width: "100px",
                            height: "100px",
                            backgroundSize: "cover",

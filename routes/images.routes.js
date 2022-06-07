@@ -1,11 +1,11 @@
-import express from 'express';
+const express =require('express');
 const { Router } = express;
 const router = Router()
-import Image from '../models/Image.js'
-import multer from 'multer'
-import fs from 'fs'
-import path from 'path';
-import {__dirname} from '../app.js'
+const Image =require('../models/Image.js');
+const multer =require('multer');
+const fs =require('fs');
+const path =require('path');
+//const {__dirname} =require('../app.js');
 
 const storage = multer.diskStorage({
     destination:(req, file, cb) =>{
@@ -140,4 +140,4 @@ router.delete("/images/:date", async (req, res) => {
         console.log(e)
     }
 });
-export default router
+module.exports = router

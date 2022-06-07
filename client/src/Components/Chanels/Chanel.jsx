@@ -19,7 +19,7 @@ function Chanel(props) {
                             <div className="bio cf">
 
                                 <div className="gravatar" style={{
-                                    backgroundImage: `url(${imgURL(props.chanels.avatar.destination,props.chanels.avatar.filename)})`,
+                                    backgroundImage: `url(${  user.avatar ? imgURL(user.avatar.destination,user.avatar.filename):""  })`,
                                     width: "100px",
                                     height: "100px",
                                     backgroundSize: "cover",

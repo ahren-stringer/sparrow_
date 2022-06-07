@@ -1,15 +1,15 @@
-import express from 'express';
+const express =require('express');
 const { Router } = express;
 const router = Router()
-import Post from '../models/Post.js'
-import Image from '../models/Image.js'
-import multer from 'multer'
-import fs from 'fs'
-import path from 'path';
-// import { fileURLToPath } from 'url';
-// const __filename = fileURLToPath(import.meta.url);
+const Post =require('../models/Post.js');
+const Image =require('../models/Image.js');
+const multer =require('multer');
+const fs =require('fs');
+const path =require('path');
+// const { fileURLToPath } =require('url';
+// const __filename = fileURLToPath(const.meta.url);
 // const __dirname = path.dirname(__filename);
-import {__dirname} from '../app.js'
+//const {__dirname} =require('../app.js');
 
 const storage = multer.diskStorage({
     destination: "./public/posts/",
@@ -178,4 +178,4 @@ router.get('/chanels/posts/author/:id', async (req, res) => {
     }
 })
 
-export default router 
+module.exports =router 

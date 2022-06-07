@@ -1,13 +1,13 @@
-import express from 'express';
+const express =require('express');
 const { Router } = express;
-import bcryptjs from 'bcryptjs'
-import User from '../models/User.js'
-import jwt from 'jsonwebtoken'
-import expressValidator from 'express-validator';
+const bcryptjs =require('bcryptjs');
+const User =require('../models/User.js');
+const jwt =require('jsonwebtoken');
+const expressValidator =require('express-validator');
 const { check, validationResult } = expressValidator;
-import nodemailer from 'nodemailer'
-import multer from 'multer'
-import path from "path";
+const nodemailer =require('nodemailer');
+const multer =require('multer');
+const path =require("path");
 
 const router = Router()
 
@@ -127,4 +127,4 @@ router.get("/users", async (req, res) => {
 //     }
 // });
 
-export default router
+module.exports = router

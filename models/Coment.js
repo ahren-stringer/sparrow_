@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose =require('mongoose');
 
 const comentSchema=mongoose.Schema({
     post: {type: mongoose.Types.ObjectId, ref: 'post'},
@@ -7,4 +7,4 @@ const comentSchema=mongoose.Schema({
     author: {type: mongoose.Types.ObjectId, ref: 'User'}
 });
 
-export default mongoose.model('Coment',comentSchema)
+module.exports = mongoose.model('Coment',comentSchema)
