@@ -5,6 +5,7 @@ import Preloader from "../Preloader/Preloader";
 function Chanel(props) {
 
     //    if (user === null) return <Preloader/>
+    debugger
     return (
         <div className="content-outer">
 
@@ -19,7 +20,7 @@ function Chanel(props) {
                             <div className="bio cf">
 
                                 <div className="gravatar" style={{
-                                    backgroundImage: `url(${  user.avatar ? imgURL(user.avatar.destination,user.avatar.filename):""  })`,
+                                    backgroundImage: `url(${ props.user.avatar ? imgURL(props.user.avatar.destination,props.user.avatar.filename):""  })`,
                                     width: "100px",
                                     height: "100px",
                                     backgroundSize: "cover",

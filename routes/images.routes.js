@@ -5,13 +5,14 @@ const Image =require('../models/Image.js');
 const multer =require('multer');
 const fs =require('fs');
 const path =require('path');
-//const {__dirname} =require('../app.js');
+//const {dirname} =require('../app.js');
+const dirname =__dirname.replace(/\\routes/,'');
 
 const storage = multer.diskStorage({
     destination:(req, file, cb) =>{
         console.log(req.body)
 
-        // fs.mkdir(path.normalize(__dirname+"/public/posts/"+file.originalname), (err) => { 
+        // fs.mkdir(path.normalize(dirname+"/public/posts/"+file.originalname), (err) => { 
         //     if (err) { 
         //         return console.error(err); 
         //     } 
@@ -56,9 +57,9 @@ router.post("/images", async (req, res) => {
 });
 router.get('/publication_image/public/:destination/:filename', async (req, res) => {
     try {
-        console.log(__dirname)
-        res.sendFile(path.normalize(__dirname+"/public/"+req.params.destination + "/"+req.params.filename))
-        console.log(path.normalize(__dirname+"/public/"+req.params.destination +"/"+ req.params.filename))
+        console.log(dirname)
+        res.sendFile(path.normalize(dirname+"/public/"+req.params.destination + "/"+req.params.filename))
+        console.log(path.normalize(dirname+"/public/"+req.params.destination +"/"+ req.params.filename))
     } catch (e) {
         console.log(e)
         res.status(500).json({ message: 'Что-то пошло не так' })
@@ -66,9 +67,9 @@ router.get('/publication_image/public/:destination/:filename', async (req, res) 
 })
 router.get('/post/publication_image/public/:destination/:filename', async (req, res) => {
     try {
-        console.log(__dirname)
-        res.sendFile(path.normalize(__dirname+"/public/"+req.params.destination + "/"+req.params.filename))
-        console.log(path.normalize(__dirname+"/public/"+req.params.destination +"/"+ req.params.filename))
+        console.log(dirname)
+        res.sendFile(path.normalize(dirname+"/public/"+req.params.destination + "/"+req.params.filename))
+        console.log(path.normalize(dirname+"/public/"+req.params.destination +"/"+ req.params.filename))
     } catch (e) {
         console.log(e)
         res.status(500).json({ message: 'Что-то пошло не так' })
@@ -76,9 +77,9 @@ router.get('/post/publication_image/public/:destination/:filename', async (req, 
 })
 router.get('/blog/publication_image/public/:destination/:filename', async (req, res) => {
     try {
-        console.log(__dirname)
-        res.sendFile(path.normalize(__dirname+"/public/"+req.params.destination + "/"+req.params.filename))
-        console.log(path.normalize(__dirname+"/public/"+req.params.destination +"/"+ req.params.filename))
+        console.log(dirname)
+        res.sendFile(path.normalize(dirname+"/public/"+req.params.destination + "/"+req.params.filename))
+        console.log(path.normalize(dirname+"/public/"+req.params.destination +"/"+ req.params.filename))
     } catch (e) {
         console.log(e)
         res.status(500).json({ message: 'Что-то пошло не так' })
@@ -86,9 +87,9 @@ router.get('/blog/publication_image/public/:destination/:filename', async (req, 
 })
 router.get('/chanels/publication_image/public/:destination/:filename', async (req, res) => {
     try {
-        console.log(__dirname)
-        res.sendFile(path.normalize(__dirname+"/public/"+req.params.destination + "/"+req.params.filename))
-        console.log(path.normalize(__dirname+"/public/"+req.params.destination +"/"+ req.params.filename))
+        console.log(dirname)
+        res.sendFile(path.normalize(dirname+"/public/"+req.params.destination + "/"+req.params.filename))
+        console.log(path.normalize(dirname+"/public/"+req.params.destination +"/"+ req.params.filename))
     } catch (e) {
         console.log(e)
         res.status(500).json({ message: 'Что-то пошло не так' })

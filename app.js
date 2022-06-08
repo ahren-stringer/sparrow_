@@ -11,6 +11,7 @@ const path =require('path');
 const { fileURLToPath } =require('url');
 //const __filename = fileURLToPath(const.meta.url);
 //export const __dirname = path.dirname(__filename)
+const dirname = path.dirname(__filename)
 
 //API Config
 const app = expess();
