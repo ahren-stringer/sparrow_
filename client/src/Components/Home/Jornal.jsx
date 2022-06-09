@@ -4,7 +4,6 @@ import Preloader from '../Preloader/Preloader';
 import './Home.css';
 
 function Jornal(props) {
-  debugger
   // if (!props.posts) return <CircularProgress/>
   return (
     <section id="journal">
